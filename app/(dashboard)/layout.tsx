@@ -1,6 +1,3 @@
-'use client'
-
-import Navbar from "../../components/navbar"
 
 export default function DashboardLayout({
     children, // will be a page or nested layout
@@ -9,9 +6,7 @@ export default function DashboardLayout({
   }) {
     return (
         
-      <div className={"flex flex-row justify-start"}>
-        {<Navbar/>}
-        
+      <div className={"w-full"}>
         {children}
       </div>
     )
