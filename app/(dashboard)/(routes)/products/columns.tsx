@@ -1,5 +1,6 @@
-"use client"
+'use client'
 
+import {Product} from "./products"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -14,14 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Product = {
-  id: string
-  title: string
-  description: string
-  price: number
-}
+
 
 export const columns: ColumnDef<Product>[] = [
     {
@@ -64,16 +58,7 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: "price",
-    header: () => <div className="text-right">Price</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("swe-SEK", {
-        style: "currency",
-        currency: "SEK",
-      }).format(amount)
- 
-      return <div className="text-right font-medium">{formatted}</div>
-    },
+    header: "Price"
   },
   {
     id: "actions",
