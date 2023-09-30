@@ -1,5 +1,6 @@
 import {DataTable} from "../../../../components/data-table"
-import { Product, columns } from "./columns"
+import { columns } from "./columns"
+import { Product } from "./products"
 
 
 async function getData(): Promise<Product[]> {
