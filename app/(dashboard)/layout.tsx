@@ -1,3 +1,4 @@
+//Layout för hela dashboarden
 
 export default function DashboardLayout({
     children, // will be a page or nested layout

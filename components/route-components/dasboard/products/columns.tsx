@@ -1,5 +1,10 @@
 'use client'
 
+//Innehåller alla kolumner som ska visas i tabellen
+//Componenten används i products page.tsx, tillsammans med products.tsx
+//Denna componenten är en del av data-table.tsx(som dock går att återanvända)
+
+
 import {Product} from "./products"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"

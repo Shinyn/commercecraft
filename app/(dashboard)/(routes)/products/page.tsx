@@ -1,3 +1,5 @@
+// Produkt fliken på dashboarden
+
 import {DataTable} from "../../../../components/data-table"
 import { columns } from "../../../../components/route-components/dasboard/products/columns"
 import { Product } from "../../../../components/route-components/dasboard/products/products"

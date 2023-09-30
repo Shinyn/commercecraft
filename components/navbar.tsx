@@ -1,3 +1,5 @@
+//En egengjord navbar som löper längs med sidan
+
 import React from 'react'
 import Link from 'next/link'
 

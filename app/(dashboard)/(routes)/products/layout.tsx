@@ -1,3 +1,5 @@
+//layout för produkt-pagen
+
 export default function ProductsLayout({
     children, // will be a page or nested layout
   }: {
