@@ -3,10 +3,26 @@
 import {DataTable} from "../../../../components/data-table"
 import { columns } from "../../../../components/route-components/dasboard/products/columns"
 import { Product } from "../../../../components/route-components/dasboard/products/products"
-
+import axios from 'axios'
 
 
 async function getData(): Promise<Product[]> {
+
+    //Contains fetch to GET alla products from api/products
+
+
+
+function getProducts(e:React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault()
+    console.log('button clicked')
+    axios.get('/api/products', {})
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
     // Fetch data from your API here.
     return [
     //   {
