@@ -14,6 +14,6 @@ model Product {
   title String
   description String
   price Int
-  image Bytes?
+  image String
 }
 

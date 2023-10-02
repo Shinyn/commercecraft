@@ -9,6 +9,7 @@ export type Product = {
     title: string
     description: string
     price: number
+    image: string
 }
 
 export async function POST(
@@ -17,7 +18,7 @@ export async function POST(
 ) {
     try {
         const body = await req.json()
-        const  {title, description, price}: Product = body.values
+        const  {title, description, price, image}: Product = body.values
         console.log(title, description, price)
 
           const newProduct = await prismadb.product.create({
@@ -25,6 +26,7 @@ export async function POST(
                 title,
                 description,
                 price,
+                image,
             },
         })  
         return NextResponse.json(newProduct, { status: 201 })
