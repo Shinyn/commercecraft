@@ -9,8 +9,6 @@ datasource db {
   relationMode = "prisma"
 }
 
-
-
 model Product {
   id     Int    @id @default(autoincrement())
   title String
@@ -18,3 +16,4 @@ model Product {
   price Int
   image Bytes?
 }
+
