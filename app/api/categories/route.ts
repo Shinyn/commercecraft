@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 
 export type Category = {
-    name: string
+    title: string
 }
 
 export async function POST(
@@ -11,10 +11,10 @@ export async function POST(
 {
     try {
         const body = await req.json()
-        const {name}: Category = body
+        const {title}: Category = body
         const newCategory = await prismadb.category.create({
             data: {
-                name,
+                title,
             },
         })
         return NextResponse.json(newCategory, { status: 201 })
