@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
+import { Category } from "@/components/route-components/dasboard/categories/categories";
 
 // Types
-export type Category = {
-    title: string
-}
+
 // Route handlers for /api/categories
 export async function POST(
     req: Request,
