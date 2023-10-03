@@ -2,17 +2,25 @@
 
 import { DataTable } from "../../../../components/data-table";
 import { columns } from "@/components/dashboard/products/columns";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 
 // Get the products from the database
 async function getData() {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {});
-  console.log(response)
-  return response.data;
+  const response = await axios
+    .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {})
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      if (isAxiosError(error)) {
+        return error.message;
+      }
+    });
 }
 
 export default async function Page() {
   const data = await getData();
+  console.log(data)
 
   return (
     <div className={"m-9"}>
@@ -23,7 +31,11 @@ export default async function Page() {
         </button>
       </div>
       <div className="container mx-auto py-10">
-        <DataTable columns={columns} data={data} />
+        {data === undefined ? ( // If the data is undefined, show a loading screen
+        <p>Loading....</p> ) : (
+        
+          <DataTable columns={columns} data={data} />
+        )}
       </div>
     </div>
   );
