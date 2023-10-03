@@ -6,7 +6,8 @@ import axios from "axios";
 
 // Get the products from the database
 async function getData() {
-  const response = await axios.get("/api/products", {});
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {});
+  console.log(response)
   return response.data;
 }
 
