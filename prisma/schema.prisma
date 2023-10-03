@@ -1,8 +1,8 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
@@ -10,10 +10,14 @@ datasource db {
 }
 
 model Product {
-  id     Int    @id @default(autoincrement())
-  title String
+  id          Int    @id @default(autoincrement())
+  title       String
   description String
-  price Int
-  image String
+  price       Int
+  image       String
 }
 
+model Category {
+  id    Int    @id @default(autoincrement())
+  title String
+}
