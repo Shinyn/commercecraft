@@ -1,5 +1,5 @@
 import {create} from 'zustand'
-
+// Zustand store to keep track of the items in the category dropdown
 type State = {
     name: string,
     categories: Array<string>,

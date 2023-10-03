@@ -12,24 +12,18 @@
 
  import CategoryForm from '@/components/route-components/dasboard/categories/categoryform';
  import { columns } from '@/components/route-components/dasboard/categories/columns';
-import axios from 'axios'
-import { useEffect} from 'react'
-
-
-
-
-
+ import axios from 'axios'
+ import { useEffect} from 'react'
 
 export default function Page() {
+
+    //State for the categories
     const categories = useNameStore((state) => state.categories)
     const updateCategories = useNameStore((state) => state.updateCategories)
     const state = useNameStore((state) => state.state)
     const updateState = useNameStore((state) => state.updateState)
 
-
-       
-      
-
+    //Get the categories from the database
     useEffect(() => {
         axios.get('/api/categories', {})
             .then(function (response) {
@@ -42,7 +36,7 @@ export default function Page() {
             });
     }, [])
 
-
+//Render the page, pop up for adding a category and the table with the categories
     return (
         <>
             <div className={"flex flex-row justify-end "}>

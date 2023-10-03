@@ -1,8 +1,7 @@
 'use client'
 
-//Innehåller alla kolumner som ska visas i tabellen
-//Componenten används i products page.tsx, tillsammans med products.tsx
-//Denna componenten är en del av data-table.tsx(som dock går att återanvända)
+// This type is used to define the shape of our data.
+
 
 
 import {Category} from "./categories"
@@ -70,5 +69,5 @@ export const columns: ColumnDef<Category>[] = [
       )
     },
   },
-  
+  //TODO add edit and delete in actions dropdown and connect to backend
 ]

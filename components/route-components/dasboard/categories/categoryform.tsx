@@ -15,20 +15,23 @@ import {
   } from "@/components/ui/form"
   import { Input } from "@/components/ui/input"
 
+
+  //Form for adding a new category
   export default function CategoryForm() {
 
+    //Form validation
     const formSchema = z.object({
     name: z.string().min(2,{message: "category must be atleast 2 characters long"}),
     
   })
-
+//Form hook
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
     },
   })
-
+//Submit function
   function onSubmitting(values: z.infer<typeof formSchema>) {
 
           axios.post('/api/categories', {
@@ -44,7 +47,7 @@ import {
 
   
 
-
+//Render the form
     return (
     <div className={"m-9"}>
 <Form {...form}>
