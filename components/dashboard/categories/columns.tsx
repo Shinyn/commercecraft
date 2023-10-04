@@ -39,7 +39,12 @@ export const columns: ColumnDef<Category>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      // const product = row.original
+      const category = row.original
+      function copyPaymentId() {  
+      if (category.id === undefined) return "no id"
+      else return category.id.toString()
+    
+  }
 
       return (
         <DropdownMenu>
@@ -51,11 +56,12 @@ export const columns: ColumnDef<Category>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            {/* <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(product.id)} //TODO fix this error
+            {copyPaymentId === null ? null : (
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(copyPaymentId())}
             >
               Copy payment ID
-            </DropdownMenuItem> */}
+            </DropdownMenuItem>)}
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
             <DropdownMenuItem>View payment details</DropdownMenuItem>
