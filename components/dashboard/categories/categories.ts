@@ -1,5 +1,9 @@
-// Type of Category 
+// Type of Category
 export type Category = {
-    id: string | undefined
-    title: string
-  }
+  id: string | undefined;
+  title: string;
+};
+
+export type ID = {
+  id: string | undefined;
+};
