@@ -24,6 +24,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+//Function to delete a category
 const deleteCategory = (ID: string | undefined) => {
   const response = axios
     .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`, {
@@ -32,6 +33,7 @@ const deleteCategory = (ID: string | undefined) => {
       },
     })
     .then(function (response) {
+      window.location.reload();
       return response.data;
     })
     .catch(function (error) {
@@ -39,6 +41,7 @@ const deleteCategory = (ID: string | undefined) => {
     });
 };
 
+//Columns for the table
 export const columns: ColumnDef<Category>[] = [
   {
     accessorKey: "id",
@@ -70,6 +73,7 @@ export const columns: ColumnDef<Category>[] = [
 
       return (
         <>
+          {/* //Sheet to edit a category, pulls over from the right side */}
           <Sheet>
             <SheetContent>
               <SheetHeader>
@@ -109,5 +113,4 @@ export const columns: ColumnDef<Category>[] = [
       );
     },
   },
-  //TODO add edit and delete in actions dropdown and connect to backend
 ];

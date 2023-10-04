@@ -11,7 +11,7 @@ export default function EditCategoryForm(ID: string | undefined) {
   function onSubmitting(e: any) {
     e.preventDefault();
     axios
-      .patch("/api/categories", {
+      .patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`, {
         id: ID,
         title: name,
       })
