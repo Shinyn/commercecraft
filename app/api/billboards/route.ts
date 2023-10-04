@@ -4,9 +4,6 @@ import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 import { Billboard } from "@/components/dashboard/billboards/billboards";
 
-//TODO:Remove this definition and replace with import of billboard typedefiniton from other branch
-
-
 export async function POST(
     req: Request,
     //TODO: Add params for extracting store when stores are implemented in dashboard
@@ -16,8 +13,7 @@ export async function POST(
         const { text, image, active }: Billboard = body.values
         let newBillboard=undefined
         //Remove activation from any previous billboards.
-        if (active == "true") {
-            console.log("active==true")
+        if (active) {
             const updated = await prismadb.billboard.updateMany({
                 where: { active: 1 },
                 data: { active: 0 },
@@ -35,7 +31,6 @@ export async function POST(
                     console.log(error);
                 });
         } else {
-            console.log("else")
             newBillboard = await prismadb.billboard.create({
                 data: {
                     text,
