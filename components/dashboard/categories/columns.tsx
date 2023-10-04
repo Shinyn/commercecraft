@@ -74,9 +74,7 @@ export const columns: ColumnDef<Category>[] = [
             <SheetContent>
               <SheetHeader>
                 <SheetTitle> {category.title}?</SheetTitle>
-                <SheetDescription>
-                  Edit the category name here
-                </SheetDescription>
+                <SheetDescription>Edit the category name here</SheetDescription>
                 {EditCategoryForm(category.id)}
               </SheetHeader>
             </SheetContent>
