@@ -37,4 +37,43 @@ export async function GET(req: Request) {
   }
 }
 
-// TODO Route handlers for /api/categories/[id]
+export async function DELETE(req: Request) {
+  try {
+    const body = await req.json();
+    const { id } = body;
+    const deletedCategory = await prismadb.category.delete({
+      where: {
+        id,
+      },
+    });
+    return NextResponse.json(deletedCategory, { status: 201 });
+  } catch (error) {
+    console.log("api/categories/DELETE", error);
+    return new NextResponse(
+      "Ooops, something went wrong when deleting the category",
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(req: Request) {
+  try {
+    const body = await req.json();
+    const { id, title } = body;
+    const updatedCategory = await prismadb.category.update({
+      where: {
+        id,
+      },
+      data: {
+        title,
+      },
+    });
+    return NextResponse.json(updatedCategory, { status: 201 });
+  } catch (error) {
+    console.log("api/categories/PATCH", error);
+    return new NextResponse(
+      "Ooops, something went wrong when updating the category",
+      { status: 500 }
+    );
+  }
+}
