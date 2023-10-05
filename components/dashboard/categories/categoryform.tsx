@@ -3,6 +3,7 @@ import * as z from "zod";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 
 import {
   Form,
@@ -14,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { use } from "react";
 
 //Form for adding a new category
 export default function CategoryForm() {
@@ -38,6 +40,10 @@ export default function CategoryForm() {
       })
       .then(function (response) {
         console.log(response);
+        toast.success("Category added successfully");
+        setInterval(() => {
+          window.location.reload();
+        }, 3000);
       })
       .catch(function (error) {
         console.log(error);
@@ -47,6 +53,7 @@ export default function CategoryForm() {
   //Render the form
   return (
     <div className={"m-9"}>
+      <Toaster />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField

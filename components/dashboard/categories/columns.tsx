@@ -102,7 +102,9 @@ export const columns: ColumnDef<Category>[] = [
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                <SheetTrigger>Edit</SheetTrigger>
+                <SheetTrigger>
+                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                </SheetTrigger>
                 <DropdownMenuItem onClick={() => deleteCategory(category.id)}>
                   Delete
                 </DropdownMenuItem>

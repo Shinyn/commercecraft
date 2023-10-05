@@ -1,16 +1,12 @@
-"use client";
 import * as React from "react";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -23,7 +19,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -77,10 +72,12 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center py-4">
         {table.getColumn("title") ? (
           <Input
-            placeholder="Filter here..."
-            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter here on title..."
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""} 
             onChange={(event) =>
-              table.getColumn("title")?.setFilterValue(event.target.value)
+              table
+                .getColumn("title")
+                ?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
@@ -133,7 +130,7 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table.getRowModel()?.rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
