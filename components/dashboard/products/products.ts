@@ -1,4 +1,4 @@
-//Innehåller produkt beskrivning till columnerna för data-table
+//Contains product description for data-table columns
 
 
 // This type is used to define the shape of our data.

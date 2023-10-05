@@ -21,7 +21,7 @@ export default function Page() {
   // Hämta produkterna från databasen
   useEffect(() => {
     axios
-      .get("/api/products", {})
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {})
       .then(function (response) {
         updateProducts(response.data);
       })
@@ -29,6 +29,8 @@ export default function Page() {
         console.log(error);
       });
   }, []);
+
+
 
   // Rendera sidan, popup för att lägga till en produkt och tabellen med produkter
   return (
