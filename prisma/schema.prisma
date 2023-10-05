@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
+  id          String @id
   title       String
   description String
   price       Int
@@ -17,6 +17,13 @@ model Product {
 }
 
 model Category {
-  id    Int    @id @default(autoincrement())
+  id    String @id
   title String
+}
+
+model Billboard {
+  id     String @id
+  text   String
+  image  String
+  active Int    @default(0)
 }
