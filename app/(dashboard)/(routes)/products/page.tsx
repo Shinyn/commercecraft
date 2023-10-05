@@ -1,41 +1,55 @@
-// Produkt fliken på dashboarden
+"use client";
+import { useProductStore } from "@/components/dashboard/products/zustand/zustandstate";
+import { DataTable } from "@/components/data-table";
 
-import { DataTable } from "../../../../components/data-table";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+import ProductForm from "@/components/dashboard/products/productform";
 import { columns } from "@/components/dashboard/products/columns";
-import axios, { isAxiosError } from "axios";
+import axios from "axios";
+import { useEffect } from "react";
 
-// Get the products from the database
-async function getData() {
-  const response = await axios
-    .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {})
-    .then(function (response) {
-      return response.data;
-    })
-    .catch(function (error) {
-      if (isAxiosError(error)) {
-        return error.message;
-      }
-    });
-}
+export default function Page() {
+  // State för produkter
+  const products = useProductStore((state) => state.products);
+  const updateProducts = useProductStore((state) => state.updateProducts);
 
-export default async function Page() {
-  const data = await getData();
+  // Hämta produkterna från databasen
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {})
+      .then(function (response) {
+        updateProducts(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
+
+
+  // Rendera sidan, popup för att lägga till en produkt och tabellen med produkter
   return (
-    <div className={"m-9"}>
-      <div className={"flex flex-row justify-between"}>
-        <h1 className=" text-5xl ">Products</h1>
-        <button className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-          Add Product
-        </button>
+    <>
+      <div className={"flex flex-row justify-end "}>
+        <div className={"text-center text-2xl m-9 rounded bg-blue-400 w-9"}>
+          <Popover>
+            <PopoverTrigger>+</PopoverTrigger>
+            <PopoverContent>
+              <ProductForm />
+            </PopoverContent>
+          </Popover>
+        </div>
       </div>
-      <div className="container mx-auto py-10">
-        {data === undefined ? ( // If the data is undefined, show a loading screen
-        <p>Loading....</p> ) : (
-        
-          <DataTable columns={columns} data={data} />
-        )}
+      <div>
+        <div className="container mx-auto py-10">
+          <DataTable columns={columns} data={products} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
