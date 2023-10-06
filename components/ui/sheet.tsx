@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-"use client";
-
-import * as React from "react";
-import * as SheetPrimitive from "@radix-ui/react-dialog";
-import { cva, type VariantProps } from "class-variance-authority";
-import { X } from "lucide-react";
-
-import { cn } from "@/lib/utils";
-
-const Sheet = SheetPrimitive.Root;
-
-const SheetTrigger = SheetPrimitive.Trigger;
-
-const SheetClose = SheetPrimitive.Close;
-
-const SheetPortal = ({ ...props }: SheetPrimitive.DialogPortalProps) => (
-  <SheetPrimitive.Portal {...props} />
-);
-SheetPortal.displayName = SheetPrimitive.Portal.displayName;
-=======
 
 "use client"
 
@@ -42,7 +21,6 @@ const SheetPortal = ({
   <SheetPrimitive.Portal className={cn(className)} {...props} />
 )
 SheetPortal.displayName = SheetPrimitive.Portal.displayName
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
 
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,
@@ -56,14 +34,9 @@ const SheetOverlay = React.forwardRef<
     {...props}
     ref={ref}
   />
-<<<<<<< HEAD
-));
-SheetOverlay.displayName = SheetPrimitive.Overlay.displayName;
-=======
 
 ))
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
 
 const sheetVariants = cva(
   "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
@@ -82,13 +55,9 @@ const sheetVariants = cva(
       side: "right",
     },
   }
-<<<<<<< HEAD
-);
-=======
 
 )
 
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
@@ -112,14 +81,9 @@ const SheetContent = React.forwardRef<
       </SheetPrimitive.Close>
     </SheetPrimitive.Content>
   </SheetPortal>
-<<<<<<< HEAD
-));
-SheetContent.displayName = SheetPrimitive.Content.displayName;
-=======
 
 ))
 SheetContent.displayName = SheetPrimitive.Content.displayName
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
 
 const SheetHeader = ({
   className,
@@ -132,15 +96,10 @@ const SheetHeader = ({
     )}
     {...props}
   />
-<<<<<<< HEAD
-);
-SheetHeader.displayName = "SheetHeader";
-=======
 
 );
 SheetHeader.displayName = "SheetHeader";
 
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
 
 const SheetFooter = ({
   className,
@@ -153,15 +112,10 @@ const SheetFooter = ({
     )}
     {...props}
   />
-<<<<<<< HEAD
-);
-SheetFooter.displayName = "SheetFooter";
-=======
 
 )
 SheetFooter.displayName = "SheetFooter"
 
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
 
 const SheetTitle = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Title>,
@@ -172,15 +126,10 @@ const SheetTitle = React.forwardRef<
     className={cn("text-lg font-semibold text-foreground", className)}
     {...props}
   />
-<<<<<<< HEAD
-));
-SheetTitle.displayName = SheetPrimitive.Title.displayName;
-=======
 
 ));
 SheetTitle.displayName = SheetPrimitive.Title.displayName;
 
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
 
 const SheetDescription = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Description>,
@@ -191,17 +140,12 @@ const SheetDescription = React.forwardRef<
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
   />
-<<<<<<< HEAD
-));
-SheetDescription.displayName = SheetPrimitive.Description.displayName;
-=======
 
 ))
 SheetDescription.displayName = SheetPrimitive.Description.displayName
 
 ));
 
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
 
 export {
   Sheet,
@@ -214,10 +158,6 @@ export {
   SheetFooter,
   SheetTitle,
   SheetDescription,
-<<<<<<< HEAD
-};
-=======
 
 };
 
->>>>>>> 317db0cee8a5e69de3b7bdfe1c7aa68d20daaa6f
