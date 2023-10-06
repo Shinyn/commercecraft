@@ -18,7 +18,7 @@ export default function Page() {
   //Get the categories from the database
   useEffect(() => {
     axios
-      .get("/api/categories", {})
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`, {})
       .then(function (response) {
         updateCategories(response.data);
         updateState(true);
