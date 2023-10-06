@@ -98,7 +98,7 @@ export const columns: ColumnDef<Category>[] = [
                       navigator.clipboard.writeText(copyPaymentId())
                     }
                   >
-                    Copy payment ID
+                    Copy category ID
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
