@@ -9,7 +9,7 @@ export default function Navbar() {
       <h1 className={"m-6 text-5xl"}>Dashboard</h1>
       <ul className={"flex-col space-y-8 m-4  text-3xl"}>
         <li className={"hover:text-gray-400"}>
-          <Link href="/products">Banner</Link>
+          <Link href="/billboards">Banner</Link>
         </li>
         <li className={"hover:text-gray-400"}>
           <Link href="/products">Products</Link>

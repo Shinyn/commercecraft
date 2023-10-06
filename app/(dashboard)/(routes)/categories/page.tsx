@@ -1,12 +1,7 @@
 "use client";
 import { useNameStore } from "@/components/dashboard/categories/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
-
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import {DashboardPopover} from  "@/components/DashboardPopover"
 
 import CategoryForm from "@/components/dashboard/categories/categoryform";
 import { columns } from "@/components/dashboard/categories/columns";
@@ -36,16 +31,10 @@ export default function Page() {
   //Render the page, pop up for adding a category and the table with the categories
   return (
     <>
-      <div className={"flex flex-row justify-end "}>
-        <div className={"text-center text-2xl m-9 rounded bg-blue-400 w-9"}>
-          <Popover>
-            <PopoverTrigger> + </PopoverTrigger>
-            <PopoverContent>
-              <CategoryForm />
-            </PopoverContent>
-          </Popover>
-        </div>
-      </div>
+    <DashboardPopover>
+    <CategoryForm />
+    </DashboardPopover>
+
       <div>
         <div className="container mx-auto py-10">
           <DataTable columns={columns} data={categories} />
