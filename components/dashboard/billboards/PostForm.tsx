@@ -16,6 +16,7 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import axios from "axios"
+import { BillboardState } from "@/components/dashboard/billboards/state";
 
 const formSchema = z.object({
     text: z.string().min(2).max(50),
@@ -23,7 +24,9 @@ const formSchema = z.object({
     active: z.boolean(),
 })
 
-export function MyForm() {
+export function PostForm() {
+    const updateBillboards = BillboardState((state) => state.updateBillboards);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -38,9 +41,17 @@ export function MyForm() {
         axios.post('/api/billboards', {
             values
         })
-            .then(function (response) {
-                console.log(response);
-            })
+                .then(function (response) {
+                    if (response.status == 201) {
+                        axios.get("/api/billboards", {})
+                            .then(function (response) {
+                                updateBillboards(response.data)
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            })
+                    }
+                })
             .catch(function (error) {
                 console.log(error);
             });
