@@ -5,6 +5,8 @@ type Product = {
   title: string;
   description: string;
   price: number;
+  image: string;
+  category: string;
 };
 
 type ProductStore = {
@@ -17,6 +19,10 @@ type ProductStore = {
 export const useProductStore = create<ProductStore>((set) => ({
   products: [], // Initial empty array of products
   updateProducts: (newProducts) => set({ products: newProducts }), // Update products
-  addProduct: (product) => set((state) => ({ products: [...state.products, product] })), // Add a new product
-  deleteProduct: (productId) => set((state) => ({ products: state.products.filter((p) => p.id !== productId) })), // Delete a product
+  addProduct: (product) =>
+    set((state) => ({ products: [...state.products, product] })), // Add a new product
+  deleteProduct: (productId) =>
+    set((state) => ({
+      products: state.products.filter((p) => p.id !== productId),
+    })), // Delete a product
 }));
