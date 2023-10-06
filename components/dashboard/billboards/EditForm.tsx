@@ -50,7 +50,6 @@ export function EditForm(billboard: Billboard) {
                 if (response.status == 200) {
                     axios.get("/api/billboards", {})
                         .then(function (response) {
-                            console.log("I'ran")
                             updateBillboards(response.data)
                         })
                         .catch(function (error) {
