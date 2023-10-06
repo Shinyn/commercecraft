@@ -20,7 +20,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { Billboard } from "@prisma/client";
+import { Billboard } from "@/components/dashboard/billboards/billboards";
 import axios, { isAxiosError } from "axios"
 
 //TODO: Fix so this updates state instead of reloading page

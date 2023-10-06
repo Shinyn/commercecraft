@@ -17,7 +17,8 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import axios from "axios"
-import { Billboard } from "@prisma/client"
+import { Billboard } from "@/components/dashboard/billboards/billboards";
+
 import { BillboardState } from "@/components/dashboard/billboards/state";
 
 const formSchema = z.object({
