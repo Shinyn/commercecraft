@@ -18,6 +18,7 @@ import {
 import axios from "axios"
 import { BillboardState } from "@/components/dashboard/billboards/state";
 
+
 const formSchema = z.object({
     text: z.string().min(2).max(50),
     image: z.string().min(0).max(255),

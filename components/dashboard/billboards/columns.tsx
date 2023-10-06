@@ -24,7 +24,7 @@ import { Billboard } from "@/components/dashboard/billboards/billboards";
 import axios, { isAxiosError } from "axios"
 
 //TODO: Fix so this updates state instead of reloading page
-async function deleteBillboard(id: string) {
+async function deleteBillboard(id: string|undefined) {
   axios.delete(`/api/billboards/${id}`)
     .then(function (response) {
      window.location.reload()
