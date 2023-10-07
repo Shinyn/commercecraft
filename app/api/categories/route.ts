@@ -37,25 +37,6 @@ export async function GET(req: Request) {
   }
 }
 
-export async function DELETE(req: Request) {
-  try {
-    const body = await req.json();
-    const { id } = body;
-    const deletedCategory = await prismadb.category.delete({
-      where: {
-        id,
-      },
-    });
-    return NextResponse.json(deletedCategory, { status: 201 });
-  } catch (error) {
-    console.log("api/categories/DELETE", error);
-    return new NextResponse(
-      "Ooops, something went wrong when deleting the category",
-      { status: 500 }
-    );
-  }
-}
-
 export async function PATCH(req: Request) {
   try {
     const body = await req.json();

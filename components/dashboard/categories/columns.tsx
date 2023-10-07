@@ -27,11 +27,7 @@ import {
 //Function to delete a category
 const deleteCategory = (ID: string | undefined) => {
   const response = axios
-    .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`, {
-      data: {
-        id: ID,
-      },
-    })
+    .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories/${ID}`)
     .then(function (response) {
       window.location.reload();
       return response.data;
