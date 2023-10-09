@@ -2,7 +2,7 @@
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
-import { Billboard } from "@/components/dashboard/billboards/billboards";
+import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
 
 export async function POST(
   req: Request
