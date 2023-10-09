@@ -16,7 +16,6 @@ export default function Page() {
     axios
       .get("/api/billboards", {})
       .then(function (response) {
-        console.log(response.data)
         updateBillboards(response.data);
       })
       .catch(function (error) {
