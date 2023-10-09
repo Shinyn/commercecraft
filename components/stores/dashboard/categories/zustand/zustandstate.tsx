@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Category } from "@/components/dashboard/categories/categories";
+import { Category } from "@/components/stores/dashboard/categories/categories";
 // Zustand store to keep track of the items in the category dropdown
 
 // create a store:age with the state
