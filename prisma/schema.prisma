@@ -8,6 +8,12 @@ datasource db {
   relationMode = "prisma"
 }
 
+model Stores {
+  id String @id @default(uuid())
+  user_id String
+  name String
+}
+
 model Product {
   id          String @id @default(uuid())
   title       String
