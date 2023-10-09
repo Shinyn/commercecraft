@@ -9,9 +9,9 @@ datasource db {
 }
 
 model Stores {
-  id String @id @default(uuid())
+  id      String @id @default(uuid())
   user_id String
-  name String
+  title    String
 }
 
 model Product {
