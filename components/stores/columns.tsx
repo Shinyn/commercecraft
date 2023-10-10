@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 // This type is used to define the shape of our data.
 import axios from "axios";
@@ -27,6 +28,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export const columns: ColumnDef<Store>[] = [
+
   {
     accessorKey: "id",
     header: "ID",
@@ -57,6 +59,8 @@ export const columns: ColumnDef<Store>[] = [
 
       return (
         <>
+        
+        
           {/* //Sheet to edit a category, pulls over from the right side */}
           <Sheet>
             <SheetContent>
@@ -92,6 +96,12 @@ export const columns: ColumnDef<Store>[] = [
                 <DropdownMenuItem>
                   <MyDelete ID={store.id} />
                 </DropdownMenuItem>
+                <DropdownMenuItem>
+                <Link href={`/${store.id}`}>
+                Go to store!
+                </Link>
+                </DropdownMenuItem>
+                
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>

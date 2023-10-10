@@ -1,6 +1,5 @@
 //Layout för hela dashboarden
 import Navbar from "@/components/navbar";
-
 export default function DashboardLayout({
   children, // will be a page or nested layout
 }: {

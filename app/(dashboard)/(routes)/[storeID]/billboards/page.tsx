@@ -14,7 +14,7 @@ export default function Page() {
 
   useEffect(() => {
     axios
-      .get("/api/billboards", {})
+      .get(`/api/billboards`, {})
       .then(function (response) {
         console.log(response.data);
         updateBillboards(response.data);

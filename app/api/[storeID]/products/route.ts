@@ -2,6 +2,7 @@
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
+import { useParams } from "next/navigation";
 
 //TODO:Remove this definition and replace with import of product typedefiniton from other branch
 export type Product = {

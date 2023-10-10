@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import SelectForAddProduct from "../../../SelectForAddProduct";
+import SelectForAddProduct from "@/components/stores/dashboard/products/SelectForAddProduct"
 
 export default function ProductForm() {
   const productSchema = z.object({

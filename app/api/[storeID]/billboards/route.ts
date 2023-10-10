@@ -3,6 +3,7 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
+import { useParams } from "next/navigation";
 
 export async function POST(
   req: Request
