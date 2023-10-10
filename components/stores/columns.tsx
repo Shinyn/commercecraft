@@ -5,6 +5,9 @@ import axios from "axios";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Store } from "./stores";
+import EditStoreForm from "./editStoreNameForm";
+import { useAuth } from "@clerk/nextjs";
+import { MyDelete } from "./deleteStore";
 import {
   Sheet,
   SheetContent,
@@ -23,20 +26,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-//Function to delete a category
-// const deleteCategory = (ID: string | undefined) => {
-//   const response = axios
-//     .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories/${ID}`)
-//     .then(function (response) {
-//       window.location.reload();
-//       return response.data;
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// };
-
-//Columns for the table
 export const columns: ColumnDef<Store>[] = [
   {
     accessorKey: "id",
@@ -74,7 +63,7 @@ export const columns: ColumnDef<Store>[] = [
               <SheetHeader>
                 <SheetTitle> {store.title}?</SheetTitle>
                 <SheetDescription>Edit store name here</SheetDescription>
-                {/* {EditStoreForm(store.id)} */}
+                {EditStoreForm(store.id, store.title)}
               </SheetHeader>
             </SheetContent>
 
@@ -100,9 +89,9 @@ export const columns: ColumnDef<Store>[] = [
                 <SheetTrigger>
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                 </SheetTrigger>
-                {/* <DropdownMenuItem onClick={() => deleteCategory(category.id)}> */}
-                {/* Delete */}
-                {/* </DropdownMenuItem> */}
+                <DropdownMenuItem>
+                  <MyDelete ID={store.id} />
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>

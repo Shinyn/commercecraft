@@ -31,57 +31,33 @@ export async function POST(
   }
 }
 
-export async function PUT(
+export async function PATCH(
   req: Request
   //TODO: Add params for extracting store when stores are implemented in dashboard
 ) {
   try {
     const body = await req.json();
-    const { id, text, image, active }: Billboard = body.values;
-    let newBillboard = undefined;
+    const { id, user_id, title }: Store = body;
+    let newStore = undefined;
 
     if (!id) {
       return NextResponse.json("Billboard id is missing from the request", {
         status: 400,
       });
     }
-    if (active) {
-      //Remove activation from any previous billboards if needed
-      const updated = await prismadb.billboard
-        .updateMany({
-          where: { active: 1 },
-          data: { active: 0 },
-        })
-        .then(async function (response) {
-          //update the billboard
-          newBillboard = await prismadb.billboard.update({
-            where: { id },
-            data: {
-              text,
-              image,
-              active: 1,
-            },
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      newBillboard = await prismadb.billboard.update({
-        where: { id },
-        data: {
-          text,
-          image,
-          active: 0,
-        },
-      });
-    }
 
-    return NextResponse.json(newBillboard, { status: 200 });
+    newStore = await prismadb.stores.update({
+      where: { id, user_id },
+      data: {
+        title,
+      },
+    });
+
+    return NextResponse.json(newStore, { status: 200 });
   } catch (error) {
-    console.log("api/billboards/POST", error);
+    console.log("api/stores/PATCH", error);
     return new NextResponse(
-      "Something went wrong when trying to update your billboard",
+      "Something went wrong when trying to update your store name",
       { status: 500 }
     );
   }
