@@ -2,7 +2,8 @@
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
-import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
+import { useParams } from "next/navigation";
+import { Store } from "@/components/stores/stores";
 
 export async function POST(
   req: Request
@@ -10,55 +11,21 @@ export async function POST(
 ) {
   try {
     const body = await req.json();
-    const { text, image, active }: Billboard = body.values;
-    let newBillboard = undefined;
+    const { user_id, title }: Store = body;
     //Remove activation from any previous billboards.
-    if (active) {
-      const updated = await prismadb.billboard
-        .updateMany({
-          where: { active: 1 },
-          data: { active: 0 },
-        })
-        .then(async function (response) {
-          newBillboard = await prismadb.billboard.create({
-            data: {
-              text,
-              image,
-              active: 1,
-            },
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } else {
-      newBillboard = await prismadb.billboard.create({
-        data: {
-          text,
-          image,
-          active: 0,
-        },
-      });
-    }
 
-    return NextResponse.json(newBillboard, { status: 201 });
-  } catch (error) {
-    console.log("api/billboards/POST", error);
-    return new NextResponse(
-      "Something went wrong when trying to save your billboard",
-      { status: 500 }
-    );
-  }
-}
+    const newStore = await prismadb.stores.create({
+      data: {
+        user_id,
+        title,
+      },
+    });
 
-export async function GET(req: Request) {
-  try {
-    const Billboards = await prismadb.billboard.findMany();
-    return NextResponse.json(Billboards);
+    return NextResponse.json(newStore, { status: 201 });
   } catch (error) {
-    console.log("api/billboards/GET", error);
+    console.log("api/stores/POST", error);
     return new NextResponse(
-      "Ooops, something went wrong when getting the billboards",
+      "Something went wrong when trying to save your store",
       { status: 500 }
     );
   }

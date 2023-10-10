@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
-import { Category } from "@/components/dashboard/categories/categories";
+import { Category } from "@/components/stores/dashboard/categories/categories";
 
 // Types
 

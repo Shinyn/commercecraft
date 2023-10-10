@@ -1,11 +1,11 @@
 "use client";
-import { useProductStore } from "@/components/dashboard/products/zustand/zustandstate";
+import { useProductStore } from "@/components/stores/dashboard/products/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
 
 import {DashboardPopover} from  "@/components/DashboardPopover"
 
-import ProductForm from "@/components/dashboard/products/productform";
-import { columns } from "@/components/dashboard/products/columns";
+import ProductForm from "@/components/stores/dashboard/products/productform";
+import { columns } from "@/components/stores/dashboard/products/columns";
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -25,8 +25,6 @@ export default function Page() {
         console.log(error);
       });
   }, []);
-
-
 
   // Rendera sidan, popup för att lägga till en produkt och tabellen med produkter
   return (

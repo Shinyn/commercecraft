@@ -1,11 +1,11 @@
-'use client'
-import { DashboardPopover } from "@/components/DashboardPopover"
+"use client";
+import { DashboardPopover } from "@/components/DashboardPopover";
 import { DataTable } from "@/components/data-table";
-import { columns } from "@/components/dashboard/billboards/columns";
+import { columns } from "@/components/stores/dashboard/billboards/columns";
 import { useEffect } from "react";
-import { PostForm } from "@/components/dashboard/billboards/PostForm"
-import axios from "axios"
-import { BillboardState } from "@/components/dashboard/billboards/state";
+import { PostForm } from "@/components/stores/dashboard/billboards/PostForm";
+import axios from "axios";
+import { BillboardState } from "@/components/stores/dashboard/billboards/state";
 
 export default function Page() {
   //states for keeping track of billboards in dashboard front
@@ -16,6 +16,7 @@ export default function Page() {
     axios
       .get("/api/billboards", {})
       .then(function (response) {
+        console.log(response.data);
         updateBillboards(response.data);
       })
       .catch(function (error) {

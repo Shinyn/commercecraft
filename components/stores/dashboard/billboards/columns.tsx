@@ -1,6 +1,6 @@
 "use client";
 //Specifies the layout of data-table for billboards
-import { EditForm } from "@/components/dashboard/billboards/EditForm"
+import { EditForm } from "@/components/stores/dashboard/billboards/EditForm";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,16 +19,17 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { Billboard } from "@/components/dashboard/billboards/billboards";
-import axios, { isAxiosError } from "axios"
+} from "@/components/ui/sheet";
+import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
+import axios, { isAxiosError } from "axios";
 
 //TODO: Fix so this updates state instead of reloading page
-async function deleteBillboard(id: string|undefined) {
-  axios.delete(`/api/billboards/${id}`)
+async function deleteBillboard(id: string | undefined) {
+  axios
+    .delete(`/api/billboards/${id}`)
     .then(function (response) {
-     window.location.reload()
-      console.log(response)
+      window.location.reload();
+      console.log(response);
       return response.data;
     })
     .catch(function (error) {
@@ -55,7 +56,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
   {
     accessorKey: "text",
-    id:"title",
+    id: "title",
     header: ({ column }) => {
       return (
         <Button
@@ -100,7 +101,7 @@ export const columns: ColumnDef<Billboard>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-       const billboard = row.original
+      const billboard = row.original;
 
       return (
         <>
@@ -124,12 +125,13 @@ export const columns: ColumnDef<Billboard>[] = [
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <SheetTrigger>
-                  <DropdownMenuItem
-                  >Edit</DropdownMenuItem>
+                  <DropdownMenuItem>Edit</DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem
                   onClick={(e) => deleteBillboard(row.original.id)}
-                >Delete</DropdownMenuItem>
+                >
+                  Delete
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>
