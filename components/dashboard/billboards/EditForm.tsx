@@ -18,8 +18,8 @@ import {
 } from "@/components/ui/form"
 import axios from "axios"
 import { Billboard } from "@/components/dashboard/billboards/billboards";
-
 import { BillboardState } from "@/components/dashboard/billboards/state";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
     id: z.string().min(3).max(50),
@@ -30,7 +30,7 @@ const formSchema = z.object({
 
 
 export function EditForm(billboard: Billboard) {
-    const updateBillboards = BillboardState((state) => state.updateBillboards);
+    const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -43,19 +43,13 @@ export function EditForm(billboard: Billboard) {
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values)
         axios.put('/api/billboards', {
             values
         })
             .then(function (response) {
                 if (response.status == 200) {
-                    axios.get("/api/billboards", {})
-                        .then(function (response) {
-                            updateBillboards(response.data)
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        })
+                    toast.success("Billboard uppdated successfully");
+                    reFetchBillboards()
                 }
             })
             .catch(function (error) {
@@ -112,7 +106,6 @@ export function EditForm(billboard: Billboard) {
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
-
                     )}
                 />
                 <FormField
@@ -131,10 +124,8 @@ export function EditForm(billboard: Billboard) {
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
-
                     )}
                 />
-
                 <Button type="submit">Submit</Button>
             </form>
         </Form>

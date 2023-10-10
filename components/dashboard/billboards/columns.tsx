@@ -21,22 +21,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Billboard } from "@/components/dashboard/billboards/billboards";
-import axios, { isAxiosError } from "axios"
-
-//TODO: Fix so this updates state instead of reloading page
-async function deleteBillboard(id: string|undefined) {
-  axios.delete(`/api/billboards/${id}`)
-    .then(function (response) {
-     window.location.reload()
-      console.log(response)
-      return response.data;
-    })
-    .catch(function (error) {
-      if (isAxiosError(error)) {
-        return error.message;
-      }
-    });
-}
+import { MyDelete } from "./MyDelete";
 
 export const columns: ColumnDef<Billboard>[] = [
   {
@@ -55,7 +40,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
   {
     accessorKey: "text",
-    id:"title",
+    id: "title",
     header: ({ column }) => {
       return (
         <Button
@@ -100,8 +85,6 @@ export const columns: ColumnDef<Billboard>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-       const billboard = row.original
-
       return (
         <>
           {/* //Sheet to cover background avd display EditForm*/}
@@ -125,11 +108,11 @@ export const columns: ColumnDef<Billboard>[] = [
                 <DropdownMenuSeparator />
                 <SheetTrigger>
                   <DropdownMenuItem
-                  >Edit</DropdownMenuItem>
+                  >Edit
+                  </DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem
-                  onClick={(e) => deleteBillboard(row.original.id)}
-                >Delete</DropdownMenuItem>
+                ><MyDelete itemId={row.original.id || ""} /></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>
