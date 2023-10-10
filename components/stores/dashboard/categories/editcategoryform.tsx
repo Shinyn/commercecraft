@@ -2,19 +2,24 @@
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useNameStore } from "./zustand/zustandstate";
+import { useParams } from "next/navigation";
 
 //Form for adding a new category
 export default function EditCategoryForm(ID: string | undefined) {
+  const params = useParams();
   const name = useNameStore((state) => state.name);
   const updateName = useNameStore((state) => state.updateName);
 
   function onSubmitting(e: any) {
     e.preventDefault();
     axios
-      .patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`, {
-        id: ID,
-        title: name,
-      })
+      .patch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/categories`,
+        {
+          id: ID,
+          title: name,
+        }
+      )
       .then(function (response) {
         window.location.reload();
         return response.data;

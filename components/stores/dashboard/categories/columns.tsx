@@ -2,6 +2,7 @@
 
 // This type is used to define the shape of our data.
 import axios from "axios";
+import { useParams } from "next/navigation";
 import { Category, ID } from "./categories";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
@@ -26,8 +27,11 @@ import {
 
 //Function to delete a category
 const deleteCategory = (ID: string | undefined) => {
+  const params = useParams();
   const response = axios
-    .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories/${ID}`)
+    .delete(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/categories/${ID}`
+    )
     .then(function (response) {
       window.location.reload();
       return response.data;

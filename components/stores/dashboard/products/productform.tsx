@@ -13,9 +13,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import SelectForAddProduct from "@/components/stores/dashboard/products/SelectForAddProduct"
+import SelectForAddProduct from "@/components/stores/dashboard/products/SelectForAddProduct";
+import { useParams } from "next/navigation";
 
 export default function ProductForm() {
+  const params = useParams();
   const productSchema = z.object({
     title: z
       .string()
@@ -45,7 +47,7 @@ export default function ProductForm() {
   function onSubmitting(values: z.infer<typeof productSchema>) {
     console.log("Onsubmitting:" + values);
     axios
-      .post("/api/products", values)
+      .post(`/api/${params.storeID}/products`, values)
       .then(function (response) {
         console.log(response);
       })
@@ -117,7 +119,7 @@ export default function ProductForm() {
           />
           <SelectForAddProduct
             placeholder="Select Category"
-            apicall="/api/categories"
+            apicall={`/api/${params.storeID}/categories`}
             valueSend={(value: string) => form.setValue("category", value)}
           />
           <Button type="submit">Submit</Button>

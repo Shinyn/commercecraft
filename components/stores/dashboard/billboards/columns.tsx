@@ -22,11 +22,13 @@ import {
 } from "@/components/ui/sheet";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
 import axios, { isAxiosError } from "axios";
+import { useParams } from "next/navigation";
 
 //TODO: Fix so this updates state instead of reloading page
-async function deleteBillboard(id: string | undefined) {
+async function DeleteBillboard(id: string | undefined) {
+  const params = useParams();
   axios
-    .delete(`/api/billboards/${id}`)
+    .delete(`/api/${params.storeID}/billboards/${id}`)
     .then(function (response) {
       window.location.reload();
       console.log(response);
@@ -128,7 +130,7 @@ export const columns: ColumnDef<Billboard>[] = [
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem
-                  onClick={(e) => deleteBillboard(row.original.id)}
+                  onClick={(e) => DeleteBillboard(row.original.id)}
                 >
                   Delete
                 </DropdownMenuItem>
