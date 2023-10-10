@@ -6,7 +6,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={"flex flex-row justify-start"}>
+    <div className={"flex flex-row"}>
       {<Navbar />}
       {children}
     </div>

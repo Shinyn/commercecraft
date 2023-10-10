@@ -24,7 +24,7 @@ export default function Page() {
       });
   }, []);
   return (
-    <>
+    <div className={"flex flex-col"}>
       <DashboardPopover>
         <PostForm />
       </DashboardPopover>
@@ -33,6 +33,6 @@ export default function Page() {
           <DataTable columns={columns} data={billboards} />
         </div>
       </div>
-    </>
+    </div>
   );
 }

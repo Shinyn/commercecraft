@@ -30,7 +30,7 @@ export default function Page() {
 
   //Render the page, pop up for adding a category and the table with the categories
   return (
-    <>
+    <div className={"flex flex-col"}>
       <DashboardPopover>
         <CategoryForm />
       </DashboardPopover>
@@ -40,6 +40,6 @@ export default function Page() {
           <DataTable columns={columns} data={categories} />
         </div>
       </div>
-    </>
+    </div>
   );
 }
