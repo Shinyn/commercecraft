@@ -1,5 +1,6 @@
 //Layout för hela dashboarden
 import Navbar from "@/components/navbar";
+import { Toaster } from "react-hot-toast";
 export default function DashboardLayout({
   children, // will be a page or nested layout
 }: {
@@ -7,6 +8,7 @@ export default function DashboardLayout({
 }) {
   return (
     <div className={"flex flex-row"}>
+      <Toaster/>
       {<Navbar />}
       {children}
     </div>

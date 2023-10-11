@@ -8,7 +8,6 @@ import { Product } from "./products";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,

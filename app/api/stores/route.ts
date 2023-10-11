@@ -46,7 +46,7 @@ export async function PATCH(
       });
     }
 
-    newStore = await prismadb.stores.update({
+    newStore = await prismadb.store.update({
       where: { id, user_id },
       data: {
         title,

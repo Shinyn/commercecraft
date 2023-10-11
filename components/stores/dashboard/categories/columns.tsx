@@ -24,22 +24,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DeleteCategory } from "@/components/stores/dashboard/categories/deleteCategory"
 
-//Function to delete a category
-const deleteCategory = (ID: string | undefined) => {
-  const params = useParams();
-  const response = axios
-    .delete(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/categories/${ID}`
-    )
-    .then(function (response) {
-      window.location.reload();
-      return response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-};
 
 //Columns for the table
 export const columns: ColumnDef<Category>[] = [
@@ -105,8 +91,8 @@ export const columns: ColumnDef<Category>[] = [
                 <SheetTrigger>
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem onClick={() => deleteCategory(category.id)}>
-                  Delete
+                <DropdownMenuItem >
+                  <DeleteCategory itemId={category.id||""}/>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

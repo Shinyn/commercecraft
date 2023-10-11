@@ -21,6 +21,7 @@ import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
 
 import { BillboardState } from "@/components/stores/dashboard/billboards/state";
 import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   id: z.string().min(3).max(50),
@@ -30,7 +31,7 @@ const formSchema = z.object({
 });
 
 export function EditForm(billboard: Billboard) {
-  const updateBillboards = BillboardState((state) => state.updateBillboards);
+  const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
   const params = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,26 +44,20 @@ export function EditForm(billboard: Billboard) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    axios
-      .put(`/api/${params.storeID}/billboards`, {
-        values,
-      })
+    axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`, {
+      values
+  })
       .then(function (response) {
-        if (response.status == 200) {
-          axios
-            .get("/api/billboards", {})
-            .then(function (response) {
-              updateBillboards(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        }
+          if (response.status == 200) {
+              toast.success("Billboard uppdated successfully");
+              reFetchBillboards(Array.isArray(params.storeID)?params.storeID.toString():params.storeID)
+          }
       })
       .catch(function (error) {
-        console.log(error);
+          console.log(error);
       });
-  }
+}
+  
 
   return (
     <Form {...form}>
