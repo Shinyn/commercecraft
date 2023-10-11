@@ -21,7 +21,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { MyDelete } from "@/components/stores/dashboard/billboards/MyDelete";
+import { MyDelete } from "@/components/stores/dashboard/billboards/deleteBillboard";
 
 export const columns: ColumnDef<Billboard>[] = [
   {

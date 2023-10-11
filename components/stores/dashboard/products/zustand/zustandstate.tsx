@@ -1,13 +1,5 @@
 import { create } from "zustand";
-
-type Product = {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-};
+import { Product} from "@/components/stores/dashboard/products/products"
 
 type ProductStore = {
   products: Product[]; // An array of products

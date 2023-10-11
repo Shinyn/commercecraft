@@ -1,5 +1,4 @@
 import axios, { isAxiosError } from "axios";
-import toast from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 
 export function MyDelete(params: { ID: string | undefined }) {
