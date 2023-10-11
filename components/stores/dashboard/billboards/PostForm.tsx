@@ -65,7 +65,7 @@ export function PostForm() {
 
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    axios.post(`/api/${params.storeID}/billboards`, {
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`, {
       values
     })
       .then(function (response) {

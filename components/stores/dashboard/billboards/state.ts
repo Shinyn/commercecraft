@@ -18,7 +18,7 @@ export const BillboardState = create<State & Action>((set) => ({
   updateBillboards: (billboards: Billboard[]) =>
       set(() => ({ billboards: billboards })),
   reFetchBillboards:(storeId:string)=>{
-      axios.get(`/api/${storeId}/billboards`, {})
+      axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${storeId}/billboards`, {})
       .then(function (response) {
         set(() => ({ billboards: response.data }))
       })

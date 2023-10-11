@@ -44,7 +44,7 @@ export function EditForm(billboard: Billboard) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    axios.put(`/api/${params.storeID}/billboards`, {
+    axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`, {
       values
   })
       .then(function (response) {
