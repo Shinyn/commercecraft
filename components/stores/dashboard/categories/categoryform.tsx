@@ -15,10 +15,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { use } from "react";
+import { useParams } from "next/navigation";
 
 //Form for adding a new category
 export default function CategoryForm() {
+  const params = useParams();
   //Form validation
   const formSchema = z.object({
     name: z
@@ -35,9 +36,12 @@ export default function CategoryForm() {
   //Submit function
   function onSubmitting(values: z.infer<typeof formSchema>) {
     axios
-      .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`, {
-        title: values.name,
-      })
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/categories`,
+        {
+          title: values.name,
+        }
+      )
       .then(function (response) {
         console.log(response);
         toast.success("Category added successfully");

@@ -1,10 +1,12 @@
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
+import { useParams } from "next/navigation";
 
 export async function DELETE(
     req: Request, 
-    { params }: { params: { id: string } }
+    { params }: { params: { storeID: string; id: string } }
+
     //TODO: Add params for extracting store when stores are implemented in dashboard
 ) {
     try {

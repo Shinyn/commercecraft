@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
+import { useParams } from "next/navigation";
 
 export async function DELETE(
   req: Request,

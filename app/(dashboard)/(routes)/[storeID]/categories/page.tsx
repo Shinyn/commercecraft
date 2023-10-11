@@ -7,6 +7,7 @@ import CategoryForm from "@/components/stores/dashboard/categories/categoryform"
 import { columns } from "@/components/stores/dashboard/categories/columns";
 import axios from "axios";
 import { useEffect } from "react";
+import { useParams } from "next/navigation";
 
 export default function Page() {
   //State for the categories
@@ -14,11 +15,15 @@ export default function Page() {
   const updateCategories = useNameStore((state) => state.updateCategories);
   const state = useNameStore((state) => state.state);
   const updateState = useNameStore((state) => state.updateState);
+  const params = useParams();
 
   //Get the categories from the database
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`, {})
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/categories`,
+        {}
+      )
       .then(function (response) {
         updateCategories(response.data);
         updateState(true);
@@ -30,7 +35,7 @@ export default function Page() {
 
   //Render the page, pop up for adding a category and the table with the categories
   return (
-    <>
+    <div className={"flex flex-col"}>
       <DashboardPopover>
         <CategoryForm />
       </DashboardPopover>
@@ -40,6 +45,6 @@ export default function Page() {
           <DataTable columns={columns} data={categories} />
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -2,22 +2,27 @@
 import { useProductStore } from "@/components/stores/dashboard/products/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
 
-import {DashboardPopover} from  "@/components/DashboardPopover"
+import { DashboardPopover } from "@/components/DashboardPopover";
 
 import ProductForm from "@/components/stores/dashboard/products/productform";
 import { columns } from "@/components/stores/dashboard/products/columns";
 import axios from "axios";
 import { useEffect } from "react";
+import { useParams } from "next/navigation";
 
 export default function Page() {
   // State för produkter
   const products = useProductStore((state) => state.products);
   const updateProducts = useProductStore((state) => state.updateProducts);
+  const params = useParams();
 
   // Hämta produkterna från databasen
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`, {})
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/products`,
+        {}
+      )
       .then(function (response) {
         updateProducts(response.data);
       })
@@ -29,7 +34,7 @@ export default function Page() {
   // Rendera sidan, popup för att lägga till en produkt och tabellen med produkter
   return (
     <>
- <DashboardPopover>
+      <DashboardPopover>
         <ProductForm />
       </DashboardPopover>
       <div>

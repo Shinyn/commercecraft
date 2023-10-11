@@ -7,7 +7,7 @@ export async function DELETE(
   { params }: { params: { userID: string; ID: string } }
 ) {
   try {
-    const Stores = await prismadb.stores.delete({
+    const Stores = await prismadb.store.delete({
       where: { id: params.ID },
     });
     return NextResponse.json(Stores);

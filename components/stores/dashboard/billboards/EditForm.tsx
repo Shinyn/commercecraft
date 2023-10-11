@@ -20,6 +20,7 @@ import axios from "axios";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
 
 import { BillboardState } from "@/components/stores/dashboard/billboards/state";
+import { useParams } from "next/navigation";
 
 const formSchema = z.object({
   id: z.string().min(3).max(50),
@@ -30,7 +31,7 @@ const formSchema = z.object({
 
 export function EditForm(billboard: Billboard) {
   const updateBillboards = BillboardState((state) => state.updateBillboards);
-
+  const params = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,9 +43,8 @@ export function EditForm(billboard: Billboard) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     axios
-      .put("/api/billboards", {
+      .put(`/api/${params.storeID}/billboards`, {
         values,
       })
       .then(function (response) {
