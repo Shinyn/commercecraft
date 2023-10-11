@@ -24,7 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DeleteCategory } from "@/components/stores/dashboard/categories/DeleteCategory"
+import { DeleteCategory } from "@/components/stores/dashboard/categories/deleteCategory"
 
 
 //Columns for the table
