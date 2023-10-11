@@ -24,12 +24,16 @@ export default function ProductForm() {
       .min(2, { message: "Title must be at least 2 characters long" }),
     description: z
       .string()
-      .min(5, { message: "Description must be at least 5 characters long" }),
+      .min(5, { message: "Description must be at least 5 characters long" })
+      .max(255, { message: "Description must be less than 255 characters" }),
     price: z
       .number()
       .min(0, { message: "Price must be a positive number" })
       .max(Infinity),
-    image: z.string().url({ message: "Need URL" }),
+    image: z
+      .string()
+      .url({ message: "Need URL" })
+      .max(255, { message: "URL must be less than 255 characters" }),
     category: z.string(),
   });
 

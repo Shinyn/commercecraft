@@ -39,7 +39,6 @@ export function PostForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
     axios
       .post(`/api/${params.storeID}/billboards`, {
         values,

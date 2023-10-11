@@ -9,7 +9,7 @@ export async function GET(
   { params }: { params: { userID: string } }
 ) {
   try {
-    const Stores = await prismadb.stores.findMany({
+    const Stores = await prismadb.store.findMany({
       where: { user_id: params.userID },
     });
     return NextResponse.json(Stores);

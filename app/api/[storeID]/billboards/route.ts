@@ -6,23 +6,29 @@ import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
 import { useParams } from "next/navigation";
 
 export async function POST(
-  req: Request
-  //TODO: Add params for extracting store when stores are implemented in dashboard
+  req: Request,
+  { params }: { params: { storeID: string } }
 ) {
   try {
     const body = await req.json();
-    const { text, image, active }: Billboard = body.values;
+    body.values.storeId = params.storeID;
+    const { text, image, active, storeId }: Billboard = body.values;
     let newBillboard = undefined;
+    console.log(body.values);
     //Remove activation from any previous billboards.
     if (active) {
       const updated = await prismadb.billboard
         .updateMany({
-          where: { active: 1 },
+          where: {
+            storeId,
+            active: 1,
+          },
           data: { active: 0 },
         })
         .then(async function (response) {
           newBillboard = await prismadb.billboard.create({
             data: {
+              storeId,
               text,
               image,
               active: 1,
@@ -35,6 +41,7 @@ export async function POST(
     } else {
       newBillboard = await prismadb.billboard.create({
         data: {
+          storeId,
           text,
           image,
           active: 0,
@@ -66,12 +73,13 @@ export async function GET(req: Request) {
 }
 
 export async function PUT(
-  req: Request
-  //TODO: Add params for extracting store when stores are implemented in dashboard
+  req: Request,
+  { params }: { params: { storeID: string } }
 ) {
   try {
     const body = await req.json();
-    const { id, text, image, active }: Billboard = body.values;
+    body.values.storeId = params.storeID;
+    const { id, text, image, active, storeId }: Billboard = body.values;
     let newBillboard = undefined;
 
     if (!id) {
@@ -83,7 +91,7 @@ export async function PUT(
       //Remove activation from any previous billboards if needed
       const updated = await prismadb.billboard
         .updateMany({
-          where: { active: 1 },
+          where: { storeId, active: 1 },
           data: { active: 0 },
         })
         .then(async function (response) {

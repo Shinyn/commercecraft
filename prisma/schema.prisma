@@ -8,29 +8,70 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Stores {
-  id      String @id @default(uuid())
-  user_id String
-  title   String
+model Store {
+  id         String      @id @default(uuid())
+  user_id    String
+  title      String
+  Products   Product[]   @relation("StoreRelation")
+  Categories Category[]  @relation("StoreRelation")
+  Billboards Billboard[] @relation("StoreRelation")
+  Sizes      Size[]      @relation("StoreRelation")
+  Colors     Color[]     @relation("StoreRelation")
 }
 
 model Product {
-  id          String @id @default(uuid())
-  title       String
-  description String
-  price       Int
-  image       String
-  category    String
+  id           String  @id @default(uuid())
+  storeId      String
+  title        String
+  description  String
+  ingredients  String  @default("Bobs")
+  price        Int
+  image        String
+  manufacturer String  @default("BOB")
+  category     String  @default("all")
+  size         String  @default("kg")
+  color        String  @default("yellow")
+  isarchived   Boolean @default(false)
+  isfeatured   Boolean @default(false)
+  store        Store   @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([storeId])
 }
 
 model Category {
-  id    String @id @default(uuid())
-  title String
+  id      String @id @default(uuid())
+  storeId String
+  title   String
+  store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([storeId])
 }
 
 model Billboard {
-  id     String @id @default(uuid())
-  text   String
-  image  String
-  active Int    @default(0)
+  id      String @id @default(uuid())
+  storeId String
+  text    String
+  image   String
+  active  Int    @default(0)
+  store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([storeId])
+}
+
+model Size {
+  id      String @id @default(uuid())
+  storeId String
+  title   String
+  store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([storeId])
+}
+
+model Color {
+  id      String @id @default(uuid())
+  storeId String
+  title   String
+  store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@index([storeId])
 }

@@ -3,26 +3,21 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 import { useParams } from "next/navigation";
-
-//TODO:Remove this definition and replace with import of product typedefiniton from other branch
-export type Product = {
-  title: string;
-  description: string;
-  price: number;
-  image: string;
-  category: string;
-};
+import { Product } from "@/components/stores/dashboard/products/products";
 
 export async function POST(
-  req: Request
-  //TODO: Add params for extracting store when stores are implemented in dashboard
+  req: Request,
+  { params }: { params: { storeID: string } }
 ) {
   try {
     const body = await req.json();
-    const { title, description, price, image, category }: Product = body;
+    body.storeId = params.storeID;
+    const { title, description, price, image, category, storeId }: Product =
+      body;
 
     const newProduct = await prismadb.product.create({
       data: {
+        storeId,
         title,
         description,
         price,
@@ -40,9 +35,14 @@ export async function POST(
   }
 }
 
-export async function GET(req: Request) {
+export async function GET(
+  req: Request,
+  { params }: { params: { storeID: string } }
+) {
   try {
-    const Products = await prismadb.product.findMany();
+    const Products = await prismadb.product.findMany({
+      where: { storeId: params.storeID },
+    });
     return NextResponse.json(Products);
   } catch (error) {
     console.log("api/products/GET", error);

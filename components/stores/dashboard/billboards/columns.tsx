@@ -26,7 +26,7 @@ import { useParams } from "next/navigation";
 
 //TODO: Fix so this updates state instead of reloading page
 async function DeleteBillboard(id: string | undefined) {
-  const params = useParams();
+const params = useParams();
   axios
     .delete(`/api/${params.storeID}/billboards/${id}`)
     .then(function (response) {

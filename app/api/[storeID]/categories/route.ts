@@ -1,17 +1,18 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 import { Category } from "@/components/stores/dashboard/categories/categories";
-import { useParams } from "next/navigation";
 
-// Types
-
-// Route handlers for /api/categories
-export async function POST(req: Request) {
+export async function POST(
+  req: Request,
+  { params }: { params: { storeID: string } }
+) {
   try {
     const body = await req.json();
-    const { title }: Category = body;
+    body.storeId = params.storeID;
+    const { title, storeId }: Category = body;
     const newCategory = await prismadb.category.create({
       data: {
+        storeId,
         title,
       },
     });
@@ -25,9 +26,14 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: Request) {
+export async function GET(
+  req: Request,
+  { params }: { params: { storeID: string } }
+) {
   try {
-    const Categories = await prismadb.category.findMany();
+    const Categories = await prismadb.category.findMany({
+      where: { storeId: params.storeID },
+    });
     return NextResponse.json(Categories);
   } catch (error) {
     console.log("api/categories/GET", error);

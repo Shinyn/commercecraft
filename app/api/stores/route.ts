@@ -14,7 +14,7 @@ export async function POST(
     const { user_id, title }: Store = body;
     //Remove activation from any previous billboards.
 
-    const newStore = await prismadb.stores.create({
+    const newStore = await prismadb.store.create({
       data: {
         user_id,
         title,
