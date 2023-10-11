@@ -1,13 +1,8 @@
-"use client";
-import Link from "next/link";
-
 // This type is used to define the shape of our data.
-import axios from "axios";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Store } from "./stores";
 import EditStoreForm from "./editStoreNameForm";
-import { useAuth } from "@clerk/nextjs";
 import { MyDelete } from "./deleteStore";
 import {
   Sheet,
@@ -26,7 +21,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { StoreLink } from "./storelink";
 export const columns: ColumnDef<Store>[] = [
 
   {
@@ -97,11 +92,8 @@ export const columns: ColumnDef<Store>[] = [
                   <MyDelete ID={store.id} />
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                <Link href={`/${store.id}`}>
-                Go to store!
-                </Link>
+                  <StoreLink storeid={store.id}/>
                 </DropdownMenuItem>
-                
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>
