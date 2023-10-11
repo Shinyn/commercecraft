@@ -18,6 +18,7 @@ import {
 import axios from "axios";
 import { BillboardState } from "@/components/stores/dashboard/billboards/state";
 import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   text: z.string().min(2).max(50),
@@ -28,6 +29,7 @@ const formSchema = z.object({
 export function PostForm() {
   const updateBillboards = BillboardState((state) => state.updateBillboards);
   const params = useParams();
+  const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,21 +40,38 @@ export function PostForm() {
     },
   });
 
+  /*   function onSubmit(values: z.infer<typeof formSchema>) {
+      axios
+        .post(`/api/${params.storeID}/billboards`, {
+          values,
+        })
+        .then(function (response) {
+          if (response.status == 201) {
+            toast.success("Billboard uppdated successfully");
+            axios
+              .get(`/api/${params.storeID}/billboards`, {})
+              .then(function (response) {
+                updateBillboards(response.data);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } */
+
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    axios
-      .post(`/api/${params.storeID}/billboards`, {
-        values,
-      })
+    axios.post(`/api/${params.storeID}/billboards`, {
+      values
+    })
       .then(function (response) {
         if (response.status == 201) {
-          axios
-            .get(`/api/${params.storeID}/billboards`, {})
-            .then(function (response) {
-              updateBillboards(response.data);
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
+          toast.success("Billboard added successfully");
+          reFetchBillboards(Array.isArray(params.storeID)?params.storeID.toString():params.storeID)
         }
       })
       .catch(function (error) {
