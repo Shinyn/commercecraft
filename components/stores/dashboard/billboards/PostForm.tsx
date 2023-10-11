@@ -27,7 +27,6 @@ const formSchema = z.object({
 });
 
 export function PostForm() {
-  const updateBillboards = BillboardState((state) => state.updateBillboards);
   const params = useParams();
   const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
 
@@ -39,30 +38,6 @@ export function PostForm() {
       active: false,
     },
   });
-
-  /*   function onSubmit(values: z.infer<typeof formSchema>) {
-      axios
-        .post(`/api/${params.storeID}/billboards`, {
-          values,
-        })
-        .then(function (response) {
-          if (response.status == 201) {
-            toast.success("Billboard uppdated successfully");
-            axios
-              .get(`/api/${params.storeID}/billboards`, {})
-              .then(function (response) {
-                updateBillboards(response.data);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    } */
-
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`, {
