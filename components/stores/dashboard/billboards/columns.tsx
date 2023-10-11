@@ -1,6 +1,6 @@
 "use client";
 //Specifies the layout of data-table for billboards
-import { EditForm } from "@/components/stores/dashboard/billboards/EditForm";
+import { EditForm } from "@/components/stores/dashboard/billboards/EditForm"
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -19,27 +19,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@/components/ui/sheet"
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import axios, { isAxiosError } from "axios";
-import { useParams } from "next/navigation";
-
-//TODO: Fix so this updates state instead of reloading page
-async function DeleteBillboard(id: string | undefined) {
-const params = useParams();
-  axios
-    .delete(`/api/${params.storeID}/billboards/${id}`)
-    .then(function (response) {
-      window.location.reload();
-      console.log(response);
-      return response.data;
-    })
-    .catch(function (error) {
-      if (isAxiosError(error)) {
-        return error.message;
-      }
-    });
-}
+import { MyDelete } from "@/components/stores/dashboard/billboards/MyDelete";
 
 export const columns: ColumnDef<Billboard>[] = [
   {
@@ -103,8 +85,6 @@ export const columns: ColumnDef<Billboard>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const billboard = row.original;
-
       return (
         <>
           {/* //Sheet to cover background avd display EditForm*/}
@@ -127,13 +107,12 @@ export const columns: ColumnDef<Billboard>[] = [
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <SheetTrigger>
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem
+                  >Edit
+                  </DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem
-                  onClick={(e) => DeleteBillboard(row.original.id)}
-                >
-                  Delete
-                </DropdownMenuItem>
+                ><MyDelete itemId={row.original.id || ""} /></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>

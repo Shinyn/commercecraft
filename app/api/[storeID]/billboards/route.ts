@@ -3,7 +3,6 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { useParams } from "next/navigation";
 
 export async function POST(
   req: Request,
@@ -14,7 +13,6 @@ export async function POST(
     body.values.storeId = params.storeID;
     const { text, image, active, storeId }: Billboard = body.values;
     let newBillboard = undefined;
-    console.log(body.values);
     //Remove activation from any previous billboards.
     if (active) {
       const updated = await prismadb.billboard
