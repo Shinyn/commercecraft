@@ -18,7 +18,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import DeleteProduct from '@/components/stores/dashboard/products/DeleteProduct';
-import EditProduct from '@/components/stores/dashboard/products/EditProduct';
+// import { EditProduct } from '@/components/stores/dashboard/products/EditProduct';
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -86,7 +86,7 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuItem>View payment details</DropdownMenuItem>
             <DropdownMenuItem>
               Edit goes here when from is done
-              <EditProduct itemId={product.id} />
+              {/* <EditProduct itemId={product.id} /> */}
             </DropdownMenuItem>
             <DropdownMenuItem>
               <DeleteProduct itemId={product.id} />
