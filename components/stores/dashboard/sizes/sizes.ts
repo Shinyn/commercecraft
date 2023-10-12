@@ -1,4 +1,4 @@
-// Type of Category
+// Type of Size
 export type Size = {
   id: string | undefined;
   storeId: string;
