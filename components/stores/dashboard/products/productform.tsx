@@ -1,57 +1,41 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import SelectForAddProduct from "@/components/stores/dashboard/products/SelectForAddProduct";
-import { useParams } from "next/navigation";
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useForm } from 'react-hook-form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import SelectForAddProduct from '@/components/stores/dashboard/products/SelectForAddProduct';
+import { useParams } from 'next/navigation';
 
 export default function ProductForm() {
   const params = useParams();
   const productSchema = z.object({
-    title: z
-      .string()
-      .min(2, { message: "Title must be at least 2 characters long" }),
+    title: z.string().min(2, { message: 'Title must be at least 2 characters long' }),
     description: z
       .string()
-      .min(5, { message: "Description must be at least 5 characters long" })
-      .max(255, { message: "Description must be less than 255 characters" }),
-    price: z
-      .number()
-      .min(0, { message: "Price must be a positive number" })
-      .max(Infinity),
-    image: z
-      .string()
-      .url({ message: "Need URL" })
-      .max(255, { message: "URL must be less than 255 characters" }),
+      .min(5, { message: 'Description must be at least 5 characters long' })
+      .max(255, { message: 'Description must be less than 255 characters' }),
+    price: z.number().min(0, { message: 'Price must be a positive number' }).max(Infinity),
+    image: z.string().url({ message: 'Need URL' }).max(255, { message: 'URL must be less than 255 characters' }),
     category: z.string(),
   });
 
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
-      title: "",
-      description: "",
+      title: '',
+      description: '',
       price: 1,
-      image: "",
-      category: "",
+      image: '',
+      category: '',
     },
   });
 
   function onSubmitting(values: z.infer<typeof productSchema>) {
-    console.log("Onsubmitting:" + values);
+    console.log('Onsubmitting:' + values);
     axios
-      .post(`/api/${params.storeID}/products`, values)
+      .post(`/api/${params.storeID}/products/${params.id}`, values)
       .then(function (response) {
         console.log(response);
       })
@@ -61,7 +45,7 @@ export default function ProductForm() {
   }
 
   return (
-    <div className={"m-9"}>
+    <div className={'m-9'}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField
@@ -97,12 +81,7 @@ export default function ProductForm() {
               <FormItem>
                 <FormLabel>Product Price</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    min={1}
-                    {...field}
-                    onChange={(event) => field.onChange(+event.target.value)}
-                  />
+                  <Input type="number" min={1} {...field} onChange={(event) => field.onChange(+event.target.value)} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -124,7 +103,7 @@ export default function ProductForm() {
           <SelectForAddProduct
             placeholder="Select Category"
             apicall={`/api/${params.storeID}/categories`}
-            valueSend={(value: string) => form.setValue("category", value)}
+            valueSend={(value: string) => form.setValue('category', value)}
           />
           <Button type="submit">Submit</Button>
         </form>
