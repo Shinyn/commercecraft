@@ -35,7 +35,7 @@ model Product {
   isfeatured   Boolean @default(false)
   stock        Int     @default(0)
   store        Store   @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  stock        Int     @default(0)
+
   @@index([storeId])
 }
 
