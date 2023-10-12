@@ -65,27 +65,31 @@ export default function ColorForm() {
             control={form.control}
             name="name"
             render={({ field }) => (
-              <>
-                <FormItem>
-                  <FormLabel>Name of Color</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Color" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Type in the name of the color here.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-                <FormItem>
-                  <FormLabel>Color Hex-Code</FormLabel>
-                  <FormControl>
-                    <Input placeholder="#000000" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    Type in Hex-Code of the color.
-                  </FormDescription>
-                </FormItem>
-              </>
+              <FormItem>
+                <FormLabel>Name of Color</FormLabel>
+                <FormControl>
+                  <Input placeholder="Color" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Type in the name of the color here.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="hex"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Color Hex-Code</FormLabel>
+                <FormControl>
+                  <Input placeholder="#000000" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Type in Hex-Code of the color.
+                </FormDescription>
+              </FormItem>
             )}
           />
           <Button type="submit">Submit</Button>
