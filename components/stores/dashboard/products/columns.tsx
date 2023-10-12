@@ -4,7 +4,7 @@
 //Componenten används i products page.tsx, tillsammans med products.tsx
 //Denna componenten är en del av data-table.tsx(som dock går att återanvända)
 
-import { Product } from './products';
+import { Product } from '@/components/stores/dashboard/products/products';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -17,8 +17,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import DeleteProduct from './DeleteProduct';
-import EditProduct from './EditProduct';
+import DeleteProduct from '@/components/stores/dashboard/products/DeleteProduct';
+import EditProduct from '@/components/stores/dashboard/products/EditProduct';
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -86,7 +86,7 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuItem>View payment details</DropdownMenuItem>
             <DropdownMenuItem>
               Edit goes here when from is done
-              {/* <EditProduct itemId={product.id} /> */}
+              <EditProduct itemId={product.id} />
             </DropdownMenuItem>
             <DropdownMenuItem>
               <DeleteProduct itemId={product.id} />
