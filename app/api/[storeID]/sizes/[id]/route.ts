@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
+import { useParams } from "next/navigation";
 
 export async function DELETE(
   req: Request,
@@ -7,16 +8,16 @@ export async function DELETE(
 ) {
   try {
     const id = params.id;
-    const deletedCategory = await prismadb.category.delete({
+    const deletedSize = await prismadb.size.delete({
       where: {
         id,
       },
     });
-    return NextResponse.json(deletedCategory, { status: 200 });
+    return NextResponse.json(deletedSize, { status: 200 });
   } catch (error) {
-    console.log("api/categories/DELETE", error);
+    console.log("api/sizes/DELETE", error);
     return new NextResponse(
-      "Ooops, something went wrong when deleting the category",
+      "Ooops, something went wrong when deleting the size",
       { status: 500 }
     );
   }
