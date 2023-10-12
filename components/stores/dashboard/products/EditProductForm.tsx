@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Checkbox } from '@/components/ui/checkbox';
 import SelectForAddProduct from '@/components/stores/dashboard/products/SelectForAddProduct';
 import { useParams } from 'next/navigation';
+import {Product} from "@/components/stores/dashboard/products/products"
+import { Checkbox } from '@/components/ui/checkbox';
 import toast from 'react-hot-toast';
 
-export default function ProductForm() {
+
+export function EditProductForm(product:Product) {
   const params = useParams();
   const productSchema = z.object({
     title: z.string().min(2, { message: 'Title must be at least 2 characters long' }),
@@ -25,34 +27,34 @@ export default function ProductForm() {
     isarchived: z.boolean(),
     isfeatured: z.boolean(),
     ingredients: z
-      .string()
-      .min(5, { message: 'Ingredientslist must be at least 5 characters long' })
-      .max(255, { message: 'Ingredientslist must be less than 255 characters' }),
-    stock: z.number().min(0, { message: 'You have to have a stock of your product' }).max(Infinity),
+    .string()
+    .min(5, { message: 'Ingredientslist must be at least 5 characters long' })
+    .max(255, { message: 'Ingredientslist must be less than 255 characters' }),
+    stock: z.number().min(0,{message:'You have to have a stock of your product'}).max(Infinity),
   });
 
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      price: 1,
-      image: '',
-      category: '',
-      manufacturer: '',
-      isarchived: false,
-      isfeatured: false,
-      ingredients: '',
-      stock: 0,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      image: product.image,
+      category: product.category,
+      manufacturer: product.manufacturer,
+      isarchived: product.isarchived,
+      isfeatured: product.isfeatured,
+      ingredients: product.ingredients,
+      stock: product.stock,
     },
   });
 
   function onSubmitting(values: z.infer<typeof productSchema>) {
     console.log('Onsubmitting:' + values);
     axios
-      .post(`/api/${params.storeID}/products/${params.id}`, values)
+      .patch(`/api/${params.storeID}/products/${product.id}`, values)
       .then(function (response) {
-        toast.success('Product created');
+        toast.success('Product updated');
         setInterval(() => {
           window.location.reload();
         }, 3000);
@@ -144,45 +146,45 @@ export default function ProductForm() {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="isfeatured"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Is featured ? </FormLabel>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormDescription>
-                  If checked this product is featured on your frontend.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="isarchived"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Is archived ? </FormLabel>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormDescription>
-                  If checked this product is archived on your frontend.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
+           <FormField
+          control={form.control}
+          name="isfeatured"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Is featured ? </FormLabel>
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormDescription>
+                If checked this product is featured on your frontend.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="isarchived"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Is archived ? </FormLabel>
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormDescription>
+                If checked this product is archived on your frontend.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
             control={form.control}
             name="stock"
             render={({ field }) => (
@@ -198,6 +200,7 @@ export default function ProductForm() {
           <SelectForAddProduct
             placeholder="Select Category"
             apicall={`/api/${params.storeID}/categories`}
+            value = {product.category}
             valueSend={(value: string) => form.setValue('category', value)}
           />
           <Button type="submit">Submit</Button>
@@ -206,3 +209,4 @@ export default function ProductForm() {
     </div>
   );
 }
+
