@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
 //Innehåller alla kolumner som ska visas i tabellen
 //Componenten används i products page.tsx, tillsammans med products.tsx
 //Denna componenten är en del av data-table.tsx(som dock går att återanvända)
 
-import { Product } from "./products";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
+import { Product } from '@/components/stores/dashboard/products/products';
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,11 +16,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
+import DeleteProduct from '@/components/stores/dashboard/products/DeleteProduct';
+// import { EditProduct } from '@/components/stores/dashboard/products/EditProduct';
 
 export const columns: ColumnDef<Product>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
@@ -39,17 +41,14 @@ export const columns: ColumnDef<Product>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
-    header: "ID",
+    accessorKey: 'id',
+    header: 'ID',
   },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Title
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -57,15 +56,15 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "price",
-    header: "Price",
+    accessorKey: 'price',
+    header: 'Price',
   },
   {
-    accessorKey: "category",
-    header: "Category",
+    accessorKey: 'category',
+    header: 'Category',
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       const product = row.original;
 
@@ -79,14 +78,19 @@ export const columns: ColumnDef<Product>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(product.id)}
-            >
+            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(product.id)}>
               Copy payment ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
             <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>
+              Edit goes here when from is done
+              {/* <EditProduct itemId={product.id} /> */}
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <DeleteProduct itemId={product.id} />
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

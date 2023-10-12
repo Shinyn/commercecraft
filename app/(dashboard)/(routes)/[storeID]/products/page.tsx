@@ -1,12 +1,12 @@
-"use client";
-import { useProductStore } from "@/components/stores/dashboard/products/zustand/zustandstate";
-import { DataTable } from "@/components/data-table";
-import { DashboardPopover } from "@/components/DashboardPopover";
-import ProductForm from "@/components/stores/dashboard/products/productform";
-import { columns } from "@/components/stores/dashboard/products/columns";
-import axios from "axios";
-import { useEffect } from "react";
-import { useParams } from "next/navigation";
+'use client';
+import { useProductStore } from '@/components/stores/dashboard/products/zustand/zustandstate';
+import { DataTable } from '@/components/data-table';
+import { DashboardPopover } from '@/components/DashboardPopover';
+import ProductForm from '@/components/stores/dashboard/products/productform';
+import { columns } from '@/components/stores/dashboard/products/columns';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 
 export default function Page() {
   // State för produkter
@@ -17,10 +17,7 @@ export default function Page() {
   // Hämta produkterna från databasen
   useEffect(() => {
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/products`,
-        {}
-      )
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/products/${params.id}`, {})
       .then(function (response) {
         updateProducts(response.data);
       })
