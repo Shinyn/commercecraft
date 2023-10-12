@@ -22,7 +22,7 @@ export default function SizeForm() {
   const params = useParams();
   //Form validation
   const formSchema = z.object({
-    name: z.string(),
+    name: z.string().max(10),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
