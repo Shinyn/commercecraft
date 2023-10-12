@@ -23,5 +23,4 @@ export function DeleteCategory(params: { itemId: string }) {
       Delete
     </div>
   )
-
 }

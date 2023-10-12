@@ -34,7 +34,7 @@ model Product {
   isarchived   Boolean @default(false)
   isfeatured   Boolean @default(false)
   store        Store   @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
+  stock        Int     @default(0)
   @@index([storeId])
 }
 
