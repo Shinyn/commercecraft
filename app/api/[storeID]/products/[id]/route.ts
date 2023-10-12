@@ -2,7 +2,6 @@
 
 import { NextResponse } from 'next/server';
 import prismadb from '@/lib/db';
-import { useParams } from 'next/navigation';
 import { Product } from '@/components/stores/dashboard/products/products';
 
 export async function POST(req: Request, { params }: { params: { storeID: string } }) {
@@ -42,7 +41,7 @@ export async function GET(req: Request, { params }: { params: { storeID: string 
 
 // ---------------
 
-export async function UPDATE(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: { id: string } }) {
   try {
     const resourceId = params.id;
     const updatedData = await req.json();
