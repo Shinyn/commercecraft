@@ -1,4 +1,4 @@
-// Type of Size
+// Type of Color
 export type Color = {
   id: string | undefined;
   storeId: string;

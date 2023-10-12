@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Color } from "@/components/stores/dashboard/colors/colors";
-// Zustand store to keep track of the items in the size dropdown
+// Zustand store to keep track of the items in the color dropdown
 
 // create a store:age with the state
 type State = {

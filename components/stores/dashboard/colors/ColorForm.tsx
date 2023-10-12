@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
 
-//Form for adding a new category
+//Form for adding a new color
 export default function ColorForm() {
   const params = useParams();
   //Form validation
