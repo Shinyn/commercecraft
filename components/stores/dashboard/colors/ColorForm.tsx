@@ -23,12 +23,14 @@ export default function ColorForm() {
   //Form validation
   const formSchema = z.object({
     name: z.string().max(10),
+    hex: z.string().max(7),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      hex: "",
     },
   });
   //Submit function
@@ -38,6 +40,7 @@ export default function ColorForm() {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/colors`,
         {
           title: values.name,
+          hex: values.hex,
         }
       )
       .then(function (response) {
@@ -62,14 +65,22 @@ export default function ColorForm() {
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>New Size</FormLabel>
-                <FormControl>
-                  <Input placeholder="color" {...field} />
-                </FormControl>
-                <FormDescription>Type in the color here.</FormDescription>
-                <FormMessage />
-              </FormItem>
+              <>
+                <FormItem>
+                  <FormLabel>New Size</FormLabel>
+                  <FormControl>
+                    <Input placeholder="color" {...field} />
+                  </FormControl>
+                  <FormDescription>Type in the color here.</FormDescription>
+                  <FormMessage />
+                </FormItem>
+                <FormItem>
+                  <FormLabel>Color Hex-Code</FormLabel>
+                  <FormControl>
+                    <Input placeholder="#000000" {...field} />
+                  </FormControl>
+                </FormItem>
+              </>
             )}
           />
           <Button type="submit">Submit</Button>
