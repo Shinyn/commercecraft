@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/form";
 import axios from "axios";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-
 import { BillboardState } from "@/components/stores/dashboard/billboards/state";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";

@@ -17,8 +17,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 import DeleteProduct from '@/components/stores/dashboard/products/DeleteProduct';
-// import { EditProduct } from '@/components/stores/dashboard/products/EditProduct';
+import { EditProductForm } from '@/components/stores/dashboard/products/EditProductForm';
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -64,36 +72,69 @@ export const columns: ColumnDef<Product>[] = [
     header: 'Category',
   },
   {
+    accessorKey: 'manufacturer',
+    header: 'Manufacturer'
+  },
+  {
+    accessorKey: 'stock',
+    header: 'Stock'
+  },
+  {
+    accessorKey: 'isfeatured',
+    header: 'Isfeatured?'
+  },
+  {
+    accessorKey: 'isarchived',
+    header: 'Isarchived?'
+  },
+  {
+    accessorKey: 'ingredients',
+    header: 'Ingredients?'
+  },
+  {
     id: 'actions',
     cell: ({ row }) => {
       const product = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(product.id)}>
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-            <DropdownMenuItem>
-              Edit goes here when from is done
-              {/* <EditProduct itemId={product.id} /> */}
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <DeleteProduct itemId={product.id} />
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <>
+          <Sheet>
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle> {"Edit Product"}?</SheetTitle>
+                <SheetDescription>Edit the productinfo here</SheetDescription>
+                {EditProductForm(product)}
+              </SheetHeader>
+            </SheetContent>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem onClick={() => navigator.clipboard.writeText(product.id)}>
+                  Copy payment ID
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>View customer</DropdownMenuItem>
+                <DropdownMenuItem>View payment details</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <SheetTrigger>
+                    Edit
+                  </SheetTrigger>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <DeleteProduct itemId={product.id} />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </Sheet>
+        </>
       );
+
     },
   },
 ];

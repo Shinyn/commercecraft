@@ -8,16 +8,22 @@ export async function POST(req: Request, { params }: { params: { storeID: string
   try {
     const body = await req.json();
     body.storeId = params.storeID;
-    const { title, description, price, image, category, storeId }: Product = body;
-
+    const { storeId, title, description, ingredients, price, image, manufacturer, category, size, color, isarchived, isfeatured,stock  }: Product = body;
     const newProduct = await prismadb.product.create({
       data: {
         storeId,
         title,
         description,
+        ingredients,
         price,
         image,
+        manufacturer,
         category,
+        size,
+        color,
+        isarchived,
+        isfeatured,
+        stock,
       },
     });
     return NextResponse.json(newProduct, { status: 201 });
@@ -42,6 +48,8 @@ export async function GET(req: Request, { params }: { params: { storeID: string 
 // ---------------
 
 export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+
+
   try {
     const resourceId = params.id;
     const updatedData = await req.json();
@@ -56,8 +64,8 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
       return new NextResponse('Resource not found', { status: 404 });
     }
   } catch (error) {
-    console.log('api/products/UPDATE', error);
-    return new NextResponse('Something went wrong when trying to update the resource', { status: 500 });
+    console.log('api/products/', error);
+    return new NextResponse('Something went wrong when trying to update the product', { status: 500 });
   }
 }
 
@@ -75,6 +83,6 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     }
   } catch (error) {
     console.log('api/products/DELETE', error);
-    return new NextResponse('Something went wrong when trying to delete the resource', { status: 500 });
+    return new NextResponse('Something went wrong when trying to delete the product', { status: 500 });
   }
 }
