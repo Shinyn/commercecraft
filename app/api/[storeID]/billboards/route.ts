@@ -46,7 +46,6 @@ export async function POST(
         },
       });
     }
-
     return NextResponse.json(newBillboard, { status: 201 });
   } catch (error) {
     console.log("api/billboards/POST", error);
@@ -57,9 +56,15 @@ export async function POST(
   }
 }
 
-export async function GET(req: Request) {
+export async function GET(
+  req: Request,
+  { params }: { params: { storeID: string } }
+) {
   try {
-    const Billboards = await prismadb.billboard.findMany();
+    const Billboards = await prismadb.billboard.findMany({
+      where: { storeId: params.storeID },
+    });
+
     return NextResponse.json(Billboards);
   } catch (error) {
     console.log("api/billboards/GET", error);
