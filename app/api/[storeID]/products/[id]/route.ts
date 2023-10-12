@@ -41,34 +41,7 @@ export async function GET(
   const storeId = params.storeID
 
   switch (status) {
-    case "undefined":
-      try {
-        const Products = await prismadb.product.findMany({
-          where: { storeId },
-        });
-        return NextResponse.json(Products);
-      } catch (error) {
-        console.log("api/products/GET", error);
-        return new NextResponse(
-          "Ooops, something went wrong when getting the products",
-          { status: 500 }
-        );
-      }
-      break;
-    case "all":
-      try {
-        const Products = await prismadb.product.findMany({
-          where: { storeId },
-        });
-        return NextResponse.json(Products);
-      } catch (error) {
-        console.log("api/products/GET", error);
-        return new NextResponse(
-          "Ooops, something went wrong when getting the products",
-          { status: 500 }
-        );
-      }
-      break;
+
     case "active":
       try {
         const Products = await prismadb.product.findMany({
@@ -88,6 +61,53 @@ export async function GET(
         );
       }
       break;
+    case "undefined":
+      try {
+        const Products = await prismadb.product.findMany({
+          where: { storeId },
+        });
+        return NextResponse.json(Products);
+      } catch (error) {
+        console.log("api/products/GET", error);
+        return new NextResponse(
+          "Ooops, something went wrong when getting the products",
+          { status: 500 }
+        );
+      }
+      break;
+    case "featured":
+      try {
+        const Products = await prismadb.product.findMany({
+          where: { storeId, isfeatured : true },
+        });
+
+        if (!Products) {
+          return NextResponse.json("No available products found", { status: 400 });
+        }
+
+        return NextResponse.json(Products);
+      } catch (error) {
+        console.log("api/[storeId]/products/featured/GET", error);
+        return new NextResponse(
+          "Ooops, something went wrong when getting the active products",
+          { status: 500 }
+        );
+      }
+      break;
+    case "all":
+      try {
+        const Products = await prismadb.product.findMany({
+          where: { storeId },
+        });
+        return NextResponse.json(Products);
+      } catch (error) {
+        console.log("api/products/all/GET", error);
+        return new NextResponse(
+          "Ooops, something went wrong when getting the products",
+          { status: 500 }
+        );
+      }
+      break;
     case "archived":
       try {
         const Products = await prismadb.product.findMany({
@@ -95,7 +115,7 @@ export async function GET(
         });
         return NextResponse.json(Products);
       } catch (error) {
-        console.log("api/[storeId]/porducts/inactive/GET", error);
+        console.log("api/[storeId]/prducts/archived/GET", error);
         return new NextResponse(
           "Ooops, something went wrong when getting the archived products",
           { status: 500 }
@@ -112,8 +132,6 @@ export async function GET(
         return new NextResponse('Ooops, something went wrong when getting the product', { status: 500 });
       }
       break;
-
-
   }
 
 }
