@@ -24,5 +24,4 @@ export function MyDelete(params: { itemId: string }) {
       Delete
     </div>
   )
-
 }
