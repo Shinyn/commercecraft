@@ -244,11 +244,14 @@ export default function ProductForm() {
                 </FormItem>
               )}
             />
-            <SelectForAddProduct
-              placeholder="Select Category"
-              apicall={`/api/${params.storeID}/categories`}
-              valueSend={(value: string) => form.setValue("category", value)}
-            />
+            <FormItem>
+              <FormLabel>Product Category</FormLabel>
+              <SelectForAddProduct
+                placeholder="Select Category"
+                apicall={`/api/${params.storeID}/categories`}
+                valueSend={(value: string) => form.setValue("category", value)}
+              />
+            </FormItem>
             <FormItem>
               <FormLabel>Product Color</FormLabel>
               <SelectForAddProduct
