@@ -67,11 +67,13 @@ export default function ColorForm() {
             render={({ field }) => (
               <>
                 <FormItem>
-                  <FormLabel>New Size</FormLabel>
+                  <FormLabel>Name of Color</FormLabel>
                   <FormControl>
-                    <Input placeholder="color" {...field} />
+                    <Input placeholder="Color" {...field} />
                   </FormControl>
-                  <FormDescription>Type in the color here.</FormDescription>
+                  <FormDescription>
+                    Type in the name of the color here.
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
                 <FormItem>
