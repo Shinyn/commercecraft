@@ -85,7 +85,8 @@ export const columns: ColumnDef<Product>[] = [
             <DropdownMenuItem>View customer</DropdownMenuItem>
             <DropdownMenuItem>View payment details</DropdownMenuItem>
             <DropdownMenuItem>
-              <EditProduct itemId={product.id} />
+              Edit goes here when from is done
+              {/* <EditProduct itemId={product.id} /> */}
             </DropdownMenuItem>
             <DropdownMenuItem>
               <DeleteProduct itemId={product.id} />
