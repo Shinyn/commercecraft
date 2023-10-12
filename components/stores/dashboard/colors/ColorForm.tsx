@@ -81,6 +81,9 @@ export default function ColorForm() {
                   <FormControl>
                     <Input placeholder="#000000" {...field} />
                   </FormControl>
+                  <FormDescription>
+                    Type in Hex-Code of the color.
+                  </FormDescription>
                 </FormItem>
               </>
             )}
