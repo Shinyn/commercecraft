@@ -124,7 +124,6 @@ export function EditForm(billboard: Billboard) {
             </FormItem>
           )}
         />
-
         <Button type="submit">Submit</Button>
       </form>
     </Form>
