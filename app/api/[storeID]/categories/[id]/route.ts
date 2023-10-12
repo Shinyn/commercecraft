@@ -13,7 +13,7 @@ export async function DELETE(
         id,
       },
     });
-    return NextResponse.json(deletedCategory, { status: 201 });
+    return NextResponse.json(deletedCategory, { status: 200 });
   } catch (error) {
     console.log("api/categories/DELETE", error);
     return new NextResponse(
