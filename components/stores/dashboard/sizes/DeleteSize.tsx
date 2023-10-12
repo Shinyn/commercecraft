@@ -1,4 +1,4 @@
-import axios, { isAxiosError } from "axios";
+import axios from "axios";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
