@@ -124,8 +124,6 @@ export const columns: ColumnDef<Product>[] = [
                   Copy payment ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>View customer</DropdownMenuItem>
-                <DropdownMenuItem>View payment details</DropdownMenuItem>
                 <DropdownMenuItem>
                   <SheetTrigger>Edit</SheetTrigger>
                 </DropdownMenuItem>
