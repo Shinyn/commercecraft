@@ -1,5 +1,5 @@
 export type Store = {
   id: string | undefined;
-  user_id: string | undefined | null;
+  user_id: string;
   title: string;
 };
