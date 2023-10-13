@@ -3,7 +3,7 @@ import * as z from "zod";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useAuth } from "@clerk/nextjs";
 
 import {
@@ -16,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { use } from "react";
 
 //Form for adding a new category
 export default function StoreForm() {
@@ -44,7 +43,6 @@ export default function StoreForm() {
         title: values.title,
       })
       .then(function (response) {
-        console.log(response);
         toast.success("Store added successfully");
         setInterval(() => {
           window.location.reload();
@@ -58,7 +56,7 @@ export default function StoreForm() {
   //Render the form
   return (
     <div className={"m-9"}>
-      <Toaster />
+      {/* <Toaster /> */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField
