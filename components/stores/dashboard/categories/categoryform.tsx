@@ -3,7 +3,7 @@ import * as z from "zod";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import {
   Form,
@@ -57,7 +57,6 @@ export default function CategoryForm() {
   //Render the form
   return (
     <div className={"m-9"}>
-      <Toaster />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField

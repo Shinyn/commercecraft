@@ -1,6 +1,5 @@
 //Form for submitting PUT-requests to api/billboards. The ID-field is readonly.
 //TODO:Add disabled look for ID-field which does still permitts submission of data to backend.
-"use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";

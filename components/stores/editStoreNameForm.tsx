@@ -1,8 +1,8 @@
-"use client";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@clerk/nextjs";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 //Form for adding a new category
 export default function EditStoreForm(ID: string | undefined, name: string) {
@@ -18,7 +18,10 @@ export default function EditStoreForm(ID: string | undefined, name: string) {
         title: title,
       })
       .then(function (response) {
-        window.location.reload();
+        toast.success("Store updated successfully");
+        setInterval(() => {
+          window.location.reload();
+        }, 3000);
         return response.data;
       })
       .catch(function (error) {

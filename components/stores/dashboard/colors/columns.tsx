@@ -1,5 +1,3 @@
-"use client";
-
 // This type is used to define the shape of our data.
 import { Color } from "./colors";
 import { ColumnDef } from "@tanstack/react-table";
