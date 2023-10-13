@@ -12,8 +12,6 @@ export async function POST(
   try {
     const body = await req.json();
     const { user_id, title }: Store = body;
-    //Remove activation from any previous billboards.
-
     const newStore = await prismadb.store.create({
       data: {
         user_id,
@@ -41,7 +39,7 @@ export async function PATCH(
     let newStore = undefined;
 
     if (!id) {
-      return NextResponse.json("Billboard id is missing from the request", {
+      return NextResponse.json("Store id is missing from the request", {
         status: 400,
       });
     }

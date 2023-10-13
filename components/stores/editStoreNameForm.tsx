@@ -2,20 +2,43 @@
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@clerk/nextjs";
-import { useState } from "react";
+import { Store } from "./stores";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
-//Form for adding a new category
-export default function EditStoreForm(ID: string | undefined, name: string) {
+const formSchema = z.object({
+  title: z
+    .string()
+    .min(2, { message: "Store-name must be atleast 2 characters long" }),
+});
+
+//Form for adding a new store
+
+export default function EditStoreForm(store: Store) {
   const { userId } = useAuth();
-  const [title, setTitle] = useState(name);
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: store.title,
+    },
+  });
 
-  function onSubmitting(e: any) {
-    e.preventDefault();
+  function onSubmitting() {
     axios
       .patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/stores`, {
-        id: ID,
+        id: store.id,
         user_id: userId,
-        title: title,
+        title: form.getValues("title"),
       })
       .then(function (response) {
         window.location.reload();
@@ -28,14 +51,23 @@ export default function EditStoreForm(ID: string | undefined, name: string) {
 
   //Render the form
   return (
-    <form onSubmit={(e) => onSubmitting(e)}>
-      <label htmlFor="title">Name</label>
-      <input
-        type="text"
-        name="title"
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <Button>Submit</Button>
-    </form>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmitting)}>
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Store name..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
   );
 }

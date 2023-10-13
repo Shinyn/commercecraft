@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { Category, ID } from "./categories";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import EditCategoryForm from "./editcategoryform";
+import { EditCategoryForm } from "./editcategoryform";
 import {
   Sheet,
   SheetContent,
@@ -24,8 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DeleteCategory } from "@/components/stores/dashboard/categories/deleteCategory"
-
+import { DeleteCategory } from "@/components/stores/dashboard/categories/deleteCategory";
 
 //Columns for the table
 export const columns: ColumnDef<Category>[] = [
@@ -65,7 +64,7 @@ export const columns: ColumnDef<Category>[] = [
               <SheetHeader>
                 <SheetTitle> {category.title}?</SheetTitle>
                 <SheetDescription>Edit the category name here</SheetDescription>
-                {EditCategoryForm(category.id)}
+                {EditCategoryForm(category)}
               </SheetHeader>
             </SheetContent>
 
@@ -91,8 +90,8 @@ export const columns: ColumnDef<Category>[] = [
                 <SheetTrigger>
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem >
-                  <DeleteCategory itemId={category.id||""}/>
+                <DropdownMenuItem>
+                  <DeleteCategory itemId={category.id || ""} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
