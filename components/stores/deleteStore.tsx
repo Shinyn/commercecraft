@@ -1,4 +1,4 @@
-import axios, { isAxiosError } from "axios";
+import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
 
 export function MyDelete(params: { ID: string | undefined }) {
