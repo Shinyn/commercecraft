@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useNameStore } from "./zustand/zustandstate";
 import { useParams } from "next/navigation";
 
-//Form for adding a new category
+//Form for adding a new color
 export default function EditColorForm(ID: string | undefined) {
   const params = useParams();
   const name = useNameStore((state) => state.name);
