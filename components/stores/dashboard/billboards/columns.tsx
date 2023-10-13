@@ -1,4 +1,3 @@
-"use client";
 //Specifies the layout of data-table for billboards
 import { EditForm } from "@/components/stores/dashboard/billboards/EditForm"
 import { ColumnDef } from "@tanstack/react-table";

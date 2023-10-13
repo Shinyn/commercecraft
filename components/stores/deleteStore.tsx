@@ -1,5 +1,6 @@
-import axios, { isAxiosError } from "axios";
+import axios from "axios";
 import { useAuth } from "@clerk/nextjs";
+import toast from "react-hot-toast";
 
 export function MyDelete(params: { ID: string | undefined }) {
   const { userId } = useAuth();
@@ -12,7 +13,11 @@ export function MyDelete(params: { ID: string | undefined }) {
             {}
           )
           .then(function (response) {
-            window.location.reload();
+            
+            toast.success("Store added successfully");
+            setInterval(() => {
+              window.location.reload();
+            }, 3000);
             return response.data;
           })
           .catch(function (error) {

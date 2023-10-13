@@ -11,7 +11,6 @@ import {Product} from "@/components/stores/dashboard/products/products"
 import { Checkbox } from '@/components/ui/checkbox';
 import toast from 'react-hot-toast';
 
-
 export function EditProductForm(product:Product) {
   const params = useParams();
   const productSchema = z.object({
