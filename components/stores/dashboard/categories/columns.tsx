@@ -1,8 +1,4 @@
-"use client";
-
 // This type is used to define the shape of our data.
-import axios from "axios";
-import { useParams } from "next/navigation";
 import { Category, ID } from "./categories";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
