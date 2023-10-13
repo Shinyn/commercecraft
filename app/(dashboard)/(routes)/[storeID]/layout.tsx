@@ -10,7 +10,10 @@ export default function DashboardLayout({
     <div className={"flex flex-row"}>
       <Toaster/>
       {<Navbar />}
+      <section className={"w-full"}>
       {children}
+      </section>
     </div>
   );
 }
+
