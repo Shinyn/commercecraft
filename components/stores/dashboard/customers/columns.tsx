@@ -105,7 +105,7 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "e_mail",
+    accessorKey: "email",
     id: "e_mail",
     header: ({ column }) => {
       return (
