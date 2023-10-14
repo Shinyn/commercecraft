@@ -57,7 +57,7 @@ export async function POST(
     const emailcheck = await prismadb.customer.findUnique({
       where: {
         storeId: store_id,
-        e_mail: email,
+        email: email,
       },
     });
     if (emailcheck) {
@@ -73,7 +73,7 @@ export async function POST(
           street,
           zipCode,
           city,
-          e_mail: email,
+          email: email,
           phone,
           numberOfOrders: emailcheck.numberOfOrders + 1,
         },
@@ -88,7 +88,7 @@ export async function POST(
           street,
           zipCode,
           city,
-          e_mail: email,
+          email: email,
           phone,
         },
       });
