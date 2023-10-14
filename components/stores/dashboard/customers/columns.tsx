@@ -105,8 +105,8 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "email",
-    id: "email",
+    accessorKey: "e_mail",
+    id: "title",
     header: ({ column }) => {
       return (
         <Button

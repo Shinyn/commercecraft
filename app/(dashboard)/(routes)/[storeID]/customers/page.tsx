@@ -20,7 +20,7 @@ export default function Page() {
       street: "BabyDollRoad",
       zipCode: "11111",
       city: "Barbietown",
-      email: "john.doe@theuniverse.com",
+      e_mail: "john.doe@theuniverse.com",
       phone: "1234567890",
     },
     {
@@ -31,7 +31,7 @@ export default function Page() {
       street: "BabyDollRoad",
       zipCode: "11111",
       city: "Barbietown",
-      email: "john.doe@theuniverse.com",
+      e_mail: "john.doe@theuniverse.com",
       phone: "1234567890",
     },
     {
@@ -42,7 +42,7 @@ export default function Page() {
       street: "BabyDollRoad",
       zipCode: "11111",
       city: "Barbietown",
-      email: "john.doe@theuniverse.com",
+      e_mail: "john.doe@theuniverse.com",
       phone: "1234567890",
     },
   ];
@@ -57,6 +57,7 @@ export default function Page() {
         console.log(error);
       });
   }, []);
+
   return (
     <div className={"flex flex-col"}>
       <DashboardPopover>Not implemented yet</DashboardPopover>
