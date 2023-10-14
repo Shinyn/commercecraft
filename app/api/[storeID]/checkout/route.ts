@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
-import { Order, OrderItem } from "@/components/stores/dashboard/checkout/order";
+import { Order, OrderItem } from "@/components/stores/dashboard/orders/order";
 
 export async function OPTIONS(
   req: Request,
