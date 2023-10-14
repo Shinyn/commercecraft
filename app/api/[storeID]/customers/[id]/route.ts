@@ -30,6 +30,7 @@ export async function GET(
       const Customers = await prismadb.customer.findUniqueOrThrow({
         where: { id: status },
       });
+      console.log(Customers)
       return NextResponse.json(Customers);
     } catch (error) {
       console.log('api/[storeId]/ocustomerss/[id]/GET', error);

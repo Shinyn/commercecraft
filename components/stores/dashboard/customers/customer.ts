@@ -6,7 +6,7 @@ export type Customer = {
     firstName: string;
     lastName: string;
     street: string;
-    zipCode: string;
+    zipCode: number;
     city: string;
     e_mail: string;
 };
