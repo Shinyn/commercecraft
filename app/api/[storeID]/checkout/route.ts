@@ -31,9 +31,9 @@ export async function POST(
       street,
       zipCode,
       city,
-      email,
       phone,
     }: Customer = body.sendingData;
+    const e_mail = body.sendingData.email;
     const { basketerino } = body;
     const order_items: OrderItem[] = body.sendingData.basketerino.map(
       (item: any) => {
@@ -57,7 +57,7 @@ export async function POST(
     const emailcheck = await prismadb.customer.findUnique({
       where: {
         storeId: store_id,
-        e_mail: email,
+        e_mail,
       },
     });
     if (emailcheck) {
@@ -73,7 +73,7 @@ export async function POST(
           street,
           zipCode,
           city,
-          e_mail: email,
+          e_mail,
           phone,
           numberOfOrders: emailcheck.numberOfOrders + 1,
         },
@@ -88,7 +88,7 @@ export async function POST(
           street,
           zipCode,
           city,
-          e_mail: email,
+          e_mail,
           phone,
         },
       });

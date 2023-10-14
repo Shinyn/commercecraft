@@ -126,7 +126,7 @@ export const columns: ColumnDef<Customer>[] = [
       const category = row.original;
       function copyMail() {
         if (category.id === undefined) return "no id";
-        else return category.email.toString();
+        else return category.e_mail.toString();
       }
 
       return (
@@ -149,7 +149,7 @@ export const columns: ColumnDef<Customer>[] = [
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <ContactLinkCustomer e_mail={row.original.email} />
+                <ContactLinkCustomer e_mail={row.original.e_mail} />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
