@@ -8,6 +8,6 @@ export type Customer = {
   street: string;
   zipCode: string;
   city: string;
-  email: string;
+  e_mail: string;
   phone: string;
 };
