@@ -1,14 +1,13 @@
 //Type definiton for customers
 
 export type Customer = {
-    id: string | undefined;
-    storeId: string;
-    firstName: string;
-    lastName: string;
-    street: string;
-    zipCode: number;
-    city: string;
-    e_mail: string;
+  id: string | undefined;
+  storeId: string;
+  firstname: string;
+  lastname: string;
+  street: string;
+  zipCode: string;
+  city: string;
+  email: string;
+  phone: string;
 };
-  
-
