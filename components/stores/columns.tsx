@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { StoreLink } from "./storelink";
 export const columns: ColumnDef<Store>[] = [
-
   {
     accessorKey: "id",
     header: "ID",
@@ -54,15 +53,13 @@ export const columns: ColumnDef<Store>[] = [
 
       return (
         <>
-        
-        
           {/* //Sheet to edit a category, pulls over from the right side */}
           <Sheet>
             <SheetContent>
               <SheetHeader>
                 <SheetTitle> {store.title}?</SheetTitle>
                 <SheetDescription>Edit store name here</SheetDescription>
-                {EditStoreForm(store.id, store.title)}
+                {EditStoreForm(store)}
               </SheetHeader>
             </SheetContent>
 
@@ -92,7 +89,7 @@ export const columns: ColumnDef<Store>[] = [
                   <MyDelete ID={store.id} />
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <StoreLink storeid={store.id}/>
+                  <StoreLink storeid={store.id} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

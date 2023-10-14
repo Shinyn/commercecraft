@@ -60,7 +60,7 @@ export const columns: ColumnDef<Color>[] = [
               <SheetHeader>
                 <SheetTitle> {color.title}?</SheetTitle>
                 <SheetDescription>Edit the color name here</SheetDescription>
-                {EditColorForm(color.id)}
+                {EditColorForm(color)}
               </SheetHeader>
             </SheetContent>
 
