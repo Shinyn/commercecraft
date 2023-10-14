@@ -138,14 +138,24 @@ export function DataTable<TData, TValue>({
                     <TableCell
                       key={cell.id}
                       className={
-                        cell.column.id === "stock" && cell.getValue() === 0
-                          ? "bg-red-500"
-                          : "" ||
-                            (cell.column.id === "stock" && cell.getValue() < 10)
-                          ? "bg-yellow-500"
-                          : "" ||
-                            (cell.column.id === "stock" && cell.getValue() > 10)
-                          ? "bg-green-500"
+                        cell.column.id === "stock"
+                          ? (() => {
+                              const value = cell.getValue();
+                              if (value === 0) return "bg-red-500";
+                              if (
+                                value === 1 ||
+                                2 ||
+                                3 ||
+                                4 ||
+                                5 ||
+                                6 ||
+                                7 ||
+                                8 ||
+                                9 ||
+                                10
+                              )
+                                return "bg-yellow-500";
+                            })()
                           : ""
                       }
                     >
