@@ -28,8 +28,8 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "firstName",
-    id: "firstName",
+    accessorKey: "firstname",
+    id: "firstname",
     header: ({ column }) => {
       return (
         <Button
@@ -43,8 +43,8 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "lastName",
-    id: "title",
+    accessorKey: "lastname",
+    id: "lastname",
 
     header: ({ column }) => {
       return (
