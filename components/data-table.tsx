@@ -73,11 +73,9 @@ export function DataTable<TData, TValue>({
         {table.getColumn("title") ? (
           <Input
             placeholder="Filter here on title..."
-            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""} 
+            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table
-                .getColumn("title")
-                ?.setFilterValue(event.target.value)
+              table.getColumn("title")?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
@@ -137,7 +135,20 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      className={
+                        cell.column.id === "stock" && cell.getValue() === 0
+                          ? "bg-red-500"
+                          : "" ||
+                            (cell.column.id === "stock" && cell.getValue() < 10)
+                          ? "bg-yellow-500"
+                          : "" ||
+                            (cell.column.id === "stock" && cell.getValue() > 10)
+                          ? "bg-green-500"
+                          : ""
+                      }
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
