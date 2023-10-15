@@ -74,11 +74,28 @@ export async function DELETE(
 ) {
   try {
     const Id = params.id;
-    const deleteOrder = await prismadb.order.delete({
+    const findOrderNumber = await prismadb.order.findUnique({
+      where: { id: Id },
+      select: { order_number: true },
+    });
+    if (!findOrderNumber) {
+      return new NextResponse("Resource not found", { status: 404 });
+    }
+    const orderNumber = findOrderNumber.order_number;
+    const deleteOrderItems = prismadb.orderItem.deleteMany({
+      where: { orderId: orderNumber },
+    });
+
+    const deleteOrder = prismadb.order.delete({
       where: { id: Id },
     });
 
-    if (deleteOrder) {
+    const transaction = await prismadb.$transaction([
+      deleteOrderItems,
+      deleteOrder,
+    ]);
+
+    if (transaction) {
       return new NextResponse(null, { status: 204 });
     } else {
       return new NextResponse("Resource not found", { status: 404 });

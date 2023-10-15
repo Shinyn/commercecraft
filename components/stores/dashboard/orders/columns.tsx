@@ -7,6 +7,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import DeleteOrder from "@/components/stores/dashboard/orders/deleteOrder";
 import { LinktoPrint } from "@/components/stores/dashboard/orders/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -122,7 +123,7 @@ export const columns: ColumnDef<Order>[] = [
                 <DropdownMenuItem>
                   <SheetTrigger>Edit</SheetTrigger>
                 </DropdownMenuItem>
-                <DropdownMenuItem>{/*TODO- DELETE */}</DropdownMenuItem>
+                <DropdownMenuItem>{DeleteOrder(order.id)}</DropdownMenuItem>
                 <DropdownMenuItem>{LinktoPrint(order.id)}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
