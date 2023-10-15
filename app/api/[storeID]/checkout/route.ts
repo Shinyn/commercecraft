@@ -34,7 +34,6 @@ export async function POST(
       phone,
     }: Customer = body.sendingData;
     const e_mail = body.sendingData.email;
-    const { basketerino } = body;
     await prismadb.$transaction(
       body.sendingData.basketerino.map((item: any) => {
         return prismadb.product.update({
