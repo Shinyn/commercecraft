@@ -79,7 +79,7 @@ export const columns: ColumnDef<Order>[] = [
     header: "Customer Phone",
   },
   {
-    accessorKey: "customerStreet",
+    accessorKey: "customerstreet",
     header: "Customer Street",
   },
   {
