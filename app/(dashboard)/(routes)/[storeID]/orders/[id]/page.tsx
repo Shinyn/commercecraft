@@ -109,15 +109,12 @@ const OrderPage = () => {
                   <div
                     key={item.id}
                     className={
-                      "flex flex-row justify-around text-xl  w-full border-b border-black"
+                      "flex flex-row text-l  w-full border-b border-black justify-between"
                     }
                   >
-                    <div className="text-start p-3">
-                      <p>{item.title} </p>
-                      <p>{item.price} SEK</p>
-                    </div>
-
-                    <p className={"p-3"}>x {item.amount}</p>
+                    <p className={"p-1"}>{item.title} </p>
+                    <p className={"p-1"}>x {item.amount}</p>
+                    <p className="p-1">{item.price} SEK</p>
                   </div>
                 ))}
               </>
