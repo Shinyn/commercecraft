@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
-import { Order, OrderItem } from "@/components/stores/dashboard/checkout/order";
+import { Order, OrderItem } from "@/components/stores/dashboard/orders/order";
+import { Customer } from "@/components/stores/dashboard/customers/customer";
 
 export async function OPTIONS(
   req: Request,
@@ -23,7 +24,31 @@ export async function POST(
     const body = await req.json();
     const store_id = params.storeID;
     const { order_total }: Order = body.sendingData;
+    const {
+      storeId,
+      firstname,
+      lastname,
+      street,
+      zipCode,
+      city,
+      phone,
+    }: Customer = body.sendingData;
+    const e_mail = body.sendingData.email;
     const { basketerino } = body;
+    await prismadb.$transaction(
+      body.sendingData.basketerino.map((item: any) => {
+        return prismadb.product.update({
+          where: {
+            storeId: store_id,
+            id: item.id,
+          },
+          data: {
+            stock: item.stock - item.amount,
+          },
+        });
+      })
+    );
+
     const order_items: OrderItem[] = body.sendingData.basketerino.map(
       (item: any) => {
         return {
@@ -33,6 +58,7 @@ export async function POST(
         };
       }
     );
+
     const newOrder = await prismadb.order.create({
       data: {
         storeId: store_id,
@@ -43,7 +69,45 @@ export async function POST(
         },
       },
     });
-
+    const emailcheck = await prismadb.customer.findUnique({
+      where: {
+        storeId: store_id,
+        e_mail,
+      },
+    });
+    if (emailcheck) {
+      const newCustomer = await prismadb.customer.update({
+        where: {
+          storeId: store_id,
+          e_mail,
+        },
+        data: {
+          storeId,
+          firstName: firstname,
+          lastName: lastname,
+          street,
+          zipCode,
+          city,
+          e_mail,
+          phone,
+          numberOfOrders: emailcheck.numberOfOrders + 1,
+        },
+      });
+      return NextResponse.json(newOrder, { status: 201 });
+    } else {
+      const newCustomer = await prismadb.customer.create({
+        data: {
+          storeId: store_id,
+          firstName: firstname,
+          lastName: lastname,
+          street,
+          zipCode,
+          city,
+          e_mail,
+          phone,
+        },
+      });
+    }
     return NextResponse.json(newOrder, { status: 201 });
   } catch (error) {
     console.log("api/checkout/POST", error);

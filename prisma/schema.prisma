@@ -17,7 +17,8 @@ model Store {
   Billboards Billboard[] @relation("StoreRelation")
   Sizes      Size[]      @relation("StoreRelation")
   Colors     Color[]     @relation("StoreRelation")
-  Order      Order[]     @relation("StoreRelation")
+  Orders     Order[]     @relation("StoreRelation")
+  Customers  Customer[]  @relation("StoreRelation")
 }
 
 model Product {
@@ -86,9 +87,12 @@ model Order {
   order_date   DateTime    @default(now())
   order_status String      @default("Pending")
   order_total  Int
+  customerId   String      @default("Not specified")
   order_items  OrderItem[] @relation("Orderrelation")
   store        Store       @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  customer     Customer    @relation("CustomerRelation", fields: [customerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
+  @@index([customerId])
   @@index([storeId])
 }
 
@@ -101,4 +105,21 @@ model OrderItem {
   Order   Order  @relation("Orderrelation", fields: [orderId], references: [order_number])
 
   @@index([orderId])
+}
+
+model Customer {
+  id             String  @id @default(uuid())
+  storeId        String
+  firstName      String
+  lastName       String
+  street         String
+  zipCode        String
+  city           String
+  numberOfOrders Int     @default(1)
+  phone          String
+  e_mail         String  @unique
+  store          Store   @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Order          Order[] @relation("CustomerRelation")
+
+  @@index([storeId])
 }
