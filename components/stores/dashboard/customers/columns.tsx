@@ -28,8 +28,8 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "firstname",
-    id: "firstname",
+    accessorKey: "firstName",
+    id: "firstName",
     header: ({ column }) => {
       return (
         <Button
@@ -43,8 +43,8 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "lastname",
-    id: "lastname",
+    accessorKey: "lastName",
+    id: "lastName",
 
     header: ({ column }) => {
       return (
@@ -53,6 +53,22 @@ export const columns: ColumnDef<Customer>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Last name
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "phone",
+    id: "phone",
+
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Phonenumber
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
