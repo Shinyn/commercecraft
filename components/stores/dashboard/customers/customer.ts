@@ -1,4 +1,5 @@
 //Type definiton for customers
+import { Order } from "@/components/stores/dashboard/orders/order";
 
 export type Customer = {
   id: string | undefined;
@@ -10,4 +11,5 @@ export type Customer = {
   city: string;
   e_mail: string;
   phone: string;
+  order: Order[];
 };

@@ -1,5 +1,5 @@
 export type Order = {
-  id: string | undefined;
+  id: string;
   store_id: string;
   order_number: number;
   order_date: Date;
