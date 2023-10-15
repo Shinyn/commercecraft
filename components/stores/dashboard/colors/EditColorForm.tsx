@@ -18,7 +18,7 @@ import {
 const formSchema = z.object({
   title: z
     .string()
-    .min(2, { message: "category must be atleast 2 characters long" }),
+    .min(2, { message: "color must be atleast 2 characters long" }),
   id: z.string(),
   storeId: z.string(),
 });
