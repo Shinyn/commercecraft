@@ -5,53 +5,21 @@ import { useParams } from "next/navigation";
 import { columns } from "@/components/stores/dashboard/customers/columns";
 import { DashboardPopover } from "@/components/DashboardPopover";
 import { DataTable } from "@/components/data-table";
+import { useCustomers } from "@/components/stores/dashboard/customers/zustand/zustandstate";
+
 export default function Page() {
-  //states for keeping track of billboards in dashboard front
+  //states for keeping track of customers in dashboard front
+  //State for the categories
+  const customers = useCustomers((state) => state.customers);
+  const updateCustomers = useCustomers((state) => state.updateCustomers);
   const params = useParams();
 
-  //Sample data until state is implemented
-  //TODO:Add state for holding customers
-  const customers = [
-    {
-      id: "12323543253",
-      storeId: "298f4164-0d99-4b2d-a054-4fe4fac7e498",
-      firstname: "John",
-      lastname: "Doe",
-      street: "BabyDollRoad",
-      zipCode: "11111",
-      city: "Barbietown",
-      e_mail: "john.doe@theuniverse.com",
-      phone: "1234567890",
-    },
-    {
-      id: "12323543253",
-      storeId: "298f4164-0d99-4b2d-a054-4fe4fac7e498",
-      firstname: "John",
-      lastname: "Doe",
-      street: "BabyDollRoad",
-      zipCode: "11111",
-      city: "Barbietown",
-      e_mail: "john.doe@theuniverse.com",
-      phone: "1234567890",
-    },
-    {
-      id: "12323543253",
-      storeId: "298f4164-0d99-4b2d-a054-4fe4fac7e498",
-      firstname: "John",
-      lastname: "Doe",
-      street: "BabyDollRoad",
-      zipCode: "11111",
-      city: "Barbietown",
-      e_mail: "john.doe@theuniverse.com",
-      phone: "1234567890",
-    },
-  ];
-
+  //Get the customers from the database
   useEffect(() => {
     axios
-      .get(`/api/${params.storeID}/customers`, {})
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/customers`, {})
       .then(function (response) {
-        console.log(response.data);
+        updateCustomers(response.data);
       })
       .catch(function (error) {
         console.log(error);
