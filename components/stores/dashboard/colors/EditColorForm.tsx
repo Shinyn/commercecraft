@@ -18,7 +18,11 @@ import {
 const formSchema = z.object({
   title: z
     .string()
-    .min(2, { message: "category must be atleast 2 characters long" }),
+    .min(2, { message: "Color must be atleast 2 characters long" }),
+  hex: z
+    .string()
+    .min(7, { message: "Hex-code must be at least 7 characters long" })
+    .max(7, { message: "Hex-code must be no longer than 7 characters long" }),
   id: z.string(),
   storeId: z.string(),
 });
@@ -29,6 +33,7 @@ export default function EditColorForm(color: Color) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: color.title,
+      hex: color.hex,
       id: color.id,
       storeId: color.storeId,
     },
@@ -42,6 +47,7 @@ export default function EditColorForm(color: Color) {
         {
           id: color.id,
           title: form.getValues("title"),
+          hex: form.getValues("hex"),
         }
       )
       .then(function (response) {
@@ -65,6 +71,19 @@ export default function EditColorForm(color: Color) {
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="Color..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="hex"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Hex-Code</FormLabel>
+              <FormControl>
+                <Input placeholder="#000000" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
