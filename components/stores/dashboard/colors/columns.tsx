@@ -42,6 +42,10 @@ export const columns: ColumnDef<Color>[] = [
       );
     },
   },
+  {
+    accessorKey: "hex",
+    header: "Hex-Code",
+  },
 
   {
     id: "actions",
