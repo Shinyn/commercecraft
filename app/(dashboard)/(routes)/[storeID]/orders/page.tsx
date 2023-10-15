@@ -22,6 +22,13 @@ export default function Page() {
           return axios
             .get(`/api/${params.storeID}/customers/${order.customerId}`, {})
             .then(function (res) {
+              order.order_date = (
+                order.order_date.split("T")[0] +
+                " " +
+                order.order_date.split("T")[1].split(".")[0]
+              )
+                .replace(/-/g, "/")
+                .replace(" ", " at ");
               order.customerName = res.data.firstName + " " + res.data.lastName;
               order.customerEmail = res.data.e_mail;
               order.customerPhone = res.data.phone;
