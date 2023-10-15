@@ -59,24 +59,24 @@ export async function POST(
       }
     );
 
-    const newOrder = await prismadb.order.create({
-      data: {
-        storeId: store_id,
-        order_total,
-        order_number: Math.floor(Math.random() * 10000000),
-        order_items: {
-          create: order_items,
-        },
-      },
-    });
-    const emailcheck = await prismadb.customer.findUnique({
+    const customer = await prismadb.customer.findUnique({
       where: {
         storeId: store_id,
         e_mail,
       },
     });
-    if (emailcheck) {
-      const newCustomer = await prismadb.customer.update({
+    if (customer !== null) {
+      const newOrder = await prismadb.order.create({
+        data: {
+          storeId: store_id,
+          order_total,
+          order_number: Math.floor(Math.random() * 10000000),
+          order_items: {
+            create: order_items,
+          },
+        },
+      });
+      const updateCustomer = await prismadb.customer.update({
         where: {
           storeId: store_id,
           e_mail,
@@ -90,11 +90,26 @@ export async function POST(
           city,
           e_mail,
           phone,
-          numberOfOrders: emailcheck.numberOfOrders + 1,
+          numberOfOrders: customer.numberOfOrders + 1,
+          Order: {
+            connect: {
+              id: newOrder.id,
+            },
+          },
         },
       });
       return NextResponse.json(newOrder, { status: 201 });
     } else {
+      const newOrder = await prismadb.order.create({
+        data: {
+          storeId: store_id,
+          order_total,
+          order_number: Math.floor(Math.random() * 10000000),
+          order_items: {
+            create: order_items,
+          },
+        },
+      });
       const newCustomer = await prismadb.customer.create({
         data: {
           storeId: store_id,
@@ -105,10 +120,15 @@ export async function POST(
           city,
           e_mail,
           phone,
+          Order: {
+            connect: {
+              id: newOrder.id,
+            },
+          },
         },
       });
+      return NextResponse.json(newOrder, { status: 201 });
     }
-    return NextResponse.json(newOrder, { status: 201 });
   } catch (error) {
     console.log("api/checkout/POST", error);
     return new NextResponse(
