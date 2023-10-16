@@ -65,7 +65,7 @@ export default function SizeForm() {
               <FormItem>
                 <FormLabel>New Size</FormLabel>
                 <FormControl>
-                  <Input placeholder="size" {...field} />
+                  <Input placeholder="Ex. '100ml'" {...field} />
                 </FormControl>
                 <FormDescription>
                   Write your new size/unit here.

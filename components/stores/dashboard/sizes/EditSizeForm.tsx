@@ -53,7 +53,6 @@ export default function EditSizeForm(size: Size) {
       });
   }
 
-  //Render the form
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmitting)}>
@@ -70,7 +69,9 @@ export default function EditSizeForm(size: Size) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button className="mt-4" type="submit">
+          Submit
+        </Button>
       </form>
     </Form>
   );
