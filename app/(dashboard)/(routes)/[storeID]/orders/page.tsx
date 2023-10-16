@@ -6,12 +6,14 @@ import { DataTable } from "@/components/data-table";
 import { columns } from "@/components/stores/dashboard/orders/columns";
 import { useOrders } from "@/components/stores/dashboard/orders/zustand/ordersState";
 import { Order } from "@/components/stores/dashboard/orders/order";
+import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 
 export default function Page() {
   //states for keeping track of billboards in dashboard front
   const params = useParams();
   const orders = useOrders((state) => state.orders);
   const updateOrders = useOrders((state) => state.updateOrders);
+  const section = "orders";
 
   useEffect(() => {
     axios
@@ -61,6 +63,10 @@ export default function Page() {
       <div>
         <div className="container mx-auto py-10">
           <DataTable columns={columns} data={orders} />
+        </div>
+
+        <div className="container mx-auto py-10">
+          <APIList section={section} />
         </div>
       </div>
     </div>

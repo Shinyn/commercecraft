@@ -8,6 +8,7 @@ import { columns } from "@/components/stores/dashboard/colors/columns";
 import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
+import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 
 export default function Page() {
   //State for the colors
@@ -16,6 +17,7 @@ export default function Page() {
   const state = useNameStore((state) => state.state);
   const updateState = useNameStore((state) => state.updateState);
   const params = useParams();
+  const section = "colors";
 
   //Get the colors from the database
   useEffect(() => {
@@ -43,6 +45,9 @@ export default function Page() {
       <div>
         <div className="container mx-auto py-10">
           <DataTable columns={columns} data={colors} />
+        </div>
+        <div className="container mx-auto py-10">
+          <APIList section={section} />
         </div>
       </div>
     </div>
