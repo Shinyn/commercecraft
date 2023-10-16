@@ -1,5 +1,6 @@
 import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
 
 export function APIList({ section }: { section: string }) {
   const params = useParams();
@@ -7,6 +8,7 @@ export function APIList({ section }: { section: string }) {
   // Function to copy text to clipboard
   const copyToClipboard = (textToCopy: string) => {
     navigator.clipboard.writeText(textToCopy);
+    toast.success("Copied to clipboard!");
   };
 
   return (
