@@ -72,7 +72,7 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center py-4">
         {table.getColumn("title") ? (
           <Input
-            placeholder="Filter here on title..."
+            placeholder="Search by name"
             value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("title")?.setFilterValue(event.target.value)
@@ -114,7 +114,7 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} className="text-center">
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -140,23 +140,13 @@ export function DataTable<TData, TValue>({
                       className={
                         cell.column.id === "stock"
                           ? (() => {
-                              const value = cell.getValue();
-                              if (value === 0) return "bg-red-500";
-                              if (
-                                value === 1 ||
-                                2 ||
-                                3 ||
-                                4 ||
-                                5 ||
-                                6 ||
-                                7 ||
-                                8 ||
-                                9 ||
-                                10
-                              )
-                                return "bg-yellow-500";
+                              const value: any = cell.getValue();
+                              if (value <= 1) return "bg-red-400 text-center";
+                              if (value > 1 && value <= 10)
+                                return "bg-yellow-200 text-center";
+                              return "bg-green-300 text-center";
                             })()
-                          : ""
+                          : "text-center"
                       }
                     >
                       {flexRender(
