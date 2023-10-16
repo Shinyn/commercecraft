@@ -2,7 +2,6 @@
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
-import { Customer } from "@/components/stores/dashboard/customers/customer";
 
 export async function GET(
   req: Request,

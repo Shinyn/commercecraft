@@ -26,14 +26,15 @@ export async function POST(
     const { order_total }: Order = body.sendingData;
     const {
       storeId,
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       street,
       zipCode,
       city,
       phone,
     }: Customer = body.sendingData;
     const e_mail = body.sendingData.email;
+
     await prismadb.$transaction(
       body.sendingData.basketerino.map((item: any) => {
         return prismadb.product.update({
@@ -82,8 +83,8 @@ export async function POST(
         },
         data: {
           storeId,
-          firstName: firstname,
-          lastName: lastname,
+          firstName,
+          lastName,
           street,
           zipCode,
           city,
@@ -112,8 +113,8 @@ export async function POST(
       const newCustomer = await prismadb.customer.create({
         data: {
           storeId: store_id,
-          firstName: firstname,
-          lastName: lastname,
+          firstName,
+          lastName,
           street,
           zipCode,
           city,
