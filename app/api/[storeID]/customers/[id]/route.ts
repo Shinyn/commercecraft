@@ -72,119 +72,46 @@ export async function DELETE(
   req: Request,
   { params }: { params: { id: string } }
 ) {
-  const Id = params.id;
   try {
-    await prismadb.order.findMany({
-      where: { customerId: Id },
-      select: { order_number: true },
-    }).then(async (res) => {
-      const orderNumbers: number[] = []
-      res.forEach((item) => {
-        orderNumbers.push(item.order_number)
-      })
-      return orderNumbers
-    }).then(async (ressie) => {
-      console.log(ressie)
-      const deleteOrderItems = await prismadb.orderItem.deleteMany({
-        where: {
-          orderId: { in: ressie }
-
+    const Id = params.id;
+    const orderNumber = await prismadb.customer.findUnique({
+      where: { id: Id },
+    });
+    if (orderNumber) {
+      const numberForOrderItems = await prismadb.order.findMany({
+        where: { customerId: Id },
+      });
+      let deleted_orderitems = Object.values(numberForOrderItems).map(
+        (item) => {
+          const deleteOrderItems = prismadb.orderItem.deleteMany({
+            where: { orderId: item.order_number },
+          });
+          return deleteOrderItems;
         }
-      })
+      );
+      await Promise.all(deleted_orderitems);
+
       const deleteOrder = prismadb.order.deleteMany({
         where: { customerId: Id },
       });
-      const deleteCustomer = await prismadb.customer.delete({
-        where: { id: Id }
-      })
+
+      const deleteCustomer = prismadb.customer.delete({
+        where: { id: Id },
+      });
 
       const transaction = await prismadb.$transaction([
         deleteOrder,
         deleteCustomer,
-
       ]);
-
-
-
-      if (transaction) {
-        return new NextResponse(null, { status: 204 });
-      } else {
-        return new NextResponse("Resource not found", { status: 404 });
-      }
-
-    })
-
-
-    const deleteOrderItems = await prismadb.orderItem.deleteMany({
-      where: {
-        orderId: { in: orderNumbers }
-
-      }
-    })
-    const deleteOrder = prismadb.order.deleteMany({
-      where: { customerId: Id },
-    });
-    const deleteCustomer = await prismadb.customer.delete({
-      where: { id: Id }
-    })
-
-    const transaction = await prismadb.$transaction([
-      deleteOrderItems,
-      deleteOrder,
-      deleteCustomer,
-
-    ]);
-
-
-
-    if (transaction) {
-      return new NextResponse(null, { status: 204 });
+      return new NextResponse("Resource deleted", { status: 200 });
     } else {
       return new NextResponse("Resource not found", { status: 404 });
     }
-
-  }
-  catch (error) {
-    console.log("api/[storeId]orders/[id]/DELETE", error);
-    return new NextResponse(
-      "Something went wrong when trying to delete the order",
-      { status: 500 }
-    );
-  }
-
-}
-/*   const Id = params.id;
-  //Find orders and extract order_numbers for the customer
-  await prismadb.order.findMany({
-    where: { customerId: Id },
-  }).then(async function (response) {
-    console.log(response)
-    const orderIds: number[] = []
-    response.forEach((item) => {
-      orderIds.push(item.order_number)
-    })
-    await prismadb.orderItem.deleteMany({
-      where: { id: { in: orderIds } }
-    }).then((async function (ressie) {
-      console.log(ressie)
-      const deletedOrders = await prismadb.order.deleteMany({
-        where: { order_number: { in: orderIds } }
-      })
-      console.log(deletedOrders)
-    })).then(async function (res){
-      console.log(res)
-      const deletedCustomer = await prismadb.customer.delete({
-        where: { id:Id } })
-        if(deletedCustomer){
-          return NextResponse.json(deletedCustomer, { status: 204 });
-
-        }
-      })
-    })    
-  .catch(function (error) {
-    console.log("api/[storeId]/customer/[id]/DELETE", error);
+  } catch (error) {
+    console.log("api/[storeId]/customer/[Id]", error);
     return new NextResponse(
       "Something went wrong when trying to delete the customer",
       { status: 500 }
     );
-  }) */
+  }
+}
