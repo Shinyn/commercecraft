@@ -4,6 +4,11 @@ import { Button } from "@/components/ui/button";
 export function APIList({ section }: { section: string }) {
   const params = useParams();
 
+  // Function to copy text to clipboard
+  const copyToClipboard = (textToCopy: string) => {
+    navigator.clipboard.writeText(textToCopy);
+  };
+
   return (
     <div className="w-full">
       <h2 className="text-3xl font-bold py-4">API</h2>
@@ -12,35 +17,80 @@ export function APIList({ section }: { section: string }) {
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">GET</h3>
         <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}`}</code>
-        <Button variant="outline">Copy</Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            copyToClipboard(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}`
+            )
+          }
+        >
+          Copy
+        </Button>
       </div>
 
       {/* GET specific */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">GET</h3>
         <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`}</code>
-        <Button variant="outline">Copy</Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            copyToClipboard(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`
+            )
+          }
+        >
+          Copy
+        </Button>
       </div>
 
       {/* POST */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">POST</h3>
         <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}`}</code>
-        <Button variant="outline">Copy</Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            copyToClipboard(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}`
+            )
+          }
+        >
+          Copy
+        </Button>
       </div>
 
       {/* PATCH */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">PATCH</h3>
         <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`}</code>
-        <Button variant="outline">Copy</Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            copyToClipboard(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`
+            )
+          }
+        >
+          Copy
+        </Button>
       </div>
 
       {/* DELETE */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">DELETE</h3>
         <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`}</code>
-        <Button variant="outline">Copy</Button>
+        <Button
+          variant="outline"
+          onClick={() =>
+            copyToClipboard(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`
+            )
+          }
+        >
+          Copy
+        </Button>
       </div>
     </div>
   );
