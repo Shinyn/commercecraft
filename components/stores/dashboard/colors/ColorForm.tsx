@@ -17,18 +17,20 @@ import {
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
 
-//Form for adding a new category
+//Form for adding a new color
 export default function ColorForm() {
   const params = useParams();
   //Form validation
   const formSchema = z.object({
     name: z.string().max(10),
+    hex: z.string().max(7),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
+      hex: "",
     },
   });
   //Submit function
@@ -38,6 +40,7 @@ export default function ColorForm() {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/colors`,
         {
           title: values.name,
+          hex: values.hex,
         }
       )
       .then(function (response) {
@@ -63,12 +66,29 @@ export default function ColorForm() {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>New Size</FormLabel>
+                <FormLabel>Name of Color</FormLabel>
                 <FormControl>
-                  <Input placeholder="color" {...field} />
+                  <Input placeholder="Color" {...field} />
                 </FormControl>
-                <FormDescription>Type in the color here.</FormDescription>
+                <FormDescription>
+                  Type in the name of the color here.
+                </FormDescription>
                 <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="hex"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Color Hex-Code</FormLabel>
+                <FormControl>
+                  <Input placeholder="#000000" {...field} />
+                </FormControl>
+                <FormDescription>
+                  Type in Hex-Code of the color.
+                </FormDescription>
               </FormItem>
             )}
           />

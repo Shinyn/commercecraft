@@ -1,23 +1,47 @@
-"use client";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { useNameStore } from "./zustand/zustandstate";
 import { useParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Size } from "@/components/stores/dashboard/sizes/sizes";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 
-//Form for adding a new category
-export default function EditSizeForm(ID: string | undefined) {
+const formSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: "Unit must be atleast 1 characters long" }),
+  id: z.string(),
+  storeId: z.string(),
+});
+
+//Form for adding a new Size
+export default function EditSizeForm(size: Size) {
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: size.title,
+      id: size.id,
+      storeId: size.storeId,
+    },
+  });
   const params = useParams();
-  const name = useNameStore((state) => state.name);
-  const updateName = useNameStore((state) => state.updateName);
 
-  function onSubmitting(e: any) {
-    e.preventDefault();
+  function onSubmitting() {
     axios
       .patch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/sizes`,
         {
-          id: ID,
-          title: name,
+          id: size.id,
+          title: form.getValues("title"),
         }
       )
       .then(function (response) {
@@ -31,14 +55,23 @@ export default function EditSizeForm(ID: string | undefined) {
 
   //Render the form
   return (
-    <form onSubmit={(e) => onSubmitting(e)}>
-      <label htmlFor="name">Name</label>
-      <input
-        type="text"
-        name="name"
-        onChange={(e) => updateName(e.target.value)}
-      />
-      <Button>Submit</Button>
-    </form>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmitting)}>
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Unit..." {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
   );
 }

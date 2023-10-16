@@ -38,6 +38,7 @@ export default function ProductForm() {
       .url({ message: "Need URL" })
       .max(255, { message: "URL must be less than 255 characters" }),
     category: z.string(),
+    color: z.string(),
     manufacturer: z.string().min(2, {
       message: "Manufacturer must be at least 2 characters long",
     }),
@@ -64,6 +65,7 @@ export default function ProductForm() {
       image: "",
       category: "",
       manufacturer: "",
+      color: "",
       isarchived: false,
       isfeatured: false,
       ingredients: "",
@@ -242,11 +244,22 @@ export default function ProductForm() {
                 </FormItem>
               )}
             />
-            <SelectForAddProduct
-              placeholder="Select Category"
-              apicall={`/api/${params.storeID}/categories`}
-              valueSend={(value: string) => form.setValue("category", value)}
-            />
+            <FormItem>
+              <FormLabel>Product Category</FormLabel>
+              <SelectForAddProduct
+                placeholder="Select Category"
+                apicall={`/api/${params.storeID}/categories`}
+                valueSend={(value: string) => form.setValue("category", value)}
+              />
+            </FormItem>
+            <FormItem>
+              <FormLabel>Product Color</FormLabel>
+              <SelectForAddProduct
+                placeholder="Select Color"
+                apicall={`/api/${params.storeID}/colors`}
+                valueSend={(value: string) => form.setValue("color", value)}
+              />
+            </FormItem>
             <Button type="submit">Submit</Button>
           </form>
         </Form>

@@ -9,11 +9,12 @@ export async function POST(
   try {
     const body = await req.json();
     body.storeId = params.storeID;
-    const { title, storeId }: Color = body;
+    const { title, hex, storeId }: Color = body;
     const newColor = await prismadb.color.create({
       data: {
         storeId,
         title,
+        hex,
       },
     });
     return NextResponse.json(newColor, { status: 201 });
@@ -47,13 +48,14 @@ export async function GET(
 export async function PATCH(req: Request) {
   try {
     const body = await req.json();
-    const { id, title } = body;
+    const { id, title, hex } = body;
     const updatedColor = await prismadb.color.update({
       where: {
         id,
       },
       data: {
         title,
+        hex,
       },
     });
     return NextResponse.json(updatedColor, { status: 200 });

@@ -1,5 +1,3 @@
-"use client";
-
 // This type is used to define the shape of our data.
 import { Size } from "./sizes";
 import { ColumnDef } from "@tanstack/react-table";
@@ -62,7 +60,7 @@ export const columns: ColumnDef<Size>[] = [
               <SheetHeader>
                 <SheetTitle> {size.title}?</SheetTitle>
                 <SheetDescription>Edit the size name here</SheetDescription>
-                {EditSizeForm(size.id)}
+                {EditSizeForm(size)}
               </SheetHeader>
             </SheetContent>
 

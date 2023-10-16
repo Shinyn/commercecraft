@@ -2,10 +2,13 @@
 //Componenten används i products page.tsx, tillsammans med products.tsx
 //Denna componenten är en del av data-table.tsx(som dock går att återanvända)
 
-import { Product } from "@/components/stores/dashboard/products/products";
+import { Order } from "@/components/stores/dashboard/orders/order";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
+import DeleteOrder from "@/components/stores/dashboard/orders/deleteOrder";
+import { LinktoPrint } from "@/components/stores/dashboard/orders/link";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -23,10 +26,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import DeleteProduct from "@/components/stores/dashboard/products/DeleteProduct";
-import { EditProductForm } from "@/components/stores/dashboard/products/EditProductForm";
 
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<Order>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -46,65 +47,62 @@ export const columns: ColumnDef<Product>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+
   {
     accessorKey: "id",
     header: "ID",
   },
   {
-    accessorKey: "title",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Name
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    accessorKey: "order_status",
+    header: "Order Status",
   },
   {
-    accessorKey: "price",
-    header: "Price",
+    accessorKey: "order_total",
+    header: "Total Price",
   },
   {
-    accessorKey: "category",
-    header: "Category",
+    accessorKey: "order_date",
+    header: "Order-date",
   },
   {
-    accessorKey: "manufacturer",
-    header: "Manufacturer",
+    accessorKey: "customerId",
+    header: "customerId",
   },
   {
-    accessorKey: "stock",
-    header: "Stock",
+    accessorKey: "customerName",
+    header: "Customer Name",
+    id: "title",
   },
   {
-    accessorKey: "isfeatured",
-    header: "Featured",
+    accessorKey: "customerEmail",
+    header: "Customer Email",
   },
   {
-    accessorKey: "isarchived",
-    header: "Archived",
+    accessorKey: "customerPhone",
+    header: "Customer Phone",
   },
   {
-    accessorKey: "ingredients",
-    header: "Ingredients",
+    accessorKey: "customerstreet",
+    header: "Customer Street",
   },
+  {
+    accessorKey: "customerCity",
+    header: "Customer City",
+  },
+
   {
     id: "actions",
     cell: ({ row }) => {
-      const product = row.original;
+      const order = row.original;
 
       return (
         <>
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {"Edit Product"}?</SheetTitle>
+                <SheetTitle> {"Edit Order"}?</SheetTitle>
                 <SheetDescription>Edit the productinfo here</SheetDescription>
-                {EditProductForm(product)}
+                {/*TODO- EDIT */}
               </SheetHeader>
             </SheetContent>
             <DropdownMenu>
@@ -117,7 +115,7 @@ export const columns: ColumnDef<Product>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(product.id)}
+                  onClick={() => navigator.clipboard.writeText(order.id)}
                 >
                   Copy payment ID
                 </DropdownMenuItem>
@@ -125,9 +123,8 @@ export const columns: ColumnDef<Product>[] = [
                 <DropdownMenuItem>
                   <SheetTrigger>Edit</SheetTrigger>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <DeleteProduct itemId={product.id} />
-                </DropdownMenuItem>
+                <DropdownMenuItem>{DeleteOrder(order.id)}</DropdownMenuItem>
+                <DropdownMenuItem>{LinktoPrint(order.id)}</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>

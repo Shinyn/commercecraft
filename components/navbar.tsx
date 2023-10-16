@@ -8,7 +8,7 @@ export default function Navbar() {
   const params = useParams();
 
   return (
-    <div className={"sticky top-0 p-2 h-screen bg-blue-400 "}>
+    <div className={"sticky top-0 p-2 h-screen bg-blue-400 print:hidden "}>
       <h1 className={"m-6 text-5xl"}>Dashboard</h1>
       <ul className={"flex-col space-y-8 m-4  text-3xl"}>
         <li className={"hover:text-gray-400"}>

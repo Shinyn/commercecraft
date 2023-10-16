@@ -1,5 +1,3 @@
-"use client";
-
 // This type is used to define the shape of our data.
 import { Color } from "./colors";
 import { ColumnDef } from "@tanstack/react-table";
@@ -44,6 +42,10 @@ export const columns: ColumnDef<Color>[] = [
       );
     },
   },
+  {
+    accessorKey: "hex",
+    header: "Hex-Code",
+  },
 
   {
     id: "actions",
@@ -62,7 +64,7 @@ export const columns: ColumnDef<Color>[] = [
               <SheetHeader>
                 <SheetTitle> {color.title}?</SheetTitle>
                 <SheetDescription>Edit the color name here</SheetDescription>
-                {EditColorForm(color.id)}
+                {EditColorForm(color)}
               </SheetHeader>
             </SheetContent>
 
