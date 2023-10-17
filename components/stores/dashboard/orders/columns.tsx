@@ -6,7 +6,6 @@ import { Order } from "@/components/stores/dashboard/orders/order";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-import Link from "next/link";
 import DeleteOrder from "@/components/stores/dashboard/orders/deleteOrder";
 import { LinktoPrint } from "@/components/stores/dashboard/orders/link";
 import { Button } from "@/components/ui/button";
@@ -26,6 +25,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { EditOrderForm } from "@/components/stores/dashboard/orders/editOrderForm"
+
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -93,7 +94,8 @@ export const columns: ColumnDef<Order>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const order = row.original;
+      const order = row.original
+
 
       return (
         <>
@@ -102,7 +104,7 @@ export const columns: ColumnDef<Order>[] = [
               <SheetHeader>
                 <SheetTitle> {"Edit Order"}?</SheetTitle>
                 <SheetDescription>Edit the productinfo here</SheetDescription>
-                {/*TODO- EDIT */}
+                {EditOrderForm(order)}
               </SheetHeader>
             </SheetContent>
             <DropdownMenu>
@@ -117,7 +119,7 @@ export const columns: ColumnDef<Order>[] = [
                 <DropdownMenuItem
                   onClick={() => navigator.clipboard.writeText(order.id)}
                 >
-                  Copy payment ID
+                  Copy order ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>

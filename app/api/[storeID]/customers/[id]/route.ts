@@ -2,7 +2,6 @@
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
-import { Customer } from "@/components/stores/dashboard/customers/customer";
 
 export async function GET(
   req: Request,
@@ -49,7 +48,7 @@ export async function PATCH(
   try {
     const Id = params.id;
     const newData = await req.json();
-    const updatedCustomer = await prismadb.order.update({
+    const updatedCustomer = await prismadb.customer.update({
       where: { id: Id },
       data: newData,
     });
@@ -74,17 +73,41 @@ export async function DELETE(
 ) {
   try {
     const Id = params.id;
-    const deleteOrder = await prismadb.order.delete({
+    const orderNumber = await prismadb.customer.findUnique({
       where: { id: Id },
     });
+    if (orderNumber) {
+      const numberForOrderItems = await prismadb.order.findMany({
+        where: { customerId: Id },
+      });
+      let deleted_orderitems = Object.values(numberForOrderItems).map(
+        (item) => {
+          const deleteOrderItems = prismadb.orderItem.deleteMany({
+            where: { orderId: item.order_number },
+          });
+          return deleteOrderItems;
+        }
+      );
+      await Promise.all(deleted_orderitems);
 
-    if (deleteOrder) {
-      return new NextResponse(null, { status: 204 });
+      const deleteOrder = prismadb.order.deleteMany({
+        where: { customerId: Id },
+      });
+
+      const deleteCustomer = prismadb.customer.delete({
+        where: { id: Id },
+      });
+
+      const transaction = await prismadb.$transaction([
+        deleteOrder,
+        deleteCustomer,
+      ]);
+      return new NextResponse("Resource deleted", { status: 200 });
     } else {
-      return new NextResponse("Customer not found", { status: 404 });
+      return new NextResponse("Resource not found", { status: 404 });
     }
   } catch (error) {
-    console.log("api/[storeId]/customer/[id]/DELETE", error);
+    console.log("api/[storeId]/customer/[Id]", error);
     return new NextResponse(
       "Something went wrong when trying to delete the customer",
       { status: 500 }

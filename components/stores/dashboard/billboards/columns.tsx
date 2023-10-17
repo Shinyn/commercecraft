@@ -20,8 +20,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { MyDelete } from "@/components/stores/dashboard/billboards/deleteBillboard";
-
+import { DeleteCustomer } from "@/components/stores/dashboard/customers/DeleteCustomer"
 export const columns: ColumnDef<Billboard>[] = [
   {
     accessorKey: "id",
@@ -111,7 +110,7 @@ export const columns: ColumnDef<Billboard>[] = [
                   </DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem
-                ><MyDelete itemId={row.original.id || ""} /></DropdownMenuItem>
+                ><DeleteCustomer itemId={row.original.id || ""} /></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>
