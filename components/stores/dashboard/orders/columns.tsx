@@ -25,8 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { EditOrderForm } from "@/components/stores/dashboard/orders/editOrderForm"
-
+import { EditOrderForm } from "@/components/stores/dashboard/orders/editOrderForm";
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -63,39 +62,38 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: "order_date",
-    header: "Order-date",
+    header: "Order date",
   },
   {
     accessorKey: "customerId",
-    header: "customerId",
+    header: "customer Id",
   },
   {
     accessorKey: "customerName",
-    header: "Customer Name",
+    header: "Name",
     id: "title",
   },
   {
     accessorKey: "customerEmail",
-    header: "Customer Email",
+    header: "Email",
   },
   {
     accessorKey: "customerPhone",
-    header: "Customer Phone",
+    header: "Phone",
   },
   {
     accessorKey: "customerstreet",
-    header: "Customer Street",
+    header: "Street",
   },
   {
     accessorKey: "customerCity",
-    header: "Customer City",
+    header: "City",
   },
 
   {
     id: "actions",
     cell: ({ row }) => {
-      const order = row.original
-
+      const order = row.original;
 
       return (
         <>
