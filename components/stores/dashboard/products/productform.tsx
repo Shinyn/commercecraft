@@ -61,7 +61,7 @@ export default function ProductForm() {
     defaultValues: {
       title: "",
       description: "",
-      price: 1,
+      price: 0,
       image: "",
       category: "",
       manufacturer: "",
@@ -140,8 +140,11 @@ export default function ProductForm() {
                   <FormControl>
                     <Input
                       type="number"
-                      min={1}
+                      min={0}
                       {...field}
+                      value={
+                        field.value == 0 ? undefined : field.value
+                      }
                       onChange={(event) => field.onChange(+event.target.value)}
                     />
                   </FormControl>
@@ -235,9 +238,12 @@ export default function ProductForm() {
                   <FormControl>
                     <Input
                       type="number"
-                      min={1}
+                      min={0}
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      value={
+                        field.value == 0 ? undefined : field.value
+                      }
+                      onChange={(event) => { field.onChange(+event.target.value) }}
                     />
                   </FormControl>
                   <FormMessage />
