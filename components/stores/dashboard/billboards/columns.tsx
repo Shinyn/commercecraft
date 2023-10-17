@@ -1,5 +1,5 @@
 //Specifies the layout of data-table for billboards
-import { EditForm } from "@/components/stores/dashboard/billboards/EditForm"
+import { EditForm } from "@/components/stores/dashboard/billboards/EditForm";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,9 +18,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { DeleteCustomer } from "@/components/stores/dashboard/customers/DeleteCustomer"
+import { MyDelete } from "@/components/stores/dashboard/billboards/deleteBillboard";
 export const columns: ColumnDef<Billboard>[] = [
   {
     accessorKey: "id",
@@ -105,12 +105,11 @@ export const columns: ColumnDef<Billboard>[] = [
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <SheetTrigger>
-                  <DropdownMenuItem
-                  >Edit
-                  </DropdownMenuItem>
+                  <DropdownMenuItem>Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem
-                ><DeleteCustomer itemId={row.original.id || ""} /></DropdownMenuItem>
+                <DropdownMenuItem>
+                  <MyDelete itemId={row.original.id || ""} />
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>
