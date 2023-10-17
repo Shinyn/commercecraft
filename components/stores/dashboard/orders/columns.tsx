@@ -115,13 +115,16 @@ export const columns: ColumnDef<Order>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
+                  className="hover:cursor-pointer"
                   onClick={() => navigator.clipboard.writeText(order.id)}
                 >
                   Copy order ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <SheetTrigger>Edit</SheetTrigger>
+                  <SheetTrigger className="hover:cursor-pointer w-full flex justify-left">
+                    Edit
+                  </SheetTrigger>
                 </DropdownMenuItem>
                 <DropdownMenuItem>{DeleteOrder(order.id)}</DropdownMenuItem>
                 <DropdownMenuItem>{LinktoPrint(order.id)}</DropdownMenuItem>

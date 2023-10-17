@@ -1,24 +1,15 @@
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Category } from "@/components/stores/dashboard/categories/categories";
-import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Category } from '@/components/stores/dashboard/categories/categories';
+import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 const formSchema = z.object({
-  title: z
-    .string()
-    .min(2, { message: "category must be atleast 2 characters long" }),
+  title: z.string().min(2, { message: 'category must be atleast 2 characters long' }),
   id: z.string(),
   storeId: z.string(),
 });
@@ -37,13 +28,10 @@ export function EditCategoryForm(category: Category) {
 
   function onSubmitting() {
     axios
-      .patch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/categories`,
-        {
-          id: category.id,
-          title: form.getValues("title"),
-        }
-      )
+      .patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/categories`, {
+        id: category.id,
+        title: form.getValues('title'),
+      })
       .then(function (response) {
         window.location.reload();
         return response.data;
