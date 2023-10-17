@@ -59,7 +59,7 @@ export default function ProductForm() {
     defaultValues: {
       title: "",
       description: "",
-      price: 1,
+      price: 0,
       image: "",
       category: "",
       manufacturer: "",
@@ -141,7 +141,13 @@ export default function ProductForm() {
                       type="number"
                       min={1}
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      onChange={(event) => {
+                        const newValue =
+                          event.target.value.trim() === ""
+                            ? null
+                            : +event.target.value;
+                        field.onChange(newValue);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -252,7 +258,13 @@ export default function ProductForm() {
                       type="number"
                       min={1}
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      onChange={(event) => {
+                        const newValue =
+                          event.target.value.trim() === ""
+                            ? null
+                            : +event.target.value;
+                        field.onChange(newValue);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
