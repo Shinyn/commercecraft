@@ -143,11 +143,17 @@ export default function ProductForm() {
                       type="number"
                       min={0}
                       {...field}
-                      value={
-                        //field.value==0?undefined: field.value
-                        Number(String(field.value))
-                      }
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      value={+field.value}
+                      onChange={(event) => {
+                        let newValue = event.target.value
+                        if (newValue.startsWith('0')) {
+                          newValue = newValue.substring(1)
+                          console.log(newValue)
+                        }
+                        event.target.value = newValue
+                        field.value = +newValue
+                        field.onChange(+event.target.value)
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -242,7 +248,17 @@ export default function ProductForm() {
                       type="number"
                       min={0}
                       {...field}
-                      onChange={(event) =>{ field.onChange(+event.target.value)}}
+                      value={+field.value}
+                      onChange={(event) => {
+                        let newValue = event.target.value
+                        if (newValue.startsWith('0')) {
+                          newValue = newValue.substring(1)
+                          console.log(newValue)
+                        }
+                        event.target.value = newValue
+                        field.value = +newValue
+                        field.onChange(+event.target.value)
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
