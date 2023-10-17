@@ -10,10 +10,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Billboard } from '@/components/stores/dashboard/billboards/billboards';
-import { DeleteCustomer } from '@/components/stores/dashboard/customers/DeleteCustomer';
+} from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
+import { MyDelete } from "@/components/stores/dashboard/billboards/deleteBillboard";
 export const columns: ColumnDef<Billboard>[] = [
   {
     accessorKey: 'id',
@@ -89,7 +96,7 @@ export const columns: ColumnDef<Billboard>[] = [
                   <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem className="hover:cursor-pointer">
-                  <DeleteCustomer itemId={row.original.id || ''} />
+                  <MyDelete itemId={row.original.id || ''} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
