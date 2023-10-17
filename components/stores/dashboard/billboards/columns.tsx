@@ -1,8 +1,8 @@
 //Specifies the layout of data-table for billboards
-import { EditForm } from "@/components/stores/dashboard/billboards/EditForm";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { EditForm } from '@/components/stores/dashboard/billboards/EditForm';
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,13 +23,10 @@ import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
 import { MyDelete } from "@/components/stores/dashboard/billboards/deleteBillboard";
 export const columns: ColumnDef<Billboard>[] = [
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -37,14 +34,11 @@ export const columns: ColumnDef<Billboard>[] = [
     },
   },
   {
-    accessorKey: "text",
-    id: "title",
+    accessorKey: 'text',
+    id: 'title',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Text
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -52,13 +46,10 @@ export const columns: ColumnDef<Billboard>[] = [
     },
   },
   {
-    accessorKey: "image",
+    accessorKey: 'image',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Image url
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -66,13 +57,10 @@ export const columns: ColumnDef<Billboard>[] = [
     },
   },
   {
-    accessorKey: "active",
+    accessorKey: 'active',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Activated?
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -81,7 +69,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
 
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       return (
         <>
@@ -89,7 +77,7 @@ export const columns: ColumnDef<Billboard>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {"Edit Billboard"}?</SheetTitle>
+                <SheetTitle> {'Edit Billboard'}?</SheetTitle>
                 <SheetDescription>Edit the category name here</SheetDescription>
                 {EditForm(row.original)}
               </SheetHeader>
@@ -104,11 +92,11 @@ export const columns: ColumnDef<Billboard>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <SheetTrigger>
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                <SheetTrigger className="w-full">
+                  <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem>
-                  <MyDelete itemId={row.original.id || ""} />
+                <DropdownMenuItem className="hover:cursor-pointer">
+                  <MyDelete itemId={row.original.id || ''} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
