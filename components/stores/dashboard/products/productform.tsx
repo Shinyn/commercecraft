@@ -59,6 +59,7 @@ export default function ProductForm() {
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
+      
       title: "",
       description: "",
       price: 0,
@@ -143,7 +144,8 @@ export default function ProductForm() {
                       min={0}
                       {...field}
                       value={
-                        field.value == 0 ? undefined : field.value
+                        //field.value==0?undefined: field.value
+                        Number(String(field.value))
                       }
                       onChange={(event) => field.onChange(+event.target.value)}
                     />
@@ -240,10 +242,7 @@ export default function ProductForm() {
                       type="number"
                       min={0}
                       {...field}
-                      value={
-                        field.value == 0 ? undefined : field.value
-                      }
-                      onChange={(event) => { field.onChange(+event.target.value) }}
+                      onChange={(event) =>{ field.onChange(+event.target.value)}}
                     />
                   </FormControl>
                   <FormMessage />

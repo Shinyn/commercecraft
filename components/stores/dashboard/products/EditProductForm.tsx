@@ -7,11 +7,11 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import SelectForAddProduct from '@/components/stores/dashboard/products/SelectForAddProduct';
 import { useParams } from 'next/navigation';
-import { Product } from "@/components/stores/dashboard/products/products"
+import {Product} from "@/components/stores/dashboard/products/products"
 import { Checkbox } from '@/components/ui/checkbox';
 import toast from 'react-hot-toast';
 
-export function EditProductForm(product: Product) {
+export function EditProductForm(product:Product) {
   const params = useParams();
   const productSchema = z.object({
     title: z.string().min(2, { message: 'Title must be at least 2 characters long' }),
@@ -26,10 +26,10 @@ export function EditProductForm(product: Product) {
     isarchived: z.boolean(),
     isfeatured: z.boolean(),
     ingredients: z
-      .string()
-      .min(5, { message: 'Ingredientslist must be at least 5 characters long' })
-      .max(255, { message: 'Ingredientslist must be less than 255 characters' }),
-    stock: z.number().min(0, { message: 'You have to have a stock of your product' }).max(Infinity),
+    .string()
+    .min(5, { message: 'Ingredientslist must be at least 5 characters long' })
+    .max(255, { message: 'Ingredientslist must be less than 255 characters' }),
+    stock: z.number().min(0,{message:'You have to have a stock of your product'}).max(Infinity),
   });
 
   const form = useForm<z.infer<typeof productSchema>>({
@@ -74,9 +74,7 @@ export function EditProductForm(product: Product) {
               <FormItem>
                 <FormLabel>Product Title</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Product Title"
-                    {...field} />
+                  <Input placeholder="Product Title" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -89,9 +87,7 @@ export function EditProductForm(product: Product) {
               <FormItem>
                 <FormLabel>Product Description</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Product Description"
-                    {...field} />
+                  <Input placeholder="Product Description" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,14 +100,20 @@ export function EditProductForm(product: Product) {
               <FormItem>
                 <FormLabel>Product Price</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    min={0}
-                    {...field}
-                    value={
-                      field.value == 0 ? undefined : field.value
+                  <Input type="number" min={0} {...field}
+                  value={+field.value}
+                   onChange={(event) => {
+                    let bob=event.target.value
+                    if(bob.startsWith('0')){
+                      console.log("starts with 0")
+                      bob=bob.substring(1)
+                      console.log(bob)
                     }
-                    onChange={(event) => field.onChange(+event.target.value)} />
+                    event.target.value=bob
+                    console.log("bob "+bob)
+                    console.log(event.target.value)
+                    field.value=+bob
+                    field.onChange(field.value=+bob)}} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -156,59 +158,52 @@ export function EditProductForm(product: Product) {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="isfeatured"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Is featured ? </FormLabel>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormDescription>
-                  If checked this product is featured on your frontend.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="isarchived"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Is archived ? </FormLabel>
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormDescription>
-                  If checked this product is archived on your frontend.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
+           <FormField
+          control={form.control}
+          name="isfeatured"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Is featured ? </FormLabel>
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormDescription>
+                If checked this product is featured on your frontend.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="isarchived"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Is archived ? </FormLabel>
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormDescription>
+                If checked this product is archived on your frontend.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
             control={form.control}
             name="stock"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Product Stock</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    min={0}
-                    {...field}
-                    value={
-                      field.value == 0 ? undefined : field.value
-                    }
-                    onChange={(event) => field.onChange(+event.target.value)} />
+                  <Input type="number" min={1} {...field} onChange={(event) => field.onChange(+event.target.value)} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -217,7 +212,7 @@ export function EditProductForm(product: Product) {
           <SelectForAddProduct
             placeholder="Select Category"
             apicall={`/api/${params.storeID}/categories`}
-            value={product.category}
+            value = {product.category}
             valueSend={(value: string) => form.setValue('category', value)}
           />
           <Button type="submit">Submit</Button>
