@@ -119,7 +119,7 @@ export function EditCustomerForm(customer: Customer) {
                     <Input placeholder="Id" {...field} />
                   </FormControl>
                   <FormDescription>
-                    This is your customers' ID, you can NOT change this.
+                    This is your customers&apos; ID, you can NOT change this.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
