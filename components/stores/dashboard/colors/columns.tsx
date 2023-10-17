@@ -1,17 +1,10 @@
 // This type is used to define the shape of our data.
-import { Color } from "./colors";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import EditColorForm from "./EditColorForm";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Color } from './colors';
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import EditColorForm from './EditColorForm';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,23 +12,20 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DeleteColor } from "@/components/stores/dashboard/colors/DeleteColor";
+} from '@/components/ui/dropdown-menu';
+import { DeleteColor } from '@/components/stores/dashboard/colors/DeleteColor';
 
 //Columns for the table
 export const columns: ColumnDef<Color>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
+    accessorKey: 'id',
+    header: 'ID',
   },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Color
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -43,16 +33,16 @@ export const columns: ColumnDef<Color>[] = [
     },
   },
   {
-    accessorKey: "hex",
-    header: "Hex-Code",
+    accessorKey: 'hex',
+    header: 'Hex-Code',
   },
 
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       const color = row.original;
       function copyPaymentId() {
-        if (color.id === undefined) return "no id";
+        if (color.id === undefined) return 'no id';
         else return color.id.toString();
       }
 
@@ -62,8 +52,8 @@ export const columns: ColumnDef<Color>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {color.title}?</SheetTitle>
-                <SheetDescription>Edit the color name here</SheetDescription>
+                <SheetTitle>Replace {color.title}?</SheetTitle>
+                <SheetDescription>Edit your color name and hex code here</SheetDescription>
                 {EditColorForm(color)}
               </SheetHeader>
             </SheetContent>
@@ -79,19 +69,18 @@ export const columns: ColumnDef<Color>[] = [
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 {copyPaymentId === null ? null : (
                   <DropdownMenuItem
-                    onClick={() =>
-                      navigator.clipboard.writeText(copyPaymentId())
-                    }
+                    className="hover:cursor-pointer"
+                    onClick={() => navigator.clipboard.writeText(copyPaymentId())}
                   >
                     Copy color ID
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                <SheetTrigger>
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                <SheetTrigger className="w-full">
+                  <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem>
-                  <DeleteColor itemId={color.id || ""} />
+                  <DeleteColor itemId={color.id || ''} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

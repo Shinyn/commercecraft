@@ -1,17 +1,10 @@
 // This type is used to define the shape of our data.
-import { Category, ID } from "./categories";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { EditCategoryForm } from "./editcategoryform";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import { Category, ID } from './categories';
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { EditCategoryForm } from './editcategoryform';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,23 +12,20 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DeleteCategory } from "@/components/stores/dashboard/categories/deleteCategory";
+} from '@/components/ui/dropdown-menu';
+import { DeleteCategory } from '@/components/stores/dashboard/categories/deleteCategory';
 
 //Columns for the table
 export const columns: ColumnDef<Category>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
+    accessorKey: 'id',
+    header: 'ID',
   },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Category
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -44,11 +34,11 @@ export const columns: ColumnDef<Category>[] = [
   },
 
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       const category = row.original;
       function copyPaymentId() {
-        if (category.id === undefined) return "no id";
+        if (category.id === undefined) return 'no id';
         else return category.id.toString();
       }
 
@@ -58,7 +48,7 @@ export const columns: ColumnDef<Category>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {category.title}?</SheetTitle>
+                <SheetTitle> Replace {category.title}?</SheetTitle>
                 <SheetDescription>Edit the category name here</SheetDescription>
                 {EditCategoryForm(category)}
               </SheetHeader>
@@ -75,19 +65,18 @@ export const columns: ColumnDef<Category>[] = [
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 {copyPaymentId === null ? null : (
                   <DropdownMenuItem
-                    onClick={() =>
-                      navigator.clipboard.writeText(copyPaymentId())
-                    }
+                    className="hover:cursor-pointer"
+                    onClick={() => navigator.clipboard.writeText(copyPaymentId())}
                   >
                     Copy category ID
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                <SheetTrigger>
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                <SheetTrigger className="w-full">
+                  <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem>
-                  <DeleteCategory itemId={category.id || ""} />
+                  <DeleteCategory itemId={category.id || ''} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

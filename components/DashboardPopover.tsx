@@ -9,7 +9,7 @@ export function DashboardPopover({
   children: React.ReactNode;
 }) {
   return (
-    <div className={"flex flex-row justify-end "}>
+    <div className={"flex flex-row justify-end w-9/12"}>
       <div className={"text-center text-2xl m-9 rounded bg-blue-400 w-9"}>
         <Popover>
           <PopoverTrigger> + </PopoverTrigger>

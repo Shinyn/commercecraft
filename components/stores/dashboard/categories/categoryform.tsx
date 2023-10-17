@@ -66,7 +66,7 @@ export default function CategoryForm() {
               <FormItem>
                 <FormLabel>New Category</FormLabel>
                 <FormControl>
-                  <Input placeholder="category" {...field} />
+                  <Input placeholder="Category" {...field} />
                 </FormControl>
                 <FormDescription>Write your new category here.</FormDescription>
                 <FormMessage />

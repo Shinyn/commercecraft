@@ -25,8 +25,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { EditOrderForm } from "@/components/stores/dashboard/orders/editOrderForm"
-
+import { EditOrderForm } from "@/components/stores/dashboard/orders/editOrderForm";
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -63,39 +62,38 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: "order_date",
-    header: "Order-date",
+    header: "Order date",
   },
   {
     accessorKey: "customerId",
-    header: "customerId",
+    header: "customer Id",
   },
   {
     accessorKey: "customerName",
-    header: "Customer Name",
+    header: "Name",
     id: "title",
   },
   {
     accessorKey: "customerEmail",
-    header: "Customer Email",
+    header: "Email",
   },
   {
     accessorKey: "customerPhone",
-    header: "Customer Phone",
+    header: "Phone",
   },
   {
     accessorKey: "customerstreet",
-    header: "Customer Street",
+    header: "Street",
   },
   {
     accessorKey: "customerCity",
-    header: "Customer City",
+    header: "City",
   },
 
   {
     id: "actions",
     cell: ({ row }) => {
-      const order = row.original
-
+      const order = row.original;
 
       return (
         <>
@@ -117,13 +115,16 @@ export const columns: ColumnDef<Order>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
+                  className="hover:cursor-pointer"
                   onClick={() => navigator.clipboard.writeText(order.id)}
                 >
                   Copy order ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
-                  <SheetTrigger>Edit</SheetTrigger>
+                  <SheetTrigger className="hover:cursor-pointer w-full flex justify-left">
+                    Edit
+                  </SheetTrigger>
                 </DropdownMenuItem>
                 <DropdownMenuItem>{DeleteOrder(order.id)}</DropdownMenuItem>
                 <DropdownMenuItem>{LinktoPrint(order.id)}</DropdownMenuItem>

@@ -82,12 +82,12 @@ export default function ColorForm() {
             name="hex"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Color Hex-Code</FormLabel>
+                <FormLabel>Color Hex code</FormLabel>
                 <FormControl>
                   <Input placeholder="#000000" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Type in Hex-Code of the color.
+                  Type in Hex code of the color.
                 </FormDescription>
               </FormItem>
             )}
