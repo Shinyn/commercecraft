@@ -51,7 +51,6 @@ export function EditProductForm(product: Product) {
   });
 
   function onSubmitting(values: z.infer<typeof productSchema>) {
-    console.log('Onsubmitting:' + values);
     axios
       .patch(`/api/${params.storeID}/products/${product.id}`, values)
       .then(function (response) {
