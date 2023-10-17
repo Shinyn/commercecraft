@@ -57,9 +57,10 @@ export default function ProductForm() {
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
+      
       title: "",
       description: "",
-      price: 1,
+      price: 0,
       image: "",
       category: "",
       manufacturer: "",
@@ -73,7 +74,6 @@ export default function ProductForm() {
   });
 
   function onSubmitting(values: z.infer<typeof productSchema>) {
-    console.log("Onsubmitting:" + values);
     axios
       .post(`/api/${params.storeID}/products/${params.id}`, values)
       .then(function (response) {
@@ -139,9 +139,19 @@ export default function ProductForm() {
                   <FormControl>
                     <Input
                       type="number"
-                      min={1}
+                      min={0}
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      value={+field.value}
+                      onChange={(event) => {
+                        let newValue = event.target.value
+                        if (newValue.startsWith('0')) {
+                          newValue = newValue.substring(1)
+                          console.log(newValue)
+                        }
+                        event.target.value = newValue
+                        field.value = +newValue
+                        field.onChange(+event.target.value)
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -250,9 +260,19 @@ export default function ProductForm() {
                   <FormControl>
                     <Input
                       type="number"
-                      min={1}
+                      min={0}
                       {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
+                      value={+field.value}
+                      onChange={(event) => {
+                        let newValue = event.target.value
+                        if (newValue.startsWith('0')) {
+                          newValue = newValue.substring(1)
+                          console.log(newValue)
+                        }
+                        event.target.value = newValue
+                        field.value = +newValue
+                        field.onChange(+event.target.value)
+                      }}
                     />
                   </FormControl>
                   <FormMessage />

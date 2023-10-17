@@ -51,7 +51,6 @@ export function EditProductForm(product: Product) {
   });
 
   function onSubmitting(values: z.infer<typeof productSchema>) {
-    console.log('Onsubmitting:' + values);
     axios
       .patch(`/api/${params.storeID}/products/${product.id}`, values)
       .then(function (response) {
@@ -103,7 +102,19 @@ export function EditProductForm(product: Product) {
                 <FormItem>
                   <FormLabel>Product Price</FormLabel>
                   <FormControl>
-                    <Input type="number" min={1} {...field} onChange={(event) => field.onChange(+event.target.value)} />
+                    <Input type="number" min={1} {...field}
+                      value={+field.value}
+                      onChange={(event) => {
+                        let newValue = event.target.value
+                        if (newValue.startsWith('0')) {
+                          newValue = newValue.substring(1)
+                          console.log(newValue)
+                        }
+                        event.target.value = newValue
+                        field.value = +newValue
+                        field.onChange(+event.target.value)
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -183,7 +194,18 @@ export function EditProductForm(product: Product) {
                 <FormItem>
                   <FormLabel>Product Stock</FormLabel>
                   <FormControl>
-                    <Input type="number" min={1} {...field} onChange={(event) => field.onChange(+event.target.value)} />
+                    <Input type="number" min={1} {...field}
+                      value={+field.value}
+                      onChange={(event) => {
+                        let newValue = event.target.value
+                        if (newValue.startsWith('0')) {
+                          newValue = newValue.substring(1)
+                          console.log(newValue)
+                        }
+                        event.target.value = newValue
+                        field.value = +newValue
+                        field.onChange(+event.target.value)
+                      }} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -200,5 +222,6 @@ export function EditProductForm(product: Product) {
         </Form>
       </div>
     </ScrollArea>
+
   );
 }
