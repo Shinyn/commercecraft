@@ -74,7 +74,6 @@ export default function ProductForm() {
   });
 
   function onSubmitting(values: z.infer<typeof productSchema>) {
-    console.log("Onsubmitting:" + values);
     axios
       .post(`/api/${params.storeID}/products/${params.id}`, values)
       .then(function (response) {
