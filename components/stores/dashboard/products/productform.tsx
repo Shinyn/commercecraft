@@ -27,7 +27,7 @@ export default function ProductForm() {
       .min(2, { message: "Name must be at least 2 characters long" }),
     description: z
       .string()
-      .min(5, { message: "Description must be at least 5 characters long" })
+      .min(2, { message: "Description must be at least 2 characters long" })
       .max(255, { message: "Description must be less than 255 characters" }),
     price: z
       .number()
@@ -39,6 +39,7 @@ export default function ProductForm() {
       .max(255, { message: "URL must be less than 255 characters" }),
     category: z.string(),
     color: z.string(),
+    size: z.string(),
     manufacturer: z.string().min(2, {
       message: "Manufacturer must be at least 2 characters long",
     }),
@@ -46,14 +47,11 @@ export default function ProductForm() {
     isfeatured: z.boolean(),
     ingredients: z
       .string()
-      .min(5, { message: "Ingredient list must be at least 5 characters long" })
+      .min(2, { message: "Ingredient list must be at least 2 characters long" })
       .max(255, {
         message: "Ingredient list must be less than 255 characters",
       }),
-    stock: z
-      .number()
-      .min(0, { message: "You can only add products that are in stock" })
-      .max(Infinity),
+    stock: z.number().max(Infinity),
   });
 
   const form = useForm<z.infer<typeof productSchema>>({
@@ -66,6 +64,7 @@ export default function ProductForm() {
       category: "",
       manufacturer: "",
       color: "",
+      size: "",
       isarchived: false,
       isfeatured: false,
       ingredients: "",
@@ -175,6 +174,22 @@ export default function ProductForm() {
                 </FormItem>
               )}
             />
+            <FormItem>
+              <FormLabel>Color</FormLabel>
+              <SelectForAddProduct
+                placeholder="Select Color"
+                apicall={`/api/${params.storeID}/colors`}
+                valueSend={(value: string) => form.setValue("color", value)}
+              />
+            </FormItem>
+            <FormItem>
+              <FormLabel>Size</FormLabel>
+              <SelectForAddProduct
+                placeholder="Select size"
+                apicall={`/api/${params.storeID}/sizes`}
+                valueSend={(value: string) => form.setValue("size", value)}
+              />
+            </FormItem>
             <FormField
               control={form.control}
               name="ingredients"
@@ -250,14 +265,6 @@ export default function ProductForm() {
                 placeholder="Select Category"
                 apicall={`/api/${params.storeID}/categories`}
                 valueSend={(value: string) => form.setValue("category", value)}
-              />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Product Color</FormLabel>
-              <SelectForAddProduct
-                placeholder="Select Color"
-                apicall={`/api/${params.storeID}/colors`}
-                valueSend={(value: string) => form.setValue("color", value)}
               />
             </FormItem>
             <Button type="submit">Submit</Button>
