@@ -59,7 +59,6 @@ export default function EditColorForm(color: Color) {
       });
   }
 
-  //Render the form
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmitting)}>
@@ -80,8 +79,8 @@ export default function EditColorForm(color: Color) {
           control={form.control}
           name="hex"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Hex-Code</FormLabel>
+            <FormItem className="mt-4">
+              <FormLabel>Hex code</FormLabel>
               <FormControl>
                 <Input placeholder="#000000" {...field} />
               </FormControl>
@@ -89,7 +88,9 @@ export default function EditColorForm(color: Color) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button className="mt-4" type="submit">
+          Submit
+        </Button>
       </form>
     </Form>
   );

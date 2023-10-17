@@ -62,8 +62,10 @@ export const columns: ColumnDef<Color>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {color.title}?</SheetTitle>
-                <SheetDescription>Edit the color name here</SheetDescription>
+                <SheetTitle>Replace {color.title}?</SheetTitle>
+                <SheetDescription>
+                  Edit your color name and hex code here
+                </SheetDescription>
                 {EditColorForm(color)}
               </SheetHeader>
             </SheetContent>

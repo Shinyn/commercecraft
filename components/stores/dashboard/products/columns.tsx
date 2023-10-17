@@ -65,20 +65,40 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "price",
-    header: "Price",
-  },
-  {
-    accessorKey: "category",
-    header: "Category",
+    accessorKey: "size",
+    header: "Size",
   },
   {
     accessorKey: "manufacturer",
-    header: "Manufacturer",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Manufacturer
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
-    accessorKey: "stock",
-    header: "Stock",
+    accessorKey: "category",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Category
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: "color",
+    header: "Color",
   },
   {
     accessorKey: "isfeatured",
@@ -89,9 +109,27 @@ export const columns: ColumnDef<Product>[] = [
     header: "Archived",
   },
   {
-    accessorKey: "ingredients",
-    header: "Ingredients",
+    accessorKey: "price",
+    header: "Price",
   },
+  {
+    accessorKey: "stock",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Stock
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+  },
+  // {
+  //   accessorKey: "ingredients",
+  //   header: "Ingredients",
+  // },
   {
     id: "actions",
     cell: ({ row }) => {
@@ -119,7 +157,7 @@ export const columns: ColumnDef<Product>[] = [
                 <DropdownMenuItem
                   onClick={() => navigator.clipboard.writeText(product.id)}
                 >
-                  Copy payment ID
+                  Copy product ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>

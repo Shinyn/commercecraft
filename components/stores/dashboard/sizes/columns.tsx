@@ -58,8 +58,8 @@ export const columns: ColumnDef<Size>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {size.title}?</SheetTitle>
-                <SheetDescription>Edit the size name here</SheetDescription>
+                <SheetTitle> Replace {size.title}?</SheetTitle>
+                <SheetDescription>Edit your size name here</SheetDescription>
                 {EditSizeForm(size)}
               </SheetHeader>
             </SheetContent>

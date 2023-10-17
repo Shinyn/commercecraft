@@ -53,7 +53,6 @@ export function EditCategoryForm(category: Category) {
       });
   }
 
-  //Render the form
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmitting)}>
@@ -70,7 +69,9 @@ export function EditCategoryForm(category: Category) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="mt-4">
+          Submit
+        </Button>
       </form>
     </Form>
   );
