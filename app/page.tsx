@@ -24,8 +24,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen">
-      <div className="flex justify-end m-8">
+    <main className="min-h-screen m-8">
+      <div className="flex justify-end">
         <UserButton afterSignOutUrl="/" />
       </div>
       <StoreForm />
