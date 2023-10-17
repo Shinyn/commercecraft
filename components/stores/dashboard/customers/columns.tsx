@@ -17,11 +17,11 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 import { Customer } from "@/components/stores/dashboard/customers/customer";
 import { ContactLinkCustomer } from "./contactLinkCustomer";
 import { DeleteCustomer } from "@/components/stores/dashboard/customers/DeleteCustomer";
-import { EditCustomerForm } from "@/components/stores/dashboard/customers/editCustomersForm"
+import { EditCustomerForm } from "@/components/stores/dashboard/customers/editCustomersForm";
 export const columns: ColumnDef<Customer>[] = [
   {
     accessorKey: "id",
@@ -78,7 +78,7 @@ export const columns: ColumnDef<Customer>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Phonenumber
+          Phone number
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -176,8 +176,10 @@ export const columns: ColumnDef<Customer>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {"Edit Billboard"}?</SheetTitle>
-                <SheetDescription>Edit the category name here</SheetDescription>
+                <SheetTitle> {"Edit customer"}</SheetTitle>
+                <SheetDescription>
+                  Edit your customer details below
+                </SheetDescription>
                 {EditCustomerForm(row.original)}
               </SheetHeader>
             </SheetContent>
@@ -201,14 +203,16 @@ export const columns: ColumnDef<Customer>[] = [
                   <ContactLinkCustomer e_mail={row.original.e_mail} />
                 </DropdownMenuItem>
                 <SheetTrigger>
-                  <DropdownMenuItem
-                  >Edit
-                  </DropdownMenuItem>
+                  <DropdownMenuItem>Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem
-                ><DeleteCustomer itemId={row.original.id || ""} />
+                <DropdownMenuItem>
+                  <DeleteCustomer itemId={row.original.id || ""} />
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={()=>{console.log(row.original)}}>
+                <DropdownMenuItem
+                  onClick={() => {
+                    console.log(row.original);
+                  }}
+                >
                   log
                 </DropdownMenuItem>
               </DropdownMenuContent>

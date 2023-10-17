@@ -7,6 +7,7 @@ const DeleteProduct = (params: { itemId: string }) => {
   return (
     <>
       <div
+        className="hover:cursor-pointer w-full"
         onClick={async (e) => {
           axios
             .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${storeID}/products/${params.itemId}`)

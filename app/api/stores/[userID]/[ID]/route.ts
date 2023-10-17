@@ -19,3 +19,21 @@ export async function DELETE(
     );
   }
 }
+
+export async function GET(
+  req: Request,
+  { params }: { params: { userID: string; ID: string } }
+) {
+  try {
+    const Store = await prismadb.store.findUnique({
+      where: { user_id: params.userID, id: params.ID },
+    });
+    return NextResponse.json(Store);
+  } catch (error) {
+    console.log("api/stores/GET", error);
+    return new NextResponse(
+      "Ooops, something went wrong when getting the stores",
+      { status: 500 }
+    );
+  }
+}
