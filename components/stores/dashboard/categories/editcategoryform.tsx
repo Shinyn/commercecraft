@@ -7,6 +7,8 @@ import * as z from 'zod';
 import { Category } from '@/components/stores/dashboard/categories/categories';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import  {CategoryState} from "@/components/stores/dashboard/categories/zustand/zustandstate"
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   title: z.string().min(2, { message: 'category must be atleast 2 characters long' }),
@@ -16,6 +18,9 @@ const formSchema = z.object({
 
 //Form for adding a new category
 export function EditCategoryForm(category: Category) {
+  const reFetchCategories = CategoryState((state) => state.reFetchCategories);
+
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,8 +38,8 @@ export function EditCategoryForm(category: Category) {
         title: form.getValues('title'),
       })
       .then(function (response) {
-        window.location.reload();
-        return response.data;
+        toast.success("Category added successfully");
+        reFetchCategories(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
       })
       .catch(function (error) {
         console.log(error);

@@ -1,8 +1,7 @@
 "use client";
-import { useNameStore } from "@/components/stores/dashboard/categories/zustand/zustandstate";
+import { CategoryState } from "@/components/stores/dashboard/categories/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
 import { DashboardPopover } from "@/components/DashboardPopover";
-
 import CategoryForm from "@/components/stores/dashboard/categories/categoryform";
 import { columns } from "@/components/stores/dashboard/categories/columns";
 import axios from "axios";
@@ -12,10 +11,9 @@ import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 
 export default function Page() {
   //State for the categories
-  const categories = useNameStore((state) => state.categories);
-  const updateCategories = useNameStore((state) => state.updateCategories);
-  const state = useNameStore((state) => state.state);
-  const updateState = useNameStore((state) => state.updateState);
+  const categories = CategoryState((state) => state.categories);
+  const updateCategories = CategoryState((state) => state.updateCategories);
+  const updateState = CategoryState((state) => state.updateState);
   const params = useParams();
   const section = "categories";
 

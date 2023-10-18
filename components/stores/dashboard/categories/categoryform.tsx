@@ -16,10 +16,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
+import  {CategoryState} from "@/components/stores/dashboard/categories/zustand/zustandstate"
 
 //Form for adding a new category
 export default function CategoryForm() {
   const params = useParams();
+  const reFetchCategories = CategoryState((state) => state.reFetchCategories);
+
   //Form validation
   const formSchema = z.object({
     name: z
@@ -43,11 +46,8 @@ export default function CategoryForm() {
         }
       )
       .then(function (response) {
-        console.log(response);
         toast.success("Category added successfully");
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
+        reFetchCategories(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
       })
       .catch(function (error) {
         console.log(error);
