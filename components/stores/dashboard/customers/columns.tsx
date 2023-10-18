@@ -212,9 +212,7 @@ export const columns: ColumnDef<Customer>[] = [
                   onClick={() => {
                     console.log(row.original);
                   }}
-                >
-                  log
-                </DropdownMenuItem>
+                ></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>
