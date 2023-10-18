@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import axios from "axios";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { BillboardState } from "@/components/stores/dashboard/billboards/state";
+import { BillboardState } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -44,18 +44,18 @@ export function EditForm(billboard: Billboard) {
   function onSubmit(values: z.infer<typeof formSchema>) {
     axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`, {
       values
-  })
+    })
       .then(function (response) {
-          if (response.status == 200) {
-              toast.success("Billboard uppdated successfully");
-              reFetchBillboards(Array.isArray(params.storeID)?params.storeID.toString():params.storeID)
-          }
+        if (response.status == 200) {
+          toast.success("Billboard uppdated successfully");
+          reFetchBillboards(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
+        }
       })
       .catch(function (error) {
-          console.log(error);
+        console.log(error);
       });
-}
-  
+  }
+
 
   return (
     <Form {...form}>

@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import axios from "axios";
-import { BillboardState } from "@/components/stores/dashboard/billboards/state";
+import { BillboardState } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -45,7 +45,7 @@ export function PostForm() {
       .then(function (response) {
         if (response.status == 201) {
           toast.success("Billboard added successfully");
-          reFetchBillboards(Array.isArray(params.storeID)?params.storeID.toString():params.storeID)
+          reFetchBillboards(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
         }
       })
       .catch(function (error) {
