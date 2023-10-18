@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import axios from "axios";
-import { BillboardState } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
+import { useBillboards } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -27,7 +27,7 @@ const formSchema = z.object({
 
 export function PostForm() {
   const params = useParams();
-  const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
+  const reFetchBillboards = useBillboards((state) => state.reFetchBillboards);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

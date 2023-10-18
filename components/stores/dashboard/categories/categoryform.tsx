@@ -16,12 +16,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
-import  {CategoryState} from "@/components/stores/dashboard/categories/zustand/zustandstate"
+import  {useCategories} from "@/components/stores/dashboard/categories/zustand/zustandstate"
 
 //Form for adding a new category
 export default function CategoryForm() {
   const params = useParams();
-  const reFetchCategories = CategoryState((state) => state.reFetchCategories);
+  const reFetchCategories = useCategories((state) => state.reFetchCategories);
 
   //Form validation
   const formSchema = z.object({

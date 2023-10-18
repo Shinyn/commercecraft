@@ -11,11 +11,11 @@ import { Product } from '@/components/stores/dashboard/products/products';
 import { Checkbox } from '@/components/ui/checkbox';
 import toast from 'react-hot-toast';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { useProductStore } from './zustand/zustandstate';
+import { useProducts } from './zustand/zustandstate';
 
 export function EditProductForm(product: Product) {
   const { storeID } = useParams();
-  const reFetchProducts = useProductStore((state) => state.reFetchProducts);
+  const reFetchProducts = useProducts((state) => state.reFetchProducts);
 
   const productSchema = z.object({
     title: z.string().min(2, { message: 'Title must be at least 2 characters long' }),

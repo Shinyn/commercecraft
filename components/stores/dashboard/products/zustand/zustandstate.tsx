@@ -12,7 +12,7 @@ type ProductStore = {
 
 };
 
-export const useProductStore = create<ProductStore>((set) => ({
+export const useProducts = create<ProductStore>((set) => ({
   products: [], // Initial empty array of products
   updateProducts: (newProducts) => set({ products: newProducts }), // Update products
   addProduct: (product) =>

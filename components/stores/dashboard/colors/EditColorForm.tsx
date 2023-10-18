@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import toast from "react-hot-toast";
-import { ColorState } from "@/components/stores/dashboard/colors/zustand/zustandstate";
+import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
 
 
 const formSchema = z.object({
@@ -42,7 +42,7 @@ export default function EditColorForm(color: Color) {
     },
   });
   const params = useParams();
-  const reFetchColors = ColorState((state) => state.reFetchColors);
+  const reFetchColors = useColors((state) => state.reFetchColors);
 
   function onSubmitting(e: any) {
     axios

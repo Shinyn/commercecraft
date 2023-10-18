@@ -16,12 +16,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
-import { ColorState } from "@/components/stores/dashboard/colors/zustand/zustandstate";
+import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
 
 //Form for adding a new color
 export default function ColorForm() {
   const params = useParams();
-  const reFetchColors = ColorState((state) => state.reFetchColors);
+  const reFetchColors = useColors((state) => state.reFetchColors);
 
   //Form validation
   const formSchema = z.object({

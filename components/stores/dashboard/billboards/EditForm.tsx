@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import axios from "axios";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { BillboardState } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
+import { useBillboards } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
@@ -29,7 +29,7 @@ const formSchema = z.object({
 });
 
 export function EditForm(billboard: Billboard) {
-  const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
+  const reFetchBillboards = useBillboards((state) => state.reFetchBillboards);
   const params = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

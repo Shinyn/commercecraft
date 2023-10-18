@@ -10,12 +10,12 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import SelectForAddProduct from '@/components/stores/dashboard/products/SelectForAddProduct';
 import { useParams } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { useProductStore } from './zustand/zustandstate';
+import { useProducts } from './zustand/zustandstate';
 
 export default function ProductForm() {
   const {storeID} = useParams();
   const params=useParams()
-  const reFetchProducts = useProductStore((state) => state.reFetchProducts);
+  const reFetchProducts = useProducts((state) => state.reFetchProducts);
 
   const productSchema = z.object({
     title: z.string().min(2, { message: 'Name must be at least 2 characters long' }),

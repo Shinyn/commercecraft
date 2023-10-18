@@ -1,10 +1,10 @@
 import axios, { isAxiosError } from "axios"
 import toast from "react-hot-toast";
-import { BillboardState } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
+import { useBillboards } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
 import { useParams } from "next/navigation";
 
 export function MyDelete(params: { itemId: string }) {
-  const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
+  const reFetchBillboards = useBillboards((state) => state.reFetchBillboards);
   const { storeID } = useParams()
   return (
     <div onClick={async (e) => {

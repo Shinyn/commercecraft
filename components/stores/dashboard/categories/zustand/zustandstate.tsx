@@ -19,7 +19,7 @@ type Action = {
 
 };
 // create the store with the actions and the state(combines them so you can import them together in other files and use them as one)
-export const CategoryState = create<State & Action>((set) => ({
+export const useCategories = create<State & Action>((set) => ({
   name: "",
   updateName: (name: string) => set(() => ({ name: name })),
   categories: [],

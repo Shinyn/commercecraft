@@ -7,7 +7,7 @@ import * as z from 'zod';
 import { Category } from '@/components/stores/dashboard/categories/categories';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import  {CategoryState} from "@/components/stores/dashboard/categories/zustand/zustandstate"
+import  {useCategories} from "@/components/stores/dashboard/categories/zustand/zustandstate"
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
@@ -18,7 +18,7 @@ const formSchema = z.object({
 
 //Form for adding a new category
 export function EditCategoryForm(category: Category) {
-  const reFetchCategories = CategoryState((state) => state.reFetchCategories);
+  const reFetchCategories = useCategories((state) => state.reFetchCategories);
 
 
   const form = useForm<z.infer<typeof formSchema>>({

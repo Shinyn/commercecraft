@@ -5,14 +5,14 @@ import { columns } from "@/components/stores/dashboard/billboards/columns";
 import { useEffect } from "react";
 import { PostForm } from "@/components/stores/dashboard/billboards/PostForm";
 import axios from "axios";
-import { BillboardState } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
+import { useBillboards } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
 import { useParams } from "next/navigation";
 import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 
 export default function Page() {
   //states for keeping track of billboards in dashboard front
-  const billboards = BillboardState((state) => state.billboards);
-  const updateBillboards = BillboardState((state) => state.updateBillboards);
+  const billboards = useBillboards((state) => state.billboards);
+  const updateBillboards = useBillboards((state) => state.updateBillboards);
   const params = useParams();
 
   const section = "billboards";

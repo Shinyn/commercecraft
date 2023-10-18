@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { ColorState } from "@/components/stores/dashboard/colors/zustand/zustandstate";
+import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
 
 
 export function DeleteColor(params: { itemId: string }) {
   const { storeID } = useParams();
-  const reFetchColors = ColorState((state) => state.reFetchColors);
+  const reFetchColors = useColors((state) => state.reFetchColors);
 
   return (
     <div

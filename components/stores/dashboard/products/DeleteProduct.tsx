@@ -1,12 +1,11 @@
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import {
-  useProductStore
-} from './zustand/zustandstate';
+import { useProducts } from './zustand/zustandstate';
+
 const DeleteProduct = (params: { itemId: string }) => {
   const { storeID } = useParams();
-  const reFetchProducts = useProductStore((state) => state.reFetchProducts);
+  const reFetchProducts = useProducts((state) => state.reFetchProducts);
 
   return (
     <>
