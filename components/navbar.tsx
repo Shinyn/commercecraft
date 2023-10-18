@@ -1,14 +1,19 @@
 //En egengjord navbar som löper längs med sidan
 "use client";
 import Link from "next/link";
-
+import { Settings } from "@/components/stores/dashboard/settings";
 import { useParams } from "next/navigation";
+import { GiFastBackwardButton } from "react-icons/gi";
 
 export default function Navbar() {
   const params = useParams();
 
   return (
     <div className={"sticky top-0 p-2 h-screen bg-blue-400 print:hidden "}>
+      <div className={"flex flex-row justify-end"}>
+      <Settings/>
+      </div>
+      <div>
       <h1 className={"m-4 my-6 text-5xl"}>
         {" "}
         <Link href={`/${params.storeID}`}>Dashboard</Link>
@@ -35,7 +40,12 @@ export default function Navbar() {
         <li className={"hover:text-white"}>
           <Link href={`/${params.storeID}/orders`}>Orders</Link>
         </li>
-      </ul>
+      </ul></div>
+      <div className="flex flex-row justify-end mt-20">
+        <Link href={`/`}>
+          <GiFastBackwardButton className="text-3xl" />
+        </Link>
+      </div>
     </div>
   );
 }
