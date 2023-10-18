@@ -37,10 +37,10 @@ export function Settings() {
     return <div>Loading...</div>;
   } else
     return (
-      <div className={"text-center text-2xl m-9 rounded bg-blue-400"}>
+      <div className={"text-center text-2xl m-5 rounded bg-blue-400"}>
         <Popover>
           <PopoverTrigger>
-            <FiSettings />
+            <FiSettings className="text-4xl hover:text-white" />
           </PopoverTrigger>
           <PopoverContent>
             Here you can edit your store-name:
