@@ -14,6 +14,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import toast from "react-hot-toast";
+import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
+
 
 const formSchema = z.object({
   title: z
@@ -39,6 +42,7 @@ export default function EditColorForm(color: Color) {
     },
   });
   const params = useParams();
+  const reFetchColors = useColors((state) => state.reFetchColors);
 
   function onSubmitting(e: any) {
     axios
@@ -51,7 +55,9 @@ export default function EditColorForm(color: Color) {
         }
       )
       .then(function (response) {
-        window.location.reload();
+        toast.success("Color updated successfully!");
+        reFetchColors(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
+
         return response.data;
       })
       .catch(function (error) {

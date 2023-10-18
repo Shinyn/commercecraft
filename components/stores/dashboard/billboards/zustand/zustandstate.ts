@@ -13,7 +13,7 @@ type Action = {
   reFetchBillboards: (storeId:string) => void;//Updates billboards saved in state
 };
 // create the store with the actions and the state(combines them so you can import them together in other files and use them as one)
-export const BillboardState = create<State & Action>((set) => ({
+export const useBillboards = create<State & Action>((set) => ({
   billboards: [],
   updateBillboards: (billboards: Billboard[]) =>
       set(() => ({ billboards: billboards })),

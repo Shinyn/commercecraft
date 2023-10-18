@@ -1,5 +1,5 @@
 "use client";
-import { useProductStore } from "@/components/stores/dashboard/products/zustand/zustandstate";
+import { useProducts } from "@/components/stores/dashboard/products/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
 import { DashboardPopover } from "@/components/DashboardPopover";
 import ProductForm from "@/components/stores/dashboard/products/productform";
@@ -11,8 +11,9 @@ import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 
 export default function Page() {
   // State för produkter
-  const products = useProductStore((state) => state.products);
-  const updateProducts = useProductStore((state) => state.updateProducts);
+  const products = useProducts((state) => state.products);
+  const updateProducts = useProducts((state) => state.updateProducts);
+
   const params = useParams();
   const section = "products";
 
