@@ -11,9 +11,12 @@ import { Product } from '@/components/stores/dashboard/products/products';
 import { Checkbox } from '@/components/ui/checkbox';
 import toast from 'react-hot-toast';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useProductStore } from './zustand/zustandstate';
 
 export function EditProductForm(product: Product) {
-  const params = useParams();
+  const { storeID } = useParams();
+  const reFetchProducts = useProductStore((state) => state.reFetchProducts);
+
   const productSchema = z.object({
     title: z.string().min(2, { message: 'Title must be at least 2 characters long' }),
     description: z
@@ -52,12 +55,10 @@ export function EditProductForm(product: Product) {
 
   function onSubmitting(values: z.infer<typeof productSchema>) {
     axios
-      .patch(`/api/${params.storeID}/products/${product.id}`, values)
+      .patch(`/api/${storeID}/products/${product.id}`, values)
       .then(function (response) {
         toast.success('Product updated');
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
+        reFetchProducts(Array.isArray(storeID) ? storeID.toString() : storeID)
       })
       .catch(function (error) {
         console.log(error);
@@ -213,7 +214,7 @@ export function EditProductForm(product: Product) {
             />
             <SelectForAddProduct
               placeholder="Select Category"
-              apicall={`/api/${params.storeID}/categories`}
+              apicall={`/api/${storeID}/categories`}
               value={product.category}
               valueSend={(value: string) => form.setValue('category', value)}
             />
