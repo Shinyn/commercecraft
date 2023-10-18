@@ -16,10 +16,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
 import { Customer } from "@/components/stores/dashboard/customers/customer";
+import { useCustomers } from './zustand/zustandstate';
+
 import toast from "react-hot-toast";
 
 export function EditCustomerForm(customer: Customer) {
+  const { storeID } = useParams();
   const params = useParams();
+  const reFetchCustomers = useCustomers((state) => state.reFetchCustomers);
+
   const customerSchema = z.object({
     id: z.string().min(2, { message: "Id must be at least 2 characters long" }),
     firstName: z
@@ -92,9 +97,8 @@ export function EditCustomerForm(customer: Customer) {
       })
       .then(function (response) {
         toast.success("Customer updated");
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
+        reFetchCustomers(Array.isArray(storeID) ? storeID.toString() : storeID)
+
       })
       .catch(function (error) {
         console.log(error);
