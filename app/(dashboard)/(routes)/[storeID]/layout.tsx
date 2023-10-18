@@ -8,10 +8,7 @@ export default function DashboardLayout({
   return (
     <div className={"flex flex-row"}>
       {<Navbar />}
-      <section className={"w-full"}>
-      {children}
-      </section>
+      <section className={"w-full"}>{children}</section>
     </div>
   );
 }
-
