@@ -1,5 +1,5 @@
 "use client";
-import { useNameStore } from "@/components/stores/dashboard/colors/zustand/zustandstate";
+import { ColorState } from "@/components/stores/dashboard/colors/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
 import { DashboardPopover } from "@/components/DashboardPopover";
 
@@ -12,10 +12,9 @@ import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 
 export default function Page() {
   //State for the colors
-  const colors = useNameStore((state) => state.colors);
-  const updateColors = useNameStore((state) => state.updateColors);
-  const state = useNameStore((state) => state.state);
-  const updateState = useNameStore((state) => state.updateState);
+  const colors = ColorState((state) => state.colors);
+  const updateColors = ColorState((state) => state.updateColors);
+  const updateState = ColorState((state) => state.updateState);
   const params = useParams();
   const section = "colors";
 
