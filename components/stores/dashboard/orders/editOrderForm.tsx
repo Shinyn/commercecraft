@@ -19,6 +19,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { Order } from "@/components/stores/dashboard/orders/order";
+import { useOrders } from './zustand/ordersState';
 
 const formSchema = z.object({
   id: z
@@ -53,6 +54,8 @@ const formSchema = z.object({
 
 export function EditOrderForm(order: Order) {
   const params = useParams();
+  const reFetchCompleteOrders = useOrders((state) => state.reFetchCompleteOrders);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -80,9 +83,7 @@ export function EditOrderForm(order: Order) {
       .then(function (response) {
         if (response.status == 200) {
           toast.success("Order status uppdated successfully");
-          setInterval(() => {
-            window.location.reload();
-          }, 3000);
+          reFetchCompleteOrders(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
         }
       })
       .catch(function (error) {
