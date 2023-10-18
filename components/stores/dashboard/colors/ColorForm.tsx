@@ -3,7 +3,7 @@ import * as z from "zod";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import {
   Form,
@@ -16,14 +16,17 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
+import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
 
 //Form for adding a new color
 export default function ColorForm() {
   const params = useParams();
+  const reFetchColors = useColors((state) => state.reFetchColors);
+
   //Form validation
   const formSchema = z.object({
     name: z.string().max(10),
-    hex: z.string().max(7),
+    hex: z.string().min(7).max(7),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,11 +47,8 @@ export default function ColorForm() {
         }
       )
       .then(function (response) {
-        console.log(response);
         toast.success("Color added successfully!");
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
+        reFetchColors(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
       })
       .catch(function (error) {
         console.log(error);
@@ -58,7 +58,6 @@ export default function ColorForm() {
   //Render the form
   return (
     <div className={"m-9"}>
-      <Toaster />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField
