@@ -48,8 +48,42 @@ export const columns: ColumnDef<Order>[] = [
     header: 'ID',
   },
   {
-    accessorKey: 'order_status',
-    header: 'Order Status',
+    accessorKey: 'paid',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Paid?
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.original.paid}
+        aria-label="Select row"
+      />),
+  },
+  {
+    accessorKey: 'delivered',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Delivered?
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.original.delivered}
+        aria-label="Select row"
+      />),
   },
   {
     accessorKey: 'order_total',
