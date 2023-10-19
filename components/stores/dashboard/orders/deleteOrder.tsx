@@ -3,7 +3,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useOrders } from "./zustand/ordersState";
 
-const DeleteOrder = (orderId: string) => {
+const DeleteOrder = (params:{orderId: string}) => {
   const { storeID } = useParams();
   const reFetchCompleteOrders = useOrders((state) => state.reFetchCompleteOrders);
 
