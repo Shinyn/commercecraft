@@ -76,10 +76,42 @@ const OrderPage = () => {
                       >
                         <td className="py-2 px-4">{item.title}</td>
                         <td className="py-2 px-4">
-                          {item.price / item.amount} SEK
+                          {item.price !== undefined && item.price.includes(".")
+                            ? (item.price / item.amount)
+                                .toFixed(2)
+                                .slice(0, -6) +
+                              " " +
+                              (item.price / item.amount).toFixed(2).slice(-6)
+                            : null}{" "}
+                          {item.price !== undefined && !item.price.includes(".")
+                            ? (item.price / item.amount)
+                                .toFixed(2)
+                                .slice(0, -6) +
+                              " " +
+                              (item.price / item.amount)
+                                .toFixed(2)
+                                .slice(-6, -3) +
+                              " " +
+                              (item.price / item.amount).toFixed(2).slice(-3)
+                            : null}
+                          SEK
                         </td>
-                        <td className="py-2 px-4">x{item.amount}</td>
-                        <td className="py-2 px-4">{item.price} SEK</td>
+                        <td className="py-2 px-4">x {item.amount}</td>
+                        <td className="py-2 px-4">
+                          {item.price !== undefined && item.price.includes(".")
+                            ? (item.price * 1).toFixed(2).slice(0, -6) +
+                              " " +
+                              (item.price * 1).toFixed(2).slice(-6)
+                            : null}{" "}
+                          {item.price !== undefined && !item.price.includes(".")
+                            ? (item.price * 1).toFixed(2).slice(0, -6) +
+                              " " +
+                              (item.price * 1).toFixed(2).slice(-6, -3) +
+                              " " +
+                              (item.price * 1).toFixed(2).slice(-3)
+                            : null}{" "}
+                          SEK
+                        </td>
                       </tr>
                     ))}
                   </tbody>
