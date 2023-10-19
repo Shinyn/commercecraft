@@ -71,18 +71,55 @@ const OrderPage = () => {
     return (
       <div
         className={
-          "flex flex-row justify-between border-t border-black absolute bottom-0 w-full"
+          "flex flex-col justify-between border-t p-2 border-black absolute bottom-0 w-full"
         }
       >
-        <div>
-          <h1 className="text-2xl font-bold m-1">Pris:</h1>
-          <span className="font-bold m-1">VAT:</span>{" "}
-          <span>{order_total * 0.12}</span>
-          <div>
-            <span className="font-bold m-1">Total:</span>
-            <span>{order_total} SEK</span>
+        <div className="flex flex-row justify-between border-b-2 border-black">
+          <div className="flex flex-col">
+            <span className="font-bold m-1">VAT:</span>{" "}
+            <span className="m-1">{(order_total - 50) * 0.12} SEK</span>
           </div>
-          <p className="italic pl-1"> Including delivery: 50kr </p>
+          <div className="flex flex-col">
+            <span className="font-bold m-1">Price excl. VAT:</span>{" "}
+            <span className="m-1">{(order_total - 50) * 0.88} SEK</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold m-1">Delivery fee:</span>{" "}
+            <span className="m-1"> 50 SEK</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold m-1 text-xl underline">
+              Total Price incl. VAT:
+            </span>
+            <span className="m-1 font-bold text-xl">{order_total} SEK</span>
+          </div>
+        </div>
+        <div className="mt-2">
+          <p className="text-center">Thank you for shopping with us!</p>
+          <p className="text-center">
+            If you have any questions, please contact us at:
+          </p>
+          <p className="text-center"></p>
+          <div className="flex flex-row justify-between">
+            <div className="flex flex-col">
+              <h2 className="font-bold text-xl">Kontaktinformation:</h2>{" "}
+              <p className="underline">Hakim Livs</p>
+              <p>Tomtebodavägen 3A </p>
+              <p>171 65 Solna</p>
+            </div>
+            <div>
+              <div className="mt-8">
+                <p className="m-2"> Mailadress: info@hakimlivs.se</p>
+              </div>
+              <div>
+                <p className="m-2">Telefon: 073-777 777 7</p>
+              </div>
+            </div>{" "}
+            <div className="mt-8">
+              <p>Swish to: 073-777 777 7</p>
+              <p>Or payment at delivery</p>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -109,6 +146,7 @@ const OrderPage = () => {
                   <thead className="bg-green-200 border-x-1 border-b-2 border-black">
                     <tr className="text-left">
                       <th className="py-2 px-4">Name</th>
+                      <th className="py-2 px-4">Unitprice</th>
                       <th className="py-2 px-4">Amount</th>
                       <th className="py-2 px-4">Price</th>
                     </tr>
@@ -122,6 +160,9 @@ const OrderPage = () => {
                         }`}
                       >
                         <td className="py-2 px-4">{item.title}</td>
+                        <td className="py-2 px-4">
+                          {item.price / item.amount} SEK
+                        </td>
                         <td className="py-2 px-4">x{item.amount}</td>
                         <td className="py-2 px-4">{item.price} SEK</td>
                       </tr>
