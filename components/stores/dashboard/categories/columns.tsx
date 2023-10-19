@@ -75,7 +75,7 @@ export const columns: ColumnDef<Category>[] = [
                 <SheetTrigger className="w-full">
                   <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="p-0">
                   <DeleteCategory itemId={category.id || ''} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
