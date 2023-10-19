@@ -287,6 +287,7 @@ export default function ProductForm() {
                 placeholder="Select Category"
                 apicall={`/api/${params.storeID}/categories`}
                 valueSend={(value: string) => form.setValue("category", value)}
+                value={form.getValues("category")}
               />
             </FormItem>
             <Button type="submit">Submit</Button>

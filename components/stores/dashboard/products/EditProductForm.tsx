@@ -256,9 +256,9 @@ export function EditProductForm(product: Product) {
               )}
             />
             <SelectForAddProduct
-              placeholder="Select Category"
+              placeholder={product.category}
               apicall={`/api/${storeID}/categories`}
-              value={product.category}
+              defaultValue={product.category}
               valueSend={(value: string) => form.setValue("category", value)}
             />
             <Button type="submit">Submit</Button>
