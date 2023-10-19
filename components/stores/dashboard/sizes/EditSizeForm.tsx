@@ -18,7 +18,9 @@ import {
 const formSchema = z.object({
   title: z
     .string()
-    .min(1, { message: "Unit must be atleast 1 characters long" }),
+    .min(1, { message: "Unit must be atleast 1 characters long" })
+    .max(50, { message: "Unit must be less than 50 characters long" })
+    .nonempty({ message: "You must write a unit" }),
   id: z.string(),
   storeId: z.string(),
 });

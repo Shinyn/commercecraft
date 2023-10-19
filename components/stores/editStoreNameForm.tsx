@@ -1,17 +1,28 @@
-'use client';
-import { useForm } from 'react-hook-form';
-import { useAuth } from '@clerk/nextjs';
-import axios from 'axios';
-import { Button } from '@/components/ui/button';
-import { Store } from './stores';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import toast from 'react-hot-toast';
+"use client";
+import { useForm } from "react-hook-form";
+import { useAuth } from "@clerk/nextjs";
+import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { Store } from "./stores";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
-  title: z.string().min(2, { message: 'Store-name must be atleast 2 characters long' }),
+  title: z
+    .string()
+    .min(2, { message: "Store-name must be atleast 2 characters long" })
+    .max(250, { message: "Store-name must be less than 250 characters" })
+    .nonempty({ message: "Store-name must not be empty" }),
 });
 
 //Form for adding a new store
@@ -30,10 +41,10 @@ export default function EditStoreForm(store: Store) {
       .patch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/stores`, {
         id: store.id,
         user_id: userId,
-        title: form.getValues('title'),
+        title: form.getValues("title"),
       })
       .then(function (response) {
-        toast.success('Store updated successfully');
+        toast.success("Store updated successfully");
         setInterval(() => {
           window.location.reload();
         }, 3000);
@@ -47,7 +58,10 @@ export default function EditStoreForm(store: Store) {
   //Render the form
   return (
     <Form {...form}>
-      <form className="flex flex-col p-0" onSubmit={form.handleSubmit(onSubmitting)}>
+      <form
+        className="flex flex-col p-0"
+        onSubmit={form.handleSubmit(onSubmitting)}
+      >
         <FormField
           control={form.control}
           name="title"

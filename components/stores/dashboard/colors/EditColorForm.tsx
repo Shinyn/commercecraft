@@ -17,11 +17,13 @@ import {
 import toast from "react-hot-toast";
 import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
 
-
 const formSchema = z.object({
   title: z
     .string()
-    .min(2, { message: "Color must be atleast 2 characters long" }),
+    .min(2, { message: "Color must be atleast 2 characters long" })
+    .max(50, { message: "Color must be less than 50 characters long" })
+    .nonempty({ message: "You must write a colorname"})
+    .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
   hex: z
     .string()
     .min(7, { message: "Hex-code must be at least 7 characters long" })
@@ -56,7 +58,11 @@ export default function EditColorForm(color: Color) {
       )
       .then(function (response) {
         toast.success("Color updated successfully!");
-        reFetchColors(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
+        reFetchColors(
+          Array.isArray(params.storeID)
+            ? params.storeID.toString()
+            : params.storeID
+        );
 
         return response.data;
       })
