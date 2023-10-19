@@ -1,11 +1,20 @@
 // This type is used to define the shape of our data.
-import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
-import { Store } from './stores';
-import EditStoreForm from './editStoreNameForm';
-import { MyDelete } from './deleteStore';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { Store } from "./stores";
+import EditStoreForm from "./editStoreNameForm";
+import { DeleteStore } from "./deleteStore";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import DeletePopup from "@/components/DeletePopup";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,18 +22,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { StoreLink } from './storelink';
+} from "@/components/ui/dropdown-menu";
+import { StoreLink } from "./storelink";
 export const columns: ColumnDef<Store>[] = [
   {
-    accessorKey: 'id',
-    header: 'ID',
+    accessorKey: "id",
+    header: "ID",
   },
   {
-    accessorKey: 'title',
+    accessorKey: "title",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Store
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -33,11 +45,11 @@ export const columns: ColumnDef<Store>[] = [
   },
 
   {
-    id: 'actions',
+    id: "actions",
     cell: ({ row }) => {
       const store = row.original;
       function copyPaymentId() {
-        if (store.id === undefined) return 'no id';
+        if (store.id === undefined) return "no id";
         else return store.id.toString();
       }
 
@@ -74,8 +86,10 @@ export const columns: ColumnDef<Store>[] = [
                 <SheetTrigger className="w-full">
                   <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem className="p-0">
-                  <MyDelete ID={store.id} />
+                <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                  <DeletePopup item={"store"}>
+                    <DeleteStore storeId={store.id} />
+                  </DeletePopup>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:cursor-pointer p-0">
                   <StoreLink storeid={store.id} />

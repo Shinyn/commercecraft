@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useBillboards } from '@/components/stores/dashboard/billboards/zustand/zustandstate';
 import { useParams } from 'next/navigation';
 
-export function MyDelete(params: { itemId: string }) {
+export function DeleteBillboard(params: { itemId: string }) {
   const reFetchBillboards = useBillboards((state) => state.reFetchBillboards);
   const { storeID } = useParams();
   return (
