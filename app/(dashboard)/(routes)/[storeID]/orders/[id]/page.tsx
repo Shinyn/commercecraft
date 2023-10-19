@@ -106,7 +106,7 @@ const OrderPage = () => {
             {loaded ? (
               <>
                 <table className="w-full">
-                  <thead className="bg-green-200">
+                  <thead className="bg-green-200 border-x-1 border-b-2 border-black">
                     <tr className="text-left">
                       <th className="py-2 px-4">Name</th>
                       <th className="py-2 px-4">Amount</th>
@@ -117,7 +117,7 @@ const OrderPage = () => {
                     {order_items.map((item: any, index) => (
                       <tr
                         key={item.id}
-                        className={`border-b border-black ${
+                        className={`border-b border-x-1 border-black ${
                           index % 2 === 0 ? "bg-gray-100" : "bg-gray-200"
                         }`}
                       >
