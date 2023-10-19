@@ -62,8 +62,9 @@ export const columns: ColumnDef<Order>[] = [
     },
     cell: ({ row }) => (
       <Checkbox
-        checked={row.original.paid}
-        aria-label="Select row"
+      aria-readonly={true}
+      checked={row.original.paid? true : false}
+      aria-label="Select row"
       />),
   },
   {
@@ -81,9 +82,10 @@ export const columns: ColumnDef<Order>[] = [
     },
     cell: ({ row }) => (
       <Checkbox
-        checked={row.original.delivered}
+        aria-readonly={true}
+        checked={row.original.delivered ? true : false}
         aria-label="Select row"
-      />),
+      />)
   },
   {
     accessorKey: 'order_total',
