@@ -11,6 +11,9 @@ export type Order = {
   customerName: string|undefined,
   customerstreet: string|undefined;
   customerPhone: string|undefined;
+  delivered:boolean;
+  paid:boolean;
+
 };
 
 export type OrderItem = {
