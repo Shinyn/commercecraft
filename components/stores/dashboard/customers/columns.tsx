@@ -2,6 +2,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import DeletePopup from "@/components/DeletePopup";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -205,8 +207,10 @@ export const columns: ColumnDef<Customer>[] = [
                 <SheetTrigger>
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem>
-                  <DeleteCustomer itemId={row.original.id || ""} />
+                <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                  <DeletePopup item={"customer"}>
+                    <DeleteCustomer itemId={row.original.id || ""} />
+                  </DeletePopup>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => {
