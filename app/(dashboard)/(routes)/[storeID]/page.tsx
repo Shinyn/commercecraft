@@ -62,14 +62,15 @@ export default function Page() {
             When you want to fetch from this CMS, you can use the StoreID like
             this:{" "}
           </p>
-          <p className=" m-1">https://commercecraft.vercel.app/{storeID}</p>
+          <p className=" m-1">https://commercecraft.vercel.app/api/{storeID}</p>
         </div>
       </div>
       <div className="p-5">
         <h2 className="font-bold">So, What can I do here?</h2>
         <p>
           You can create your own store, add products, and manage your
-          inventory. Each section has its own API, listed at the bottom, so you can fetch the data.
+          inventory. Each section has its own API, listed at the bottom, so you
+          can fetch the data.
         </p>
         <ul className="list-disc m-10 text-justify space-y-4 w-2/3">
           <li>
@@ -83,7 +84,7 @@ export default function Page() {
                 Banner
               </Link>
               , you can create your own banner and add it to your website. All
-              you need to do is add an imageURl and a text, and you can fetch it
+              you need to do is add an imageURL and a text, and you can fetch it
               from the database! In the actions column(the three dots), you can
               also edit and delete your banner.
             </p>
@@ -97,8 +98,9 @@ export default function Page() {
               >
                 Products
               </Link>
-              , you can add your own products with alot of different attributes, for instance featured or archived. In the actions column you can and manage, edit, and delete
-              the products. 
+              , you can add your own products with alot of different attributes,
+              for instance featured or archived. In the actions column you can
+              and manage, edit, and delete the products.
             </p>
           </li>
           <li>
@@ -149,7 +151,9 @@ export default function Page() {
               >
                 Customers
               </Link>
-              , your customers will be listed when they order something from your store. In the actions column you can also send an email to your customers, aswell as delete and edit them.
+              , your customers will be listed when they order something from
+              your store. In the actions column you can also send an email to
+              your customers, aswell as delete and edit them.
             </p>
           </li>
           <li>
@@ -161,7 +165,10 @@ export default function Page() {
               >
                 Orders
               </Link>
-              , your orders will be listed when your customers order something from your store. In the actions column you can also get to the deliverynote, that you can print, aswell as edit and delete your orders.
+              , your orders will be listed when your customers order something
+              from your store. In the actions column you can also get to the
+              deliverynote, that you can print, aswell as edit and delete your
+              orders.
             </p>
           </li>
         </ul>

@@ -51,11 +51,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   });
 
   return (
-    <div className="">
-      <div className="flex-1 text-sm text-muted-foreground">
-        {/* {table.getFilteredSelectedRowModel().rows.length} of{" "}
-  {table.getFilteredRowModel().rows.length} row(s) selected. */}
-      </div>
+    <div className="w-[1400px]">
       <div className="flex items-center py-4">
         {table.getColumn('title') ? (
           <Input

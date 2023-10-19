@@ -1,9 +1,9 @@
 "use client";
+import { useForm } from "react-hook-form";
+import { useAuth } from "@clerk/nextjs";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@clerk/nextjs";
 import { Store } from "./stores";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
@@ -20,7 +20,9 @@ import toast from "react-hot-toast";
 const formSchema = z.object({
   title: z
     .string()
-    .min(2, { message: "Store-name must be atleast 2 characters long" }),
+    .min(2, { message: "Store-name must be atleast 2 characters long" })
+    .max(250, { message: "Store-name must be less than 250 characters" })
+    .nonempty({ message: "Store-name must not be empty" }),
 });
 
 //Form for adding a new store
@@ -56,12 +58,15 @@ export default function EditStoreForm(store: Store) {
   //Render the form
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmitting)}>
+      <form
+        className="flex flex-col p-0"
+        onSubmit={form.handleSubmit(onSubmitting)}
+      >
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="py-4">
               <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input placeholder="Store name..." {...field} />

@@ -22,7 +22,11 @@ export default function SizeForm() {
   const params = useParams();
   //Form validation
   const formSchema = z.object({
-    name: z.string().max(10),
+    name: z
+      .string()
+      .min(1, { message: "Unit must be atleast 1 characters long" })
+      .max(50, { message: "Unit must be less than 50 characters long" })
+      .nonempty({ message: "You must write a unit" }),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({

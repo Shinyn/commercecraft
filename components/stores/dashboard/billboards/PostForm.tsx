@@ -15,19 +15,23 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import axios from "axios";
-import { BillboardState } from "@/components/stores/dashboard/billboards/state";
+import { useBillboards } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
   text: z.string().min(2).max(50),
-  image: z.string().min(0).max(255),
+  image: z
+    .string()
+    .url({ message: "Image must be in URL format" })
+    .min(0, { message: "Image must be at least 0 characters long" })
+    .max(255, { message: "Image must be less than 255 characters long" }).nonempty({ message: "Image must not be empty" }),
   active: z.boolean(),
 });
 
 export function PostForm() {
   const params = useParams();
-  const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
+  const reFetchBillboards = useBillboards((state) => state.reFetchBillboards);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,13 +43,21 @@ export function PostForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`, {
-      values
-    })
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`,
+        {
+          values,
+        }
+      )
       .then(function (response) {
         if (response.status == 201) {
           toast.success("Billboard added successfully");
-          reFetchBillboards(Array.isArray(params.storeID)?params.storeID.toString():params.storeID)
+          reFetchBillboards(
+            Array.isArray(params.storeID)
+              ? params.storeID.toString()
+              : params.storeID
+          );
         }
       })
       .catch(function (error) {

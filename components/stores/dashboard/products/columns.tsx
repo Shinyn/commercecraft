@@ -7,6 +7,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
+import DeletePopup from "@/components/DeletePopup";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -94,7 +95,14 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'price',
-    header: 'Price',
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+          Price
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: 'stock',
@@ -107,10 +115,6 @@ export const columns: ColumnDef<Product>[] = [
       );
     },
   },
-  // {
-  //   accessorKey: "ingredients",
-  //   header: "Ingredients",
-  // },
   {
     id: 'actions',
     cell: ({ row }) => {
@@ -142,11 +146,13 @@ export const columns: ColumnDef<Product>[] = [
                   Copy product ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <SheetTrigger className="hover:cursor-pointer w-full flex justify-left">Edit</SheetTrigger>
+                <DropdownMenuItem className="p-0">
+                  <SheetTrigger className="hover:cursor-pointer w-full flex justify-left p-2">Edit</SheetTrigger>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <DeleteProduct itemId={product.id} />
+                <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
+                  <DeletePopup item={"product"}>
+                    <DeleteProduct itemId={product.id} />
+                  </DeletePopup>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

@@ -16,39 +16,64 @@ import {
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
 import { Customer } from "@/components/stores/dashboard/customers/customer";
+import { useCustomers } from "./zustand/zustandstate";
+
 import toast from "react-hot-toast";
 
 export function EditCustomerForm(customer: Customer) {
+  const { storeID } = useParams();
   const params = useParams();
+  const reFetchCustomers = useCustomers((state) => state.reFetchCustomers);
+  const noNumber = new RegExp(/^([^0-9]*)$/);
+  const phoneRegex = new RegExp(
+    /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+  );
   const customerSchema = z.object({
     id: z.string().min(2, { message: "Id must be at least 2 characters long" }),
     firstName: z
       .string()
-      .min(1, { message: "Name must be at least 1 characters long" })
-      .max(255, { message: "Name must be less than 255 characters" }),
+      .min(2, {
+        message: "You must fill in your name",
+      })
+      .max(250, { message: "Name is too long" })
+      .regex(noNumber, { message: "No numbers!" })
+      .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
     lastName: z
       .string()
-      .min(1, { message: "Name must be at least 1 characters long" })
-      .max(255, { message: "Name must be less than 255 characters" }),
-    street: z
-      .string()
-      .min(2, { message: "Streetname must be at least 2 characters long" }),
-    zipCode: z
-      .string()
-      .min(0, { message: "Zip must be a positive number" })
-      .max(6),
-    city: z
-      .string()
-      .min(1, { message: "City must be at least 1 characters long" })
-      .max(255, { message: "City must be less than 255 characters" }),
-    phone: z
-      .string()
-      .min(1, { message: "Phone must be at least 1 characters long" })
-      .max(255, { message: "Phone must be less than 255 characters" }),
+      .min(2, {
+        message: "You must fill in your last name",
+      })
+      .max(250, { message: "Name is too long" })
+      .regex(noNumber, { message: "No numbers!" })
+      .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
     e_mail: z
       .string()
-      .min(1, { message: "E-mail must be at least 1 characters long" })
-      .max(255, { message: "E-mail must be less than 255 characters" }),
+      .email({
+        message: "You must fill in your email",
+      })
+      .max(250, { message: "email is too long" })
+      .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
+    phone: z.string().regex(phoneRegex, "Invalid Number!"),
+    street: z
+      .string()
+      .min(5, {
+        message: "You must fill in your street-address",
+      })
+      .max(250, { message: "Street-adress is too long" }),
+    zipCode: z
+      .number()
+      .gte(10000, {
+        message: "You must fill in your zip code",
+      })
+      .lte(999999, { message: "Zip code is too long" }),
+    city: z
+      .string()
+      .min(2, {
+        message: "You must fill in your city",
+      })
+      .max(250, { message: "Cityname is too long" })
+      .regex(noNumber, { message: "No numbers!" })
+      .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
     numberOfOrders: z.number().min(0).max(Infinity),
   });
 
@@ -59,7 +84,7 @@ export function EditCustomerForm(customer: Customer) {
       firstName: customer.firstName,
       lastName: customer.lastName,
       street: customer.street,
-      zipCode: customer.zipCode,
+      zipCode: parseInt(customer.zipCode),
       city: customer.city,
       e_mail: customer.e_mail,
       phone: customer.phone,
@@ -73,7 +98,7 @@ export function EditCustomerForm(customer: Customer) {
       firstName,
       lastName,
       street,
-      zipCode,
+      zipCode = values.zipCode.toString(),
       city,
       e_mail,
       phone,
@@ -92,9 +117,7 @@ export function EditCustomerForm(customer: Customer) {
       })
       .then(function (response) {
         toast.success("Customer updated");
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
+        reFetchCustomers(Array.isArray(storeID) ? storeID.toString() : storeID);
       })
       .catch(function (error) {
         console.log(error);
@@ -102,8 +125,8 @@ export function EditCustomerForm(customer: Customer) {
   }
 
   return (
-    <ScrollArea className={"h-[500px] w-[350px] rounded-md border p-8"}>
-      <div className={"m-9"}>
+    <ScrollArea className={"h-[800px] p-2 rounded-md"}>
+      <div className={"m-2"}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmitting)}

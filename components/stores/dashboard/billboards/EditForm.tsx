@@ -17,19 +17,24 @@ import {
 } from "@/components/ui/form";
 import axios from "axios";
 import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { BillboardState } from "@/components/stores/dashboard/billboards/state";
+import { useBillboards } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 const formSchema = z.object({
   id: z.string().min(3).max(50),
-  text: z.string().min(2).max(50),
-  image: z.string().min(0).max(255),
+  text: z.string().min(2).max(50).nonempty(),
+  image: z
+    .string()
+    .url({ message: "Image must be in url-format" })
+    .min(0, { message: "Image must be at least 0 characters long" })
+    .max(255, { message: "Image must be less than 255 characters long" })
+    .nonempty({ message: "Image must not be empty" }),
   active: z.boolean(),
 });
 
 export function EditForm(billboard: Billboard) {
-  const reFetchBillboards = BillboardState((state) => state.reFetchBillboards);
+  const reFetchBillboards = useBillboards((state) => state.reFetchBillboards);
   const params = useParams();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,20 +47,27 @@ export function EditForm(billboard: Billboard) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`, {
-      values
-  })
+    axios
+      .put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`,
+        {
+          values,
+        }
+      )
       .then(function (response) {
-          if (response.status == 200) {
-              toast.success("Billboard uppdated successfully");
-              reFetchBillboards(Array.isArray(params.storeID)?params.storeID.toString():params.storeID)
-          }
+        if (response.status == 200) {
+          toast.success("Billboard uppdated successfully");
+          reFetchBillboards(
+            Array.isArray(params.storeID)
+              ? params.storeID.toString()
+              : params.storeID
+          );
+        }
       })
       .catch(function (error) {
-          console.log(error);
+        console.log(error);
       });
-}
-  
+  }
 
   return (
     <Form {...form}>
