@@ -6,7 +6,7 @@ export function DeleteSize(params: { itemId: string }) {
   const { storeID } = useParams();
   return (
     <div
-      className="hover:cursor-pointer w-full"
+      className="hover:cursor-pointer w-full p-2"
       onClick={async (e) => {
         axios
           .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${storeID}/sizes/${params.itemId}`)

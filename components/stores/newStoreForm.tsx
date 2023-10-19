@@ -45,7 +45,7 @@ export default function StoreForm() {
 
   //Render the form
   return (
-    <div className="">
+    <div className="w-[1400px] m-8">
       {/* <Toaster /> */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">

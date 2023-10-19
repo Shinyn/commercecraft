@@ -75,7 +75,7 @@ export const columns: ColumnDef<Size>[] = [
                 <SheetTrigger className="w-full">
                   <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="p-0">
                   <DeleteSize itemId={size.id || ''} />
                 </DropdownMenuItem>
               </DropdownMenuContent>

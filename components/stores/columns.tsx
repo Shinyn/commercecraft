@@ -63,18 +63,21 @@ export const columns: ColumnDef<Store>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 {copyPaymentId === null ? null : (
-                  <DropdownMenuItem onClick={() => navigator.clipboard.writeText(copyPaymentId())}>
+                  <DropdownMenuItem
+                    className="hover:cursor-pointer"
+                    onClick={() => navigator.clipboard.writeText(copyPaymentId())}
+                  >
                     Copy store ID
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                <SheetTrigger>
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                <SheetTrigger className="w-full">
+                  <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="p-0">
                   <MyDelete ID={store.id} />
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="hover:cursor-pointer p-0">
                   <StoreLink storeid={store.id} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
