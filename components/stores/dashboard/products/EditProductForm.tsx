@@ -37,8 +37,8 @@ export function EditProductForm(product: Product) {
       .nonempty({ message: "You must write a description" }),
     price: z
       .number()
-      .min(0, { message: "Price must be a positive number" })
-      .max(Infinity),
+      .max(Infinity)
+      .min(1, { message: "Price must be 1 or more" }),
     image: z
       .string()
       .url({ message: "Need URL" })
@@ -137,18 +137,12 @@ export function EditProductForm(product: Product) {
                   <FormControl>
                     <Input
                       type="number"
-                      min={1}
+                      step="0.01"
+                      min="0"
                       {...field}
-                      value={+field.value}
+                      value={field.value}
                       onChange={(event) => {
-                        let newValue = event.target.value;
-                        if (newValue.startsWith("0")) {
-                          newValue = newValue.substring(1);
-                          console.log(newValue);
-                        }
-                        event.target.value = newValue;
-                        field.value = +newValue;
-                        field.onChange(+event.target.value);
+                        field.onChange(parseFloat(event.target.value)); // Parse and store as a float
                       }}
                     />
                   </FormControl>
