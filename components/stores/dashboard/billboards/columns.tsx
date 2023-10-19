@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import DeletePopup from '@/components/DeletePopup';
+import { Checkbox } from '@/components/ui/checkbox';
 
 import {
   DropdownMenu,
@@ -61,6 +62,11 @@ export const columns: ColumnDef<Billboard>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.original.active==1?true:false}
+        aria-label="Select row"
+      />)
   },
 
   {
