@@ -1,4 +1,4 @@
-import { useParams } from "next/navigation";
+import { useParams } from 'next/navigation';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,25 +9,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from '@/components/ui/alert-dialog';
 
-const DeletePopup = ({
-  children,
-  item,
-}: {
-  children: React.ReactNode;
-  item: string;
-}) => {
+const DeletePopup = ({ children, item }: { children: React.ReactNode; item: string }) => {
   const { storeID } = useParams();
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger>Delete</AlertDialogTrigger>
+      <AlertDialogTrigger className="p-2 w-full flex justify-left">Delete</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
-            {`Are you sure you want to delete this ${item}?`}
-          </AlertDialogTitle>
+          <AlertDialogTitle>{`Are you sure you want to delete this ${item}?`}</AlertDialogTitle>
           <AlertDialogDescription>
             {`This action cannot be undone. This will permanently delete this
             ${item} from the server.`}
