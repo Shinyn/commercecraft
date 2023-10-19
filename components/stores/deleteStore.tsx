@@ -1,11 +1,12 @@
-import axios from "axios";
-import { useAuth } from "@clerk/nextjs";
-import toast from "react-hot-toast";
+import axios from 'axios';
+import { useAuth } from '@clerk/nextjs';
+import toast from 'react-hot-toast';
 
 export function DeleteStore(params: { storeId: string | undefined }) {
   const { userId } = useAuth();
   return (
     <div
+      className="hover:cursor-pointer p-2 w-full"
       onClick={(e) => {
         const response = axios
           .delete(
@@ -13,7 +14,7 @@ export function DeleteStore(params: { storeId: string | undefined }) {
             {}
           )
           .then(function (response) {
-            toast.success("Store added successfully");
+            toast.success('Store deleted successfully');
             setInterval(() => {
               window.location.reload();
             }, 3000);

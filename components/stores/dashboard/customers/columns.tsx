@@ -1,7 +1,7 @@
 //Specifies the layout of data-table for billboards
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import DeletePopup from "@/components/DeletePopup";
 
 import {
@@ -11,28 +11,18 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Customer } from "@/components/stores/dashboard/customers/customer";
-import { ContactLinkCustomer } from "./contactLinkCustomer";
-import { DeleteCustomer } from "@/components/stores/dashboard/customers/DeleteCustomer";
-import { EditCustomerForm } from "@/components/stores/dashboard/customers/editCustomersForm";
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Customer } from '@/components/stores/dashboard/customers/customer';
+import { ContactLinkCustomer } from './contactLinkCustomer';
+import { DeleteCustomer } from '@/components/stores/dashboard/customers/DeleteCustomer';
+import { EditCustomerForm } from '@/components/stores/dashboard/customers/editCustomersForm';
 export const columns: ColumnDef<Customer>[] = [
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           ID
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -40,14 +30,11 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "firstName",
-    id: "firstName",
+    accessorKey: 'firstName',
+    id: 'firstName',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           First name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -55,15 +42,12 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "lastName",
-    id: "lastName",
+    accessorKey: 'lastName',
+    id: 'lastName',
 
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Last name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -71,15 +55,12 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "phone",
-    id: "phone",
+    accessorKey: 'phone',
+    id: 'phone',
 
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Phone number
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -88,14 +69,11 @@ export const columns: ColumnDef<Customer>[] = [
   },
 
   {
-    accessorKey: "street",
-    id: "street",
+    accessorKey: 'street',
+    id: 'street',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Street adress
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -103,14 +81,11 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "zipCode",
-    id: "zipCode",
+    accessorKey: 'zipCode',
+    id: 'zipCode',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Zip code
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -118,14 +93,11 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "city",
-    id: "city",
+    accessorKey: 'city',
+    id: 'city',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           City
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -133,14 +105,11 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "e_mail",
-    id: "title",
+    accessorKey: 'e_mail',
+    id: 'title',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Email
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -148,14 +117,11 @@ export const columns: ColumnDef<Customer>[] = [
     },
   },
   {
-    accessorKey: "numberOfOrders",
-    id: "numberOfOrders",
+    accessorKey: 'numberOfOrders',
+    id: 'numberOfOrders',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Orders
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -164,11 +130,11 @@ export const columns: ColumnDef<Customer>[] = [
   },
 
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       const category = row.original;
       function copyMail() {
-        if (category.id === undefined) return "no id";
+        if (category.id === undefined) return 'no id';
         else return category.e_mail.toString();
       }
 
@@ -178,10 +144,8 @@ export const columns: ColumnDef<Customer>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {"Edit customer"}</SheetTitle>
-                <SheetDescription>
-                  Edit your customer details below
-                </SheetDescription>
+                <SheetTitle> {'Edit customer'}</SheetTitle>
+                <SheetDescription>Edit your customer details below</SheetDescription>
                 {EditCustomerForm(row.original)}
               </SheetHeader>
             </SheetContent>
@@ -196,27 +160,23 @@ export const columns: ColumnDef<Customer>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuItem
+                  className="hover:cursor-pointer"
                   onClick={() => navigator.clipboard.writeText(copyMail())}
                 >
                   Copy e-mail
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem className="hover:cursor-pointer">
                   <ContactLinkCustomer e_mail={row.original.e_mail} />
                 </DropdownMenuItem>
-                <SheetTrigger>
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                <SheetTrigger className="w-full">
+                  <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem className="hover:cursor-pointer" onClick={(e) => e.preventDefault()}>
                   <DeletePopup item={"customer"}>
-                    <DeleteCustomer itemId={row.original.id || ""} />
+                    <DeleteCustomer itemId={row.original.id || ''} />
                   </DeletePopup>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => {
-                    console.log(row.original);
-                  }}
-                ></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </Sheet>

@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { Customer } from "@/components/stores/dashboard/customers/customer";
 import axios from "axios";
-// Zustand state tyo keep track of the customers for a chosen store
 
+// Zustand state to keep track of the customers for a chosen store
 type State = {
   customers: Customer[];
 };

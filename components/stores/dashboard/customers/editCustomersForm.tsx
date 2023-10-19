@@ -1,24 +1,16 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useParams } from "next/navigation";
-import { Customer } from "@/components/stores/dashboard/customers/customer";
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useForm } from 'react-hook-form';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useParams } from 'next/navigation';
+import { Customer } from '@/components/stores/dashboard/customers/customer';
 import { useCustomers } from './zustand/zustandstate';
 
-import toast from "react-hot-toast";
+import toast from 'react-hot-toast';
 
 export function EditCustomerForm(customer: Customer) {
   const { storeID } = useParams();
@@ -26,34 +18,29 @@ export function EditCustomerForm(customer: Customer) {
   const reFetchCustomers = useCustomers((state) => state.reFetchCustomers);
 
   const customerSchema = z.object({
-    id: z.string().min(2, { message: "Id must be at least 2 characters long" }),
+    id: z.string().min(2, { message: 'Id must be at least 2 characters long' }),
     firstName: z
       .string()
-      .min(1, { message: "Name must be at least 1 characters long" })
-      .max(255, { message: "Name must be less than 255 characters" }),
+      .min(1, { message: 'Name must be at least 1 characters long' })
+      .max(255, { message: 'Name must be less than 255 characters' }),
     lastName: z
       .string()
-      .min(1, { message: "Name must be at least 1 characters long" })
-      .max(255, { message: "Name must be less than 255 characters" }),
-    street: z
-      .string()
-      .min(2, { message: "Streetname must be at least 2 characters long" }),
-    zipCode: z
-      .string()
-      .min(0, { message: "Zip must be a positive number" })
-      .max(6),
+      .min(1, { message: 'Name must be at least 1 characters long' })
+      .max(255, { message: 'Name must be less than 255 characters' }),
+    street: z.string().min(2, { message: 'Streetname must be at least 2 characters long' }),
+    zipCode: z.string().min(0, { message: 'Zip must be a positive number' }).max(6),
     city: z
       .string()
-      .min(1, { message: "City must be at least 1 characters long" })
-      .max(255, { message: "City must be less than 255 characters" }),
+      .min(1, { message: 'City must be at least 1 characters long' })
+      .max(255, { message: 'City must be less than 255 characters' }),
     phone: z
       .string()
-      .min(1, { message: "Phone must be at least 1 characters long" })
-      .max(255, { message: "Phone must be less than 255 characters" }),
+      .min(1, { message: 'Phone must be at least 1 characters long' })
+      .max(255, { message: 'Phone must be less than 255 characters' }),
     e_mail: z
       .string()
-      .min(1, { message: "E-mail must be at least 1 characters long" })
-      .max(255, { message: "E-mail must be less than 255 characters" }),
+      .min(1, { message: 'E-mail must be at least 1 characters long' })
+      .max(255, { message: 'E-mail must be less than 255 characters' }),
     numberOfOrders: z.number().min(0).max(Infinity),
   });
 
@@ -73,17 +60,7 @@ export function EditCustomerForm(customer: Customer) {
   });
 
   function onSubmitting(values: z.infer<typeof customerSchema>) {
-    const {
-      id,
-      firstName,
-      lastName,
-      street,
-      zipCode,
-      city,
-      e_mail,
-      phone,
-      numberOfOrders,
-    } = values;
+    const { id, firstName, lastName, street, zipCode, city, e_mail, phone, numberOfOrders } = values;
     axios
       .patch(`/api/${params.storeID}/customers/${id}`, {
         firstName,
@@ -96,9 +73,8 @@ export function EditCustomerForm(customer: Customer) {
         numberOfOrders,
       })
       .then(function (response) {
-        toast.success("Customer updated");
-        reFetchCustomers(Array.isArray(storeID) ? storeID.toString() : storeID)
-
+        toast.success('Customer updated');
+        reFetchCustomers(Array.isArray(storeID) ? storeID.toString() : storeID);
       })
       .catch(function (error) {
         console.log(error);
@@ -106,13 +82,10 @@ export function EditCustomerForm(customer: Customer) {
   }
 
   return (
-    <ScrollArea className={"h-[500px] w-[350px] rounded-md border p-8"}>
-      <div className={"m-9"}>
+    <ScrollArea className={'h-[800px] p-2 rounded-md'}>
+      <div className={'m-2'}>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmitting)}
-            className="space-y-8"
-          >
+          <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
             <FormField
               control={form.control}
               name="id"
@@ -122,9 +95,7 @@ export function EditCustomerForm(customer: Customer) {
                   <FormControl>
                     <Input placeholder="Id" {...field} />
                   </FormControl>
-                  <FormDescription>
-                    This is your customers&apos; ID, you can NOT change this.
-                  </FormDescription>
+                  <FormDescription>This is your customers&apos; ID, you can NOT change this.</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -201,12 +172,7 @@ export function EditCustomerForm(customer: Customer) {
                 <FormItem>
                   <FormLabel>Orders made</FormLabel>
                   <FormControl>
-                    <Input
-                      type="number"
-                      min={1}
-                      {...field}
-                      onChange={(event) => field.onChange(+event.target.value)}
-                    />
+                    <Input type="number" min={1} {...field} onChange={(event) => field.onChange(+event.target.value)} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

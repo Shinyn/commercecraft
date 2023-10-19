@@ -106,10 +106,8 @@ export const columns: ColumnDef<Billboard>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <SheetTrigger className="w-full">
-                  <DropdownMenuItem className="hover:cursor-pointer">
-                    Edit
-                  </DropdownMenuItem>
+                <SheetTrigger className="p-0 w-full">
+                  <DropdownMenuItem className="hover:cursor-pointer p-2">Edit</DropdownMenuItem>
                 </SheetTrigger>
                 <DropdownMenuItem onClick={(e) => e.preventDefault()}>
                   <DeletePopup item={"billboard"}>

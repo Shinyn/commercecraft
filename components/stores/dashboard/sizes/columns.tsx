@@ -90,7 +90,7 @@ export const columns: ColumnDef<Size>[] = [
                     Edit
                   </DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
                   <DeletePopup item={"size"}>
                     <DeleteSize itemId={size.id || ""} />
                   </DeletePopup>

@@ -96,7 +96,7 @@ export const columns: ColumnDef<Color>[] = [
                     Edit
                   </DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
                   <DeletePopup item={"color"}>
                     <DeleteColor itemId={color.id || ""} />
                   </DeletePopup>

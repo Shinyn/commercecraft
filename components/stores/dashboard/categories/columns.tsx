@@ -91,7 +91,7 @@ export const columns: ColumnDef<Category>[] = [
                     Edit
                   </DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
                   <DeletePopup item={"category"}>
                     <DeleteCategory itemId={category.id || ""} />
                   </DeletePopup>
