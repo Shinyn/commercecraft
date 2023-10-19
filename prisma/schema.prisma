@@ -27,7 +27,7 @@ model Product {
   title        String
   description  String
   ingredients  String  @default("Bobs")
-  price        Int
+  price        Decimal
   image        String
   manufacturer String  @default("BOB")
   category     String  @default("all")
@@ -86,7 +86,7 @@ model Order {
   order_number Int         @unique
   order_date   DateTime    @default(now())
   order_status String      @default("Pending")
-  order_total  Int
+  order_total  Decimal
   customerId   String      @default("Not specified")
   order_items  OrderItem[] @relation("Orderrelation")
   store        Store       @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -100,7 +100,7 @@ model OrderItem {
   id      Int    @id @default(autoincrement())
   title   String
   amount  Int
-  price   Float
+  price   Decimal
   orderId Int
   Order   Order  @relation("Orderrelation", fields: [orderId], references: [order_number])
 

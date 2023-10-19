@@ -37,7 +37,7 @@ export default function ProductForm() {
       .nonempty({ message: "Description must not be empty" }),
     price: z
       .number()
-      .min(0, { message: "Price must be a positive number" })
+      .min(1, { message: "Price must be at least 0" })
       .max(Infinity),
     image: z
       .string()
@@ -147,18 +147,12 @@ export default function ProductForm() {
                   <FormControl>
                     <Input
                       type="number"
-                      min={0}
+                      step="0.001"
+                      min="0"
                       {...field}
-                      value={+field.value}
+                      value={field.value}
                       onChange={(event) => {
-                        let newValue = event.target.value;
-                        if (newValue.startsWith("0")) {
-                          newValue = newValue.substring(1);
-                          console.log(newValue);
-                        }
-                        event.target.value = newValue;
-                        field.value = +newValue;
-                        field.onChange(+event.target.value);
+                        field.onChange(parseFloat(event.target.value));
                       }}
                     />
                   </FormControl>
