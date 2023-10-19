@@ -9,7 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import DeleteOrder from '@/components/stores/dashboard/orders/deleteOrder';
 import { LinktoPrint } from '@/components/stores/dashboard/orders/link';
 import { Button } from '@/components/ui/button';
-import DeletePopup from "@/components/DeletePopup";
+import DeletePopup from '@/components/DeletePopup';
 
 import {
   DropdownMenu,
@@ -120,7 +120,7 @@ export const columns: ColumnDef<Order>[] = [
                   <SheetTrigger className="hover:cursor-pointer w-full flex justify-left p-2">Edit</SheetTrigger>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
-                  <DeletePopup item={"order"}>
+                  <DeletePopup item={'order'}>
                     <DeleteOrder orderId={order.id} />
                   </DeletePopup>
                 </DropdownMenuItem>
