@@ -89,9 +89,9 @@ const OrderPage = () => {
   }
 
   return (
-    <div className="relative h-screen w-[1000px] border border-x-2 border-black">
+    <div className="relative print:h-[1390px] w-[1000px] border border-x-2 border-black h-screen">
       <div>
-        <div className="border-b border-black flex flex-row justify-around p-9">
+        <div className="border-b-2 border-black flex flex-row justify-around p-9">
           {loaded ? (
             <>
               <OrdersDiv orders={orders} />
@@ -101,7 +101,7 @@ const OrderPage = () => {
             "Loading"
           )}
         </div>
-        <div className="border-black  ">
+        <div className="border-black ">
           <div>
             {loaded ? (
               <>
