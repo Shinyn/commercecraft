@@ -23,8 +23,13 @@ import toast from "react-hot-toast";
 
 const formSchema = z.object({
   id: z.string().min(3).max(50),
-  text: z.string().min(2).max(50),
-  image: z.string().min(0).max(255),
+  text: z.string().min(2).max(50).nonempty(),
+  image: z
+    .string()
+    .url({ message: "Image must be in url-format" })
+    .min(0, { message: "Image must be at least 0 characters long" })
+    .max(255, { message: "Image must be less than 255 characters long" })
+    .nonempty({ message: "Image must not be empty" }),
   active: z.boolean(),
 });
 
@@ -42,20 +47,27 @@ export function EditForm(billboard: Billboard) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`, {
-      values
-    })
+    axios
+      .put(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/billboards`,
+        {
+          values,
+        }
+      )
       .then(function (response) {
         if (response.status == 200) {
           toast.success("Billboard uppdated successfully");
-          reFetchBillboards(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
+          reFetchBillboards(
+            Array.isArray(params.storeID)
+              ? params.storeID.toString()
+              : params.storeID
+          );
         }
       })
       .catch(function (error) {
         console.log(error);
       });
   }
-
 
   return (
     <Form {...form}>

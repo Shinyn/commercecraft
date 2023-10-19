@@ -25,7 +25,11 @@ export default function ColorForm() {
 
   //Form validation
   const formSchema = z.object({
-    name: z.string().max(10),
+    name: z
+      .string()
+      .max(10, { message: "color must be max 10 charcaters long" })
+      .nonempty({ message: "You must write a colorname" })
+      .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
     hex: z.string().min(7).max(7),
   });
   //Form hook
@@ -48,7 +52,11 @@ export default function ColorForm() {
       )
       .then(function (response) {
         toast.success("Color added successfully!");
-        reFetchColors(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
+        reFetchColors(
+          Array.isArray(params.storeID)
+            ? params.storeID.toString()
+            : params.storeID
+        );
       })
       .catch(function (error) {
         console.log(error);

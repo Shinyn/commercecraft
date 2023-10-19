@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useParams } from "next/navigation";
-import  {useCategories} from "@/components/stores/dashboard/categories/zustand/zustandstate"
+import { useCategories } from "@/components/stores/dashboard/categories/zustand/zustandstate";
 
 //Form for adding a new category
 export default function CategoryForm() {
@@ -27,7 +27,13 @@ export default function CategoryForm() {
   const formSchema = z.object({
     name: z
       .string()
-      .min(2, { message: "category must be atleast 2 characters long" }),
+      .min(2, { message: "category must be atleast 2 characters long" })
+      .max(50, { message: "category must be less than 50 characters long" })
+      .regex(/^[a-zA-Z0-9 ]*$/, {
+        message: "category must only contain letters and numbers",
+      })
+      .nonempty({ message: "category must not be empty" })
+      .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
@@ -47,7 +53,11 @@ export default function CategoryForm() {
       )
       .then(function (response) {
         toast.success("Category added successfully");
-        reFetchCategories(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
+        reFetchCategories(
+          Array.isArray(params.storeID)
+            ? params.storeID.toString()
+            : params.storeID
+        );
       })
       .catch(function (error) {
         console.log(error);
