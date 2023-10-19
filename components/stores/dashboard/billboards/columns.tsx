@@ -64,7 +64,8 @@ export const columns: ColumnDef<Billboard>[] = [
     },
     cell: ({ row }) => (
       <Checkbox
-        checked={row.original.active==1?true:false}
+        aria-readonly={true}
+        checked={row.original.active == 1 ? true : false}
         aria-label="Select row"
       />)
   },
