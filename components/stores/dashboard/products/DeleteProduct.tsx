@@ -10,13 +10,13 @@ const DeleteProduct = (params: { itemId: string }) => {
   return (
     <>
       <div
-        className="hover:cursor-pointer w-full"
+        className="hover:cursor-pointer w-full p-2"
         onClick={async (e) => {
           axios
             .delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${storeID}/products/${params.itemId}`)
             .then((res) => {
               toast.success('Product deleted');
-              reFetchProducts(Array.isArray(storeID) ? storeID.toString() : storeID)
+              reFetchProducts(Array.isArray(storeID) ? storeID.toString() : storeID);
               return res.data;
             })
             .catch((error) => {

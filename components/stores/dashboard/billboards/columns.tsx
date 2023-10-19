@@ -10,17 +10,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { MyDelete } from "@/components/stores/dashboard/billboards/deleteBillboard";
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Billboard } from '@/components/stores/dashboard/billboards/billboards';
+import { MyDelete } from '@/components/stores/dashboard/billboards/deleteBillboard';
 export const columns: ColumnDef<Billboard>[] = [
   {
     accessorKey: 'id',
@@ -92,10 +85,10 @@ export const columns: ColumnDef<Billboard>[] = [
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <SheetTrigger className="w-full">
-                  <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
+                <SheetTrigger className="p-0 w-full">
+                  <DropdownMenuItem className="hover:cursor-pointer p-2">Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem className="hover:cursor-pointer">
+                <DropdownMenuItem className="p-0">
                   <MyDelete itemId={row.original.id || ''} />
                 </DropdownMenuItem>
               </DropdownMenuContent>

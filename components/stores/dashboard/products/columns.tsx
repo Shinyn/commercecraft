@@ -2,11 +2,11 @@
 //Componenten används i products page.tsx, tillsammans med products.tsx
 //Denna componenten är en del av data-table.tsx(som dock går att återanvända)
 
-import { Product } from "@/components/stores/dashboard/products/products";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
+import { Product } from '@/components/stores/dashboard/products/products';
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,21 +14,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import DeleteProduct from "@/components/stores/dashboard/products/DeleteProduct";
-import { EditProductForm } from "@/components/stores/dashboard/products/EditProductForm";
+} from '@/components/ui/dropdown-menu';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import DeleteProduct from '@/components/stores/dashboard/products/DeleteProduct';
+import { EditProductForm } from '@/components/stores/dashboard/products/EditProductForm';
 
 export const columns: ColumnDef<Product>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={table.getIsAllPageRowsSelected()}
@@ -47,17 +40,14 @@ export const columns: ColumnDef<Product>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
-    header: "ID",
+    accessorKey: 'id',
+    header: 'ID',
   },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -65,17 +55,14 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "size",
-    header: "Size",
+    accessorKey: 'size',
+    header: 'Size',
   },
   {
-    accessorKey: "manufacturer",
+    accessorKey: 'manufacturer',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Manufacturer
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -83,13 +70,10 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "category",
+    accessorKey: 'category',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Category
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -97,25 +81,22 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "color",
-    header: "Color",
+    accessorKey: 'color',
+    header: 'Color',
   },
   {
-    accessorKey: "isfeatured",
-    header: "Featured",
+    accessorKey: 'isfeatured',
+    header: 'Featured',
   },
   {
-    accessorKey: "isarchived",
-    header: "Archived",
+    accessorKey: 'isarchived',
+    header: 'Archived',
   },
   {
-    accessorKey: "price",
+    accessorKey: 'price',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Price
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -123,25 +104,18 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: "stock",
+    accessorKey: 'stock',
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
+        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
           Stock
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
   },
-  // {
-  //   accessorKey: "ingredients",
-  //   header: "Ingredients",
-  // },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       const product = row.original;
 
@@ -150,7 +124,7 @@ export const columns: ColumnDef<Product>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {"Edit Product"}?</SheetTitle>
+                <SheetTitle> {'Edit Product'}?</SheetTitle>
                 <SheetDescription>Edit the productinfo here</SheetDescription>
                 {EditProductForm(product)}
               </SheetHeader>
@@ -171,12 +145,10 @@ export const columns: ColumnDef<Product>[] = [
                   Copy product ID
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <SheetTrigger className="hover:cursor-pointer w-full flex justify-left">
-                    Edit
-                  </SheetTrigger>
+                <DropdownMenuItem className="p-0">
+                  <SheetTrigger className="hover:cursor-pointer w-full flex justify-left p-2">Edit</SheetTrigger>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="p-0">
                   <DeleteProduct itemId={product.id} />
                 </DropdownMenuItem>
               </DropdownMenuContent>
