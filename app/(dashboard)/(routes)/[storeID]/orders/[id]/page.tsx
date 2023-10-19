@@ -76,13 +76,13 @@ const OrderPage = () => {
       >
         <div>
           <h1 className="text-2xl font-bold m-1">Pris:</h1>
-          <span className="font-bold m-1">Moms:</span>{" "}
+          <span className="font-bold m-1">VAT:</span>{" "}
           <span>{order_total * 0.12}</span>
           <div>
             <span className="font-bold m-1">Total:</span>
             <span>{order_total} SEK</span>
           </div>
-          <p className="italic pl-1"> Varav Frakt: 50kr </p>
+          <p className="italic pl-1"> Including delivery: 50kr </p>
         </div>
       </div>
     );
