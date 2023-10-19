@@ -68,7 +68,7 @@ const OrderPage = () => {
         <div>
           <h1 className="text-2xl font-bold m-1">Pris:</h1>
           <span className="font-bold m-1">Moms:</span>{" "}
-          <span>{order_total * 0.125}</span>
+          <span>{order_total * 0.12}</span>
           <div>
             <span className="font-bold m-1">Total:</span>
             <span>{order_total} SEK</span>
