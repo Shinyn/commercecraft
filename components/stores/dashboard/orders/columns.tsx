@@ -24,26 +24,6 @@ import { EditOrderForm } from '@/components/stores/dashboard/orders/editOrderFor
 
 export const columns: ColumnDef<Order>[] = [
   {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
     accessorKey: 'id',
     header: 'ID',
   },
@@ -62,9 +42,10 @@ export const columns: ColumnDef<Order>[] = [
     },
     cell: ({ row }) => (
       <Checkbox
-      aria-readonly={true}
-      checked={row.original.paid? true : false}
-      aria-label="Select row"
+        className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.paid ? true : false}
+        aria-label="Select row"
       />),
   },
   {
@@ -82,8 +63,9 @@ export const columns: ColumnDef<Order>[] = [
     },
     /* TODO: cursor default */
     cell: ({ row }) => (
-      
-      <Checkbox 
+
+      <Checkbox
+        className="cursor-default"
         aria-readonly={true}
         checked={row.original.delivered ? true : false}
         aria-label="Select row"

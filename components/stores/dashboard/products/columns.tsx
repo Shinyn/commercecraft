@@ -29,25 +29,6 @@ import { EditProductForm } from "@/components/stores/dashboard/products/EditProd
 
 export const columns: ColumnDef<Product>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
     accessorKey: "id",
     header: "ID",
   },
@@ -102,12 +83,46 @@ export const columns: ColumnDef<Product>[] = [
     header: "Color",
   },
   {
-    accessorKey: "isfeatured",
-    header: "Featured",
+    accessorKey: 'isfeatured',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Featured
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Checkbox
+        className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.isfeatured ? true : false}
+        aria-label="Select row"
+      />),
   },
   {
-    accessorKey: "isarchived",
-    header: "Archived",
+    accessorKey: 'isarchived',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Archived
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Checkbox
+        className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.isarchived ? true : false}
+        aria-label="Select row"
+      />),
   },
   {
     accessorKey: "price",
