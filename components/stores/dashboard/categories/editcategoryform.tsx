@@ -1,11 +1,11 @@
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Category } from "@/components/stores/dashboard/categories/categories";
-import { Input } from "@/components/ui/input";
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Category } from '@/components/stores/dashboard/categories/categories';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -13,19 +13,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { useCategories } from "@/components/stores/dashboard/categories/zustand/zustandstate";
-import toast from "react-hot-toast";
+} from '@/components/ui/form';
+import { useCategories } from '@/components/stores/dashboard/categories/zustand/zustandstate';
+import toast from 'react-hot-toast';
 
 const formSchema = z.object({
   title: z
     .string()
-    .min(2, { message: "category must be atleast 2 characters long" })
-    .max(50, { message: "category must be less than 50 characters long" })
+    .min(2, { message: 'category must be atleast 2 characters long' })
+    .max(50, { message: 'category must be less than 50 characters long' })
     .regex(/^[a-zA-Z0-9/&  ]*$/, {
-      message: "category must only contain letters and numbers",
+      message: 'category must only contain letters and numbers',
     })
-    .nonempty({ message: "category must not be empty" }),
+    .nonempty({ message: 'category must not be empty' }),
   id: z.string(),
   storeId: z.string(),
 });
@@ -50,16 +50,18 @@ export function EditCategoryForm(category: Category) {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/categories`,
         {
           id: category.id,
-          title: form.getValues("title"),
+          oldTitle: category.title,
+          title: form.getValues('title'),
         }
       )
       .then(function (response) {
-        toast.success("Category added successfully");
+        toast.success('Category updated successfully');
         reFetchCategories(
           Array.isArray(params.storeID)
             ? params.storeID.toString()
             : params.storeID
         );
+        return response.data;
       })
       .catch(function (error) {
         toast.error(error.response.data);
