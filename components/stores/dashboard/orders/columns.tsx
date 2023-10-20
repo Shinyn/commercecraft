@@ -80,8 +80,10 @@ export const columns: ColumnDef<Order>[] = [
         </Button>
       );
     },
+    /* TODO: cursor default */
     cell: ({ row }) => (
-      <Checkbox
+      
+      <Checkbox 
         aria-readonly={true}
         checked={row.original.delivered ? true : false}
         aria-label="Select row"
