@@ -94,7 +94,7 @@ export default function EditColorForm(color: Color) {
             <FormItem className="mt-4">
               <FormLabel>Hex code</FormLabel>
               <FormControl>
-                <Input placeholder="#000000" {...field} />
+                <Input type="color" placeholder="#000000" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
