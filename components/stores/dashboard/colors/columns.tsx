@@ -51,6 +51,7 @@ export const columns: ColumnDef<Color>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      row.id = row.original.id?.toString() || 'bob';
       const color = row.original;
       function copyPaymentId() {
         if (color.id === undefined) return 'no id';

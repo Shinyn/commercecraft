@@ -1,3 +1,6 @@
+//File contains POST handler for creating an order, creating/updating a customer and creating the order_items invcluded in the order.
+//This route is for connection to a store-front and it's 
+
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 import { Order, OrderItem } from "@/components/stores/dashboard/orders/order";

@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import toast from "react-hot-toast";
+import { storeState } from "@/components/stores/storeState";
 
 const formSchema = z.object({
   title: z
@@ -28,6 +29,7 @@ const formSchema = z.object({
 //Form for adding a new store
 
 export default function EditStoreForm(store: Store) {
+  const reFetchStores = storeState((state) => state.refetchStore);
   const { userId } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -45,13 +47,12 @@ export default function EditStoreForm(store: Store) {
       })
       .then(function (response) {
         toast.success("Store updated successfully");
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
-        return response.data;
+        reFetchStores(userId?.toString() as string);
+        return;
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response);
+        return;
       });
   }
 

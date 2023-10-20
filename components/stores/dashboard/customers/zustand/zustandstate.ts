@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Customer } from "@/components/stores/dashboard/customers/customer";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 // Zustand state to keep track of the customers for a chosen store
 type State = {
@@ -24,7 +25,7 @@ export const useCustomers = create<State & Action>((set) => ({
         set(() => ({ customers: response.data }))
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data)
         return
       });
   }

@@ -23,7 +23,7 @@ export function DeleteColor(params: { itemName: string }) {
             return response.data;
           })
           .catch(function (error) {
-            console.log(error);
+            toast.error(error.response.data);
           });
       }}
     >

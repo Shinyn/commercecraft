@@ -1,3 +1,5 @@
+//File contains POST, GET and PATCH handlers for categories. POST creates a new enty, GET returns all entries and PATCH updates by ID.
+
 import { NextResponse } from 'next/server';
 import prismadb from '@/lib/db';
 import { Category } from '@/components/stores/dashboard/categories/categories';

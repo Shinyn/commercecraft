@@ -92,7 +92,7 @@ export function EditProductForm(product: Product) {
         reFetchProducts(Array.isArray(storeID) ? storeID.toString() : storeID);
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 
@@ -268,7 +268,6 @@ export function EditProductForm(product: Product) {
                         let newValue = event.target.value;
                         if (newValue.startsWith("0")) {
                           newValue = newValue.substring(1);
-                          console.log(newValue);
                         }
                         event.target.value = newValue;
                         field.value = +newValue;

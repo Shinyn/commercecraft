@@ -47,6 +47,7 @@ export const columns: ColumnDef<Size>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      row.id = row.original.id?.toString() || 'bob';
       const size = row.original;
       function copyPaymentId() {
         if (size.id === undefined) return 'no id';

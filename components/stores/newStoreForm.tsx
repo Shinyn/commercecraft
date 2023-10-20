@@ -16,9 +16,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { storeState } from "@/components/stores/storeState";
 
 //Form for adding a new category
 export default function StoreForm() {
+  const reFetchStores = storeState((state) => state.refetchStore);
   const { userId } = useAuth();
   //Form validation
   const formSchema = z.object({
@@ -46,12 +48,13 @@ export default function StoreForm() {
       })
       .then(function (response) {
         toast.success("Store added successfully");
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
+        reFetchStores(userId?.toString() as string);
+        return;
       })
       .catch(function (error) {
+        // toast.error(error.response.data);
         console.log(error);
+        return;
       });
   }
 
