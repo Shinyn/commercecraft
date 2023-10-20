@@ -51,7 +51,6 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json();
     const { id, title, hex, oldTitle } = body;
-    console.log(body);
     const updatedColor = prismadb.color.update({
       where: {
         id,
