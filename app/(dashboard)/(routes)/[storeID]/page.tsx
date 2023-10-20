@@ -25,11 +25,10 @@ export default function Page() {
         {}
       )
       .then(function (response) {
-        console.log(response);
         setStore(response.data.title);
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }, []);
   {

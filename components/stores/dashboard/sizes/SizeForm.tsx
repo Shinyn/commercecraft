@@ -4,6 +4,7 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import { useSizes } from "./zustand/zustandstate";
 
 import {
   Form,
@@ -20,6 +21,7 @@ import { useParams } from "next/navigation";
 //Form for adding a new category
 export default function SizeForm() {
   const params = useParams();
+  const reFetchSizes = useSizes((state) => state.reFetchSizes);
   //Form validation
   const formSchema = z.object({
     name: z
@@ -45,21 +47,21 @@ export default function SizeForm() {
         }
       )
       .then(function (response) {
-        console.log(response);
         toast.success("Size added successfully");
-        setInterval(() => {
-          window.location.reload();
-        }, 3000);
+        reFetchSizes(
+          Array.isArray(params.storeID)
+            ? params.storeID.toString()
+            : params.storeID
+        );
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 
   //Render the form
   return (
     <div className={"m-9"}>
-      <Toaster />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField

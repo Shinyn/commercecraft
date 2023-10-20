@@ -22,12 +22,12 @@ const formSchema = z.object({
     .string()
     .min(2, { message: "Color must be atleast 2 characters long" })
     .max(50, { message: "Color must be less than 50 characters long" })
-    .nonempty({ message: "You must write a colorname"})
-    .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
+    .nonempty({ message: "You must write a color name" }),
   hex: z
     .string()
     .min(7, { message: "Hex-code must be at least 7 characters long" })
-    .max(7, { message: "Hex-code must be no longer than 7 characters long" }),
+    .max(7, { message: "Hex-code must be no longer than 7 characters long" })
+    .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
   id: z.string(),
   storeId: z.string(),
 });
@@ -67,7 +67,7 @@ export default function EditColorForm(color: Color) {
         return response.data;
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 
@@ -94,7 +94,7 @@ export default function EditColorForm(color: Color) {
             <FormItem className="mt-4">
               <FormLabel>Hex code</FormLabel>
               <FormControl>
-                <Input placeholder="#000000" {...field} />
+                <Input type="color" placeholder="#000000" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

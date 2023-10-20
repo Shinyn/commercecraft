@@ -2,7 +2,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import DeletePopup from "@/components/DeletePopup";
+import DeletePopup from '@/components/DeletePopup';
 
 import {
   DropdownMenu,
@@ -132,6 +132,7 @@ export const columns: ColumnDef<Customer>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      row.id = row.original.id?.toString() || "bob";
       const category = row.original;
       function copyMail() {
         if (category.id === undefined) return 'no id';
@@ -172,8 +173,8 @@ export const columns: ColumnDef<Customer>[] = [
                 <SheetTrigger className="w-full">
                   <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem className="hover:cursor-pointer" onClick={(e) => e.preventDefault()}>
-                  <DeletePopup item={"customer"}>
+                <DropdownMenuItem className="hover:cursor-pointer p-0" onClick={(e) => e.preventDefault()}>
+                  <DeletePopup item={'customer'}>
                     <DeleteCustomer itemId={row.original.id || ''} />
                   </DeletePopup>
                 </DropdownMenuItem>

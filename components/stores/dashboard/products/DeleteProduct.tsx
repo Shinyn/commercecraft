@@ -17,12 +17,14 @@ const DeleteProduct = (params: { itemId: string }) => {
               `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${storeID}/products/${params.itemId}`
             )
             .then((res) => {
-              toast.success('Product deleted');
-              reFetchProducts(Array.isArray(storeID) ? storeID.toString() : storeID);
+              toast.success("Product deleted");
+              reFetchProducts(
+                Array.isArray(storeID) ? storeID.toString() : storeID
+              );
               return res.data;
             })
             .catch((error) => {
-              console.log(error);
+              toast.error(error.response.data);
             });
         }}
       >

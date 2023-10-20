@@ -9,11 +9,45 @@ export default function BottomDiv({ orders }: any) {
       <div className="flex flex-row justify-between border-b-2 border-black">
         <div className="flex flex-col">
           <span className="font-bold m-1">VAT:</span>{" "}
-          <span className="m-1">{(order_total - 50) * 0.12} SEK</span>
+          <span className="m-1">
+            {order_total !== undefined && order_total.toString().includes(".")
+              ? ((order_total - 50) * 0.12).toFixed(2).toString().slice(0, -6) +
+                " " +
+                ((order_total - 50) * 0.12).toFixed(2).toString().slice(-6)
+              : null}{" "}
+            {order_total !== undefined && !order_total.toString().includes(".")
+              ? ((order_total - 50) * 0.12).toFixed(2).toString().slice(0, -6) +
+                " " +
+                ((order_total - 50) * 0.12)
+                  .toFixed(2)
+                  .toString()
+                  .slice(-6, -3) +
+                " " +
+                ((order_total - 50) * 0.12).toFixed(2).toString().slice(-3)
+              : null}{" "}
+            SEK
+          </span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold m-1">Price excl. VAT:</span>{" "}
-          <span className="m-1">{(order_total - 50) * 0.88} SEK</span>
+          <span className="m-1">
+            {order_total !== undefined && order_total.toString().includes(".")
+              ? ((order_total - 50) * 0.88).toFixed(2).toString().slice(0, -6) +
+                " " +
+                ((order_total - 50) * 0.88).toFixed(2).toString().slice(-6)
+              : null}{" "}
+            {order_total !== undefined && !order_total.toString().includes(".")
+              ? ((order_total - 50) * 0.88).toFixed(2).toString().slice(0, -6) +
+                " " +
+                ((order_total - 50) * 0.88)
+                  .toFixed(2)
+                  .toString()
+                  .slice(-6, -3) +
+                " " +
+                ((order_total - 50) * 0.88).toFixed(2).toString().slice(-3)
+              : null}{" "}
+            SEK
+          </span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold m-1">Delivery fee:</span>{" "}
@@ -23,7 +57,21 @@ export default function BottomDiv({ orders }: any) {
           <span className="font-bold m-1 text-xl underline">
             Total Price incl. VAT:
           </span>
-          <span className="m-1 font-bold text-xl">{order_total} SEK</span>
+          <span className="m-1 font-bold text-xl">
+            {order_total !== undefined && order_total.toString().includes(".")
+              ? order_total.toString().slice(0, -6) +
+                " " +
+                order_total.toString().slice(-6)
+              : null}
+            {order_total !== undefined && !order_total.toString().includes(".")
+              ? order_total.toFixed(2).toString().slice(0, -6) +
+                " " +
+                order_total.toFixed(2).toString().slice(-6, -3) +
+                " " +
+                order_total.toFixed(2).toString().slice(-3)
+              : null}
+            SEK
+          </span>
         </div>
       </div>
       <div className="mt-2">

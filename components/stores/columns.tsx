@@ -47,6 +47,7 @@ export const columns: ColumnDef<Store>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
+      row.id = row.original.id?.toString() || "bob";
       const store = row.original;
       function copyPaymentId() {
         if (store.id === undefined) return "no id";
@@ -77,16 +78,23 @@ export const columns: ColumnDef<Store>[] = [
                 {copyPaymentId === null ? null : (
                   <DropdownMenuItem
                     className="hover:cursor-pointer"
-                    onClick={() => navigator.clipboard.writeText(copyPaymentId())}
+                    onClick={() =>
+                      navigator.clipboard.writeText(copyPaymentId())
+                    }
                   >
                     Copy store ID
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
                 <SheetTrigger className="w-full">
-                  <DropdownMenuItem className="hover:cursor-pointer">Edit</DropdownMenuItem>
+                  <DropdownMenuItem className="hover:cursor-pointer">
+                    Edit
+                  </DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                  className="p-0"
+                  onClick={(e) => e.preventDefault()}
+                >
                   <DeletePopup item={"store"}>
                     <DeleteStore storeId={store.id} />
                   </DeletePopup>

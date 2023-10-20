@@ -1,8 +1,10 @@
-import axios from 'axios';
-import { useAuth } from '@clerk/nextjs';
-import toast from 'react-hot-toast';
+import axios from "axios";
+import { useAuth } from "@clerk/nextjs";
+import toast from "react-hot-toast";
+import { storeState } from "@/components/stores/storeState";
 
 export function DeleteStore(params: { storeId: string | undefined }) {
+  const reFetchStores = storeState((state) => state.refetchStore);
   const { userId } = useAuth();
   return (
     <div
@@ -14,14 +16,14 @@ export function DeleteStore(params: { storeId: string | undefined }) {
             {}
           )
           .then(function (response) {
-            toast.success('Store deleted successfully');
-            setInterval(() => {
-              window.location.reload();
-            }, 3000);
-            return response.data;
+            toast.success("Store deleted successfully");
+            reFetchStores(userId?.toString() as string);
+            // window.location.reload();
+            return;
           })
           .catch(function (error) {
-            console.log(error);
+            toast.error(error.response);
+            return;
           });
       }}
     >

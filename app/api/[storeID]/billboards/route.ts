@@ -1,4 +1,4 @@
-//File contains POST and GET handlers, creating a new billboard and returning all billboards respectively.
+//File contains POST, GET and PATCH handlers, creating a new billboard, returning all billboards or updating a billboard respectively.
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
@@ -13,15 +13,14 @@ export async function POST(
     body.values.storeId = params.storeID;
     const { text, image, active, storeId }: Billboard = body.values;
     let newBillboard = undefined;
-    //Remove activation from any previous billboards.
     if (active) {
       const updated = await prismadb.billboard
         .updateMany({
           where: {
             storeId,
-            active: 1,
+            active,
           },
-          data: { active: 0 },
+          data: { active },
         })
         .then(async function (response) {
           newBillboard = await prismadb.billboard.create({
@@ -29,12 +28,16 @@ export async function POST(
               storeId,
               text,
               image,
-              active: 1,
+              active,
             },
           });
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("api/billboards/POST", error);
+          return new NextResponse(
+            "Something went wrong when trying to save your billboard",
+            { status: 500 }
+          );
         });
     } else {
       newBillboard = await prismadb.billboard.create({
@@ -42,7 +45,7 @@ export async function POST(
           storeId,
           text,
           image,
-          active: 0,
+          active,
         },
       });
     }
@@ -91,25 +94,27 @@ export async function PUT(
       });
     }
     if (active) {
-      //Remove activation from any previous billboards if needed
       const updated = await prismadb.billboard
         .updateMany({
-          where: { storeId, active: 1 },
-          data: { active: 0 },
+          where: { storeId, active },
+          data: { active },
         })
         .then(async function (response) {
-          //update the billboard
           newBillboard = await prismadb.billboard.update({
             where: { id },
             data: {
               text,
               image,
-              active: 1,
+              active,
             },
           });
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("api/billboards/POST", error);
+          return new NextResponse(
+            "Something went wrong when trying to save your billboard",
+            { status: 500 }
+          );
         });
     } else {
       newBillboard = await prismadb.billboard.update({
@@ -117,7 +122,7 @@ export async function PUT(
         data: {
           text,
           image,
-          active: 0,
+          active,
         },
       });
     }

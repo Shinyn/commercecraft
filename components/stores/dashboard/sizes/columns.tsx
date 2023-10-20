@@ -47,6 +47,7 @@ export const columns: ColumnDef<Size>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
+      row.id = row.original.id?.toString() || "bob";
       const size = row.original;
       function copyPaymentId() {
         if (size.id === undefined) return "no id";
@@ -90,7 +91,10 @@ export const columns: ColumnDef<Size>[] = [
                     Edit
                   </DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                  className="p-0"
+                  onClick={(e) => e.preventDefault()}
+                >
                   <DeletePopup item={"size"}>
                     <DeleteSize itemId={size.id || ""} />
                   </DeletePopup>

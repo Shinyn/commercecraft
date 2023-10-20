@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import DeletePopup from "@/components/DeletePopup";
+import { Checkbox } from "@/components/ui/checkbox";
 
 import {
   DropdownMenu,
@@ -26,6 +27,7 @@ import { DeleteBillboard } from "@/components/stores/dashboard/billboards/delete
 export const columns: ColumnDef<Billboard>[] = [
   {
     accessorKey: "id",
+    id: "id",
     header: ({ column }) => {
       return (
         <Button
@@ -55,6 +57,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
   {
     accessorKey: "image",
+    id: "image",
     header: ({ column }) => {
       return (
         <Button
@@ -69,6 +72,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
   {
     accessorKey: "active",
+    id: "active",
     header: ({ column }) => {
       return (
         <Button
@@ -80,11 +84,25 @@ export const columns: ColumnDef<Billboard>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => (
+      <Checkbox
+        className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.active ? true : false}
+        aria-label="Select row"
+      />
+    ),
   },
 
   {
     id: "actions",
     cell: ({ row }) => {
+      row.id = row.original.id?.toString() || "bob";
+      const billboard = row.original;
+      function copyPaymentId() {
+        if (billboard.id === undefined) return "no id";
+        else return billboard.id.toString();
+      }
       return (
         <>
           {/* //Sheet to cover background avd display EditForm*/}
@@ -92,7 +110,7 @@ export const columns: ColumnDef<Billboard>[] = [
             <SheetContent>
               <SheetHeader>
                 <SheetTitle> {"Edit Billboard"}?</SheetTitle>
-                <SheetDescription>Edit the category name here</SheetDescription>
+                <SheetDescription>Edit the Billboard here</SheetDescription>
                 {EditForm(row.original)}
               </SheetHeader>
             </SheetContent>
@@ -105,11 +123,27 @@ export const columns: ColumnDef<Billboard>[] = [
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                {copyPaymentId === null ? null : (
+                  <DropdownMenuItem
+                    className="hover:cursor-pointer"
+                    onClick={() =>
+                      navigator.clipboard.writeText(copyPaymentId())
+                    }
+                  >
+                    Copy Billboard ID
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <SheetTrigger className="p-0 w-full">
-                  <DropdownMenuItem className="hover:cursor-pointer p-2">Edit</DropdownMenuItem>
+                  <DropdownMenuItem className="hover:cursor-pointer p-2">
+                    Edit
+                  </DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                  className="p-0"
+                  onClick={(e) => e.preventDefault()}
+                >
                   <DeletePopup item={"billboard"}>
                     <DeleteBillboard itemId={row.original.id || ""} />
                   </DeletePopup>

@@ -1,5 +1,5 @@
 "use client";
-import { useNameStore } from "@/components/stores/dashboard/sizes/zustand/zustandstate";
+import { useSizes } from "@/components/stores/dashboard/sizes/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
 import { DashboardPopover } from "@/components/DashboardPopover";
 
@@ -12,14 +12,12 @@ import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 
 export default function Page() {
   //State for the sizes
-  const sizes = useNameStore((state) => state.sizes);
-  const updateSizes = useNameStore((state) => state.updateSizes);
-  const state = useNameStore((state) => state.state);
-  const updateState = useNameStore((state) => state.updateState);
+  const sizes = useSizes((state) => state.sizes);
+  const updateSizes = useSizes((state) => state.updateSizes);
+  const updateState = useSizes((state) => state.updateState);
   const params = useParams();
   const section = "sizes";
 
-  //Get the categories from the database
   useEffect(() => {
     axios
       .get(
@@ -35,7 +33,6 @@ export default function Page() {
       });
   }, []);
 
-  //Render the page, pop up for adding a size and the table with the categories
   return (
     <div className={"flex flex-col"}>
       <DashboardPopover>

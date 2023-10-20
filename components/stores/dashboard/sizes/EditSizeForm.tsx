@@ -6,6 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Size } from "@/components/stores/dashboard/sizes/sizes";
 import { Input } from "@/components/ui/input";
+import toast from "react-hot-toast";
+import { useSizes } from "./zustand/zustandstate";
+
 import {
   Form,
   FormControl,
@@ -36,6 +39,7 @@ export default function EditSizeForm(size: Size) {
     },
   });
   const params = useParams();
+  const reFetchSizes = useSizes((state) => state.reFetchSizes);
 
   function onSubmitting() {
     axios
@@ -47,11 +51,15 @@ export default function EditSizeForm(size: Size) {
         }
       )
       .then(function (response) {
-        window.location.reload();
-        return response.data;
+        toast.success("Size updated successfully");
+        reFetchSizes(
+          Array.isArray(params.storeID)
+            ? params.storeID.toString()
+            : params.storeID
+        );
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 

@@ -1,3 +1,5 @@
+//File contains POST, GET and PATCH handlers for categories. POST creates a new enty, GET returns all entries and PATCH updates by ID.
+
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 import { Category } from "@/components/stores/dashboard/categories/categories";
@@ -17,12 +19,14 @@ export async function POST(
       },
     });
     return NextResponse.json(newCategory, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.log("api/categories/POST", error);
-    return new NextResponse(
-      "Something went wrong when trying to save your category",
-      { status: 500 }
-    );
+    if (error.code === "P2002") {
+      return new NextResponse("That category already exists", { status: 500 });
+    }
+    return new NextResponse("Something went wrong with the server", {
+      status: 500,
+    });
   }
 }
 
@@ -57,11 +61,16 @@ export async function PATCH(req: Request) {
       },
     });
     return NextResponse.json(updatedCategory, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.log("api/categories/PATCH", error);
+    if (error.code === "P2002") {
+      return new NextResponse("That category already exists", { status: 500 });
+    }
     return new NextResponse(
-      "Ooops, something went wrong when updating the category",
-      { status: 500 }
+      "Something went wrong when trying to update the category",
+      {
+        status: 500,
+      }
     );
   }
 }
