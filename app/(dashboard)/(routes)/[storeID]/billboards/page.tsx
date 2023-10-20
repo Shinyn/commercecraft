@@ -11,12 +11,10 @@ import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
-  //states for keeping track of billboards in dashboard front
   const billboards = useBillboards((state) => state.billboards);
   const updateBillboards = useBillboards((state) => state.updateBillboards);
   const params = useParams();
-
-  const section = "billboards";
+  const section = 'billboards';
 
   useEffect(() => {
     axios
@@ -28,6 +26,7 @@ export default function Page() {
         toast.error(error.response.data);
       });
   }, []);
+  
   return (
     <div className={"flex flex-col"}>
       <DashboardPopover>

@@ -11,14 +11,12 @@ import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
-  //State for the categories
   const categories = useCategories((state) => state.categories);
   const updateCategories = useCategories((state) => state.updateCategories);
   const updateState = useCategories((state) => state.updateState);
   const params = useParams();
   const section = "categories";
 
-  //Get the categories from the database
   useEffect(() => {
     axios
       .get(
@@ -34,7 +32,6 @@ export default function Page() {
       });
   }, []);
 
-  //Render the page, pop up for adding a category and the table with the categories
   return (
     <div className={"flex flex-col"}>
       <DashboardPopover>

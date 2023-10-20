@@ -9,14 +9,11 @@ import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
-  //states for keeping track of customers in dashboard front
-  //State for the categories
   const customers = useCustomers((state) => state.customers);
   const updateCustomers = useCustomers((state) => state.updateCustomers);
   const params = useParams();
   const section = "customers";
 
-  //Get the customers from the database
   useEffect(() => {
     axios
       .get(

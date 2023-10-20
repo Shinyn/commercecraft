@@ -1,3 +1,5 @@
+//File contains GET and DELETE handlers for billboards. GET returns active or inactive billboards. DELETE deletes by id.
+
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 
@@ -5,7 +7,6 @@ export async function GET(
   req: Request,
   { params }: { params: { storeID: string; id: string } }
 ) {
-  const status = params.id;
 
   const { storeID } = params;
   if (params.id == "active") {
@@ -46,7 +47,6 @@ export async function DELETE(
   req: Request,
   { params }: { params: { storeID: string; id: string } }
 ) {
-  //TODO: Add params for extracting store when stores are implemented in dashboard
   try {
     const id = params.id;
 
