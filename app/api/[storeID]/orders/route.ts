@@ -16,7 +16,7 @@ export async function GET(
       } catch (error) {
         console.log("api/[storeId]/orders/[id]/GET", error);
         return new NextResponse(
-          "Ooops, something went wrong when getting the customer",
+          "Oops, something went wrong when getting the order",
           { status: 500 }
         );
       }
@@ -29,7 +29,7 @@ export async function GET(
       } catch (error) {
         console.log("api/[storeId]/customers/all/GET", error);
         return new NextResponse(
-          "Ooops, something went wrong when getting the customerlist",
+          "Oops, something went wrong when getting the orderlist",
           { status: 500 }
         );
       }
