@@ -17,11 +17,16 @@ export async function POST(
       },
     });
     return NextResponse.json(newSize, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.log("api/sizes/POST", error);
+    if (error.code === "P2002") {
+      return new NextResponse("That size already exists", { status: 500 });
+    }
     return new NextResponse(
-      "Something went wrong when trying to save your size",
-      { status: 500 }
+      "Something went wrong when trying to add your size",
+      {
+        status: 500,
+      }
     );
   }
 }
@@ -57,11 +62,16 @@ export async function PATCH(req: Request) {
       },
     });
     return NextResponse.json(updatedSize, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.log("api/sizes/PATCH", error);
+    if (error.code === "P2002") {
+      return new NextResponse("That size already exists", { status: 500 });
+    }
     return new NextResponse(
-      "Ooops, something went wrong when updating the size",
-      { status: 500 }
+      "Something went wrong when trying to update the size",
+      {
+        status: 500,
+      }
     );
   }
 }
