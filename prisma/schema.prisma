@@ -51,12 +51,12 @@ model Category {
 }
 
 model Billboard {
-  id      String @id @default(uuid())
+  id      String  @id @default(uuid())
   storeId String
   text    String
   image   String
-  active  Int    @default(0)
-  store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  active  Boolean @default(false)
+  store   Store   @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([storeId])
 }

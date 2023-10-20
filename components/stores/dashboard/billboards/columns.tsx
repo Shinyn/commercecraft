@@ -64,8 +64,9 @@ export const columns: ColumnDef<Billboard>[] = [
     },
     cell: ({ row }) => (
       <Checkbox
+      className="cursor-default"
         aria-readonly={true}
-        checked={row.original.active == 1 ? true : false}
+        checked={row.original.active? true : false}
         aria-label="Select row"
       />)
   },
