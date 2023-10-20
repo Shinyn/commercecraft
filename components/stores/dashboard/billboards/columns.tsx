@@ -20,6 +20,7 @@ import { DeleteBillboard } from '@/components/stores/dashboard/billboards/delete
 export const columns: ColumnDef<Billboard>[] = [
   {
     accessorKey: 'id',
+    id:"id",
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
