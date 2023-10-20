@@ -1,9 +1,9 @@
 // This type is used to define the shape of our data.
-import { Size } from "./sizes";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import EditSizeForm from "./EditSizeForm";
-import DeletePopup from "@/components/DeletePopup";
+import { Size } from './sizes';
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import EditSizeForm from './EditSizeForm';
+import DeletePopup from '@/components/DeletePopup';
 import {
   Sheet,
   SheetContent,
@@ -11,8 +11,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+} from '@/components/ui/sheet';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,22 +20,22 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DeleteSize } from "@/components/stores/dashboard/sizes/DeleteSize";
+} from '@/components/ui/dropdown-menu';
+import { DeleteSize } from '@/components/stores/dashboard/sizes/DeleteSize';
 
 //Columns for the table
 export const columns: ColumnDef<Size>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
+    accessorKey: 'id',
+    header: 'ID',
   },
   {
-    accessorKey: "title",
+    accessorKey: 'title',
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Size
           <ArrowUpDown className="ml-2 h-4 w-4" />
@@ -45,11 +45,11 @@ export const columns: ColumnDef<Size>[] = [
   },
 
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => {
       const size = row.original;
       function copyPaymentId() {
-        if (size.id === undefined) return "no id";
+        if (size.id === undefined) return 'no id';
         else return size.id.toString();
       }
 
@@ -90,9 +90,12 @@ export const columns: ColumnDef<Size>[] = [
                     Edit
                   </DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
-                  <DeletePopup item={"size"}>
-                    <DeleteSize itemId={size.id || ""} />
+                <DropdownMenuItem
+                  className="p-0"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  <DeletePopup item={'size'}>
+                    <DeleteSize itemName={size.title} />
                   </DeletePopup>
                 </DropdownMenuItem>
               </DropdownMenuContent>
