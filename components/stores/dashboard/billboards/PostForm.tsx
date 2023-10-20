@@ -25,7 +25,8 @@ const formSchema = z.object({
     .string()
     .url({ message: "Image must be in URL format" })
     .min(0, { message: "Image must be at least 0 characters long" })
-    .max(255, { message: "Image must be less than 255 characters long" }).nonempty({ message: "Image must not be empty" }),
+    .max(255, { message: "Image must be less than 255 characters long" })
+    .nonempty({ message: "Image must not be empty" }),
   active: z.boolean(),
 });
 
@@ -61,7 +62,7 @@ export function PostForm() {
         }
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 

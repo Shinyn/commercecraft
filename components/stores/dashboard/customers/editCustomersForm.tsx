@@ -120,7 +120,7 @@ export function EditCustomerForm(customer: Customer) {
         reFetchCustomers(Array.isArray(storeID) ? storeID.toString() : storeID);
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 

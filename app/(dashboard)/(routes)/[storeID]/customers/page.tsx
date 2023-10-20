@@ -6,6 +6,7 @@ import { columns } from "@/components/stores/dashboard/customers/columns";
 import { DataTable } from "@/components/data-table";
 import { useCustomers } from "@/components/stores/dashboard/customers/zustand/zustandstate";
 import { APIList } from "@/components/stores/dashboard/api-list/APIList";
+import { toast } from "react-hot-toast";
 
 export default function Page() {
   const customers = useCustomers((state) => state.customers);
@@ -23,7 +24,7 @@ export default function Page() {
         updateCustomers(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }, []);
 

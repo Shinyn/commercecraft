@@ -91,7 +91,7 @@ export default function ProductForm() {
         reFetchProducts(Array.isArray(storeID) ? storeID.toString() : storeID);
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 
@@ -269,7 +269,6 @@ export default function ProductForm() {
                         let newValue = event.target.value;
                         if (newValue.startsWith("0")) {
                           newValue = newValue.substring(1);
-                          console.log(newValue);
                         }
                         event.target.value = newValue;
                         field.value = +newValue;
