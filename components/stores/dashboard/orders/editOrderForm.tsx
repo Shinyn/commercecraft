@@ -187,7 +187,7 @@ export function EditOrderForm(order: Order) {
             name="paid"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Activate </FormLabel>
+                <FormLabel>Paid  </FormLabel>
                 <FormControl>
                   <Checkbox
                     checked={field.value}
@@ -206,7 +206,7 @@ export function EditOrderForm(order: Order) {
             name="delivered"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Activate </FormLabel>
+                <FormLabel>Delivered </FormLabel>
                 <FormControl>
                   <Checkbox
                     checked={field.value}
