@@ -11,14 +11,12 @@ import { useParams } from "next/navigation";
 import { APIList } from "@/components/stores/dashboard/api-list/APIList";
 
 export default function Page() {
-  //State for the colors
   const colors = useColors((state) => state.colors);
   const updateColors = useColors((state) => state.updateColors);
   const updateState = useColors((state) => state.updateState);
   const params = useParams();
   const section = "colors";
 
-  //Get the colors from the database
   useEffect(() => {
     axios
       .get(
@@ -34,7 +32,6 @@ export default function Page() {
       });
   }, []);
 
-  //Render the page, pop up for adding a color and the table with the colors
   return (
     <div className={"flex flex-col"}>
       <DashboardPopover>

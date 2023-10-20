@@ -13,7 +13,6 @@ export default function Page() {
   const billboards = useBillboards((state) => state.billboards);
   const updateBillboards = useBillboards((state) => state.updateBillboards);
   const params = useParams();
-
   const section = 'billboards';
 
   useEffect(() => {
@@ -26,6 +25,7 @@ export default function Page() {
         console.log(error);
       });
   }, []);
+  
   return (
     <div className={'flex flex-col'}>
       <DashboardPopover>

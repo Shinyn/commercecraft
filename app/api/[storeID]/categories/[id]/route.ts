@@ -1,3 +1,5 @@
+//File contains DELETE for category by ID
+
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 
