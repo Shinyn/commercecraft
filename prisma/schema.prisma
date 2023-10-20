@@ -85,7 +85,8 @@ model Order {
   storeId      String
   order_number Int         @unique
   order_date   DateTime    @default(now())
-  order_status String      @default("Pending")
+  paid         Boolean     @default(false)
+  delivered    Boolean     @default(false)
   order_total  Decimal
   customerId   String      @default("Not specified")
   order_items  OrderItem[] @relation("Orderrelation")
@@ -97,12 +98,12 @@ model Order {
 }
 
 model OrderItem {
-  id      Int    @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
   title   String
   amount  Int
   price   Decimal
   orderId Int
-  Order   Order  @relation("Orderrelation", fields: [orderId], references: [order_number])
+  Order   Order   @relation("Orderrelation", fields: [orderId], references: [order_number])
 
   @@index([orderId])
 }
