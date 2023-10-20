@@ -5,5 +5,5 @@ export type Billboard = {
   storeId: string;
   text: string;
   image: string;
-  active: number;
+  active: boolean;
 };
