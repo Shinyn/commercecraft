@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import DeletePopup from '@/components/DeletePopup';
+import { Checkbox } from '@/components/ui/checkbox';
 
 import {
   DropdownMenu,
@@ -19,6 +20,7 @@ import { DeleteBillboard } from '@/components/stores/dashboard/billboards/delete
 export const columns: ColumnDef<Billboard>[] = [
   {
     accessorKey: 'id',
+    id:"id",
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -42,6 +44,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
   {
     accessorKey: 'image',
+    id: 'image',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -53,6 +56,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
   {
     accessorKey: 'active',
+    id:"active",
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -61,6 +65,13 @@ export const columns: ColumnDef<Billboard>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => (
+      <Checkbox
+      className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.active? true : false}
+        aria-label="Select row"
+      />)
   },
 
   {
