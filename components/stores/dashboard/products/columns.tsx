@@ -84,6 +84,7 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'isfeatured',
+    id:'isfeatured',
     header: ({ column }) => {
       return (
         <Button
@@ -105,6 +106,7 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'isarchived',
+    id:'isfeatured',
     header: ({ column }) => {
       return (
         <Button

@@ -29,6 +29,7 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'paid',
+    id:'paid',
     header: ({ column }) => {
       return (
         <Button
@@ -50,6 +51,7 @@ export const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'delivered',
+    id: 'delivered',
     header: ({ column }) => {
       return (
         <Button

@@ -44,6 +44,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
   {
     accessorKey: 'image',
+    id: 'image',
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
@@ -55,6 +56,7 @@ export const columns: ColumnDef<Billboard>[] = [
   },
   {
     accessorKey: 'active',
+    id:"active",
     header: ({ column }) => {
       return (
         <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
