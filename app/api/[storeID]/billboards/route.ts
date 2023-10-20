@@ -19,9 +19,9 @@ export async function POST(
         .updateMany({
           where: {
             storeId,
-            active: 1,
+            active,
           },
-          data: { active: 0 },
+          data: { active },
         })
         .then(async function (response) {
           newBillboard = await prismadb.billboard.create({
@@ -29,7 +29,7 @@ export async function POST(
               storeId,
               text,
               image,
-              active: 1,
+              active,
             },
           });
         })
@@ -42,7 +42,7 @@ export async function POST(
           storeId,
           text,
           image,
-          active: 0,
+          active,
         },
       });
     }
@@ -94,8 +94,8 @@ export async function PUT(
       //Remove activation from any previous billboards if needed
       const updated = await prismadb.billboard
         .updateMany({
-          where: { storeId, active: 1 },
-          data: { active: 0 },
+          where: { storeId, active },
+          data: { active },
         })
         .then(async function (response) {
           //update the billboard
@@ -104,7 +104,7 @@ export async function PUT(
             data: {
               text,
               image,
-              active: 1,
+              active,
             },
           });
         })
@@ -117,7 +117,7 @@ export async function PUT(
         data: {
           text,
           image,
-          active: 0,
+          active,
         },
       });
     }
