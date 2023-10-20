@@ -1,9 +1,9 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import {
   Form,
@@ -13,10 +13,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useParams } from "next/navigation";
-import { useCategories } from "@/components/stores/dashboard/categories/zustand/zustandstate";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useParams } from 'next/navigation';
+import { useCategories } from '@/components/stores/dashboard/categories/zustand/zustandstate';
 
 //Form for adding a new category
 export default function CategoryForm() {
@@ -27,18 +27,18 @@ export default function CategoryForm() {
   const formSchema = z.object({
     name: z
       .string()
-      .min(2, { message: "category must be atleast 2 characters long" })
-      .max(50, { message: "category must be less than 50 characters long" })
+      .min(2, { message: 'category must be atleast 2 characters long' })
+      .max(50, { message: 'category must be less than 50 characters long' })
       .regex(/^[a-zA-Z0-9/& / ]*$/, {
-        message: "category must only contain letters and numbers",
+        message: 'category must only contain letters and numbers',
       })
-      .nonempty({ message: "category must not be empty" }),
+      .nonempty({ message: 'category must not be empty' }),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: '',
     },
   });
   //Submit function
@@ -51,7 +51,7 @@ export default function CategoryForm() {
         }
       )
       .then(function (response) {
-        toast.success("Category added successfully");
+        toast.success('Category added successfully');
         reFetchCategories(
           Array.isArray(params.storeID)
             ? params.storeID.toString()
@@ -65,7 +65,7 @@ export default function CategoryForm() {
 
   //Render the form
   return (
-    <div className={"m-9"}>
+    <div className={'m-9'}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField
