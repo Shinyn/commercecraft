@@ -11,7 +11,7 @@ export async function GET(
   if (params.id == "active") {
     try {
       const Billboards = await prismadb.billboard.findFirstOrThrow({
-        where: { storeId: storeID, active: 1 },
+        where: { storeId: storeID, active: true },
       });
 
       if (!Billboards) {
@@ -29,7 +29,7 @@ export async function GET(
   } else if (params.id == "inactive") {
     try {
       const Billboards = await prismadb.billboard.findMany({
-        where: { storeId: storeID, active: 0 },
+        where: { storeId: storeID, active: false },
       });
       return NextResponse.json(Billboards);
     } catch (error) {
