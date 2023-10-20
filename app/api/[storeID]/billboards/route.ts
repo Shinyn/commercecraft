@@ -34,7 +34,11 @@ export async function POST(
           });
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("api/billboards/POST", error);
+          return new NextResponse(
+            "Something went wrong when trying to save your billboard",
+            { status: 500 }
+          );
         });
     } else {
       newBillboard = await prismadb.billboard.create({
@@ -109,7 +113,11 @@ export async function PUT(
           });
         })
         .catch(function (error) {
-          console.log(error);
+          console.log("api/billboards/POST", error);
+          return new NextResponse(
+            "Something went wrong when trying to save your billboard",
+            { status: 500 }
+          );
         });
     } else {
       newBillboard = await prismadb.billboard.update({

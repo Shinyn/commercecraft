@@ -8,6 +8,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "next/navigation";
 import { APIList } from "@/components/stores/dashboard/api-list/APIList";
+import { toast } from "react-hot-toast";
 
 export default function Page() {
   //State for the categories
@@ -29,7 +30,7 @@ export default function Page() {
         updateState(true);
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }, []);
 

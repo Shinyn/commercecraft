@@ -7,6 +7,7 @@ import { Order } from "@/components/stores/dashboard/orders/order";
 import OrdersDiv from "@/components/stores/dashboard/orders/id/OrdersDiv";
 import CustomersDiv from "@/components/stores/dashboard/orders/id/CustomersDiv";
 import BottomDiv from "@/components/stores/dashboard/orders/id/BottomDiv";
+import { toast } from "react-hot-toast";
 
 const OrderPage = () => {
   const params = useParams();
@@ -32,8 +33,8 @@ const OrderPage = () => {
         setCustomers(customersResponse.data);
         setOrder_items(orderItemsResponse.data);
         setLoaded(true);
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        toast.error(error.response.data);
       }
     };
 

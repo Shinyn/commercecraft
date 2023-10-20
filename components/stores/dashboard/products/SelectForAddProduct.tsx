@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 import {
   Select,
@@ -24,7 +25,7 @@ export default function SelectForAddProduct(props: any) {
         setFetchedData(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }, []);
 

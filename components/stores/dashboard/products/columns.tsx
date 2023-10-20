@@ -83,8 +83,8 @@ export const columns: ColumnDef<Product>[] = [
     header: "Color",
   },
   {
-    accessorKey: 'isfeatured',
-    id:'isfeatured',
+    accessorKey: "isfeatured",
+    id: "isfeatured",
     header: ({ column }) => {
       return (
         <Button
@@ -102,11 +102,12 @@ export const columns: ColumnDef<Product>[] = [
         aria-readonly={true}
         checked={row.original.isfeatured ? true : false}
         aria-label="Select row"
-      />),
+      />
+    ),
   },
   {
-    accessorKey: 'isarchived',
-    id:'isarchived',
+    accessorKey: "isarchived",
+    id: "isarchived",
     header: ({ column }) => {
       return (
         <Button
@@ -124,7 +125,8 @@ export const columns: ColumnDef<Product>[] = [
         aria-readonly={true}
         checked={row.original.isarchived ? true : false}
         aria-label="Select row"
-      />),
+      />
+    ),
   },
   {
     accessorKey: "price",
@@ -157,6 +159,7 @@ export const columns: ColumnDef<Product>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
+      row.id = row.original.id?.toString() || "bob";
       const product = row.original;
 
       return (

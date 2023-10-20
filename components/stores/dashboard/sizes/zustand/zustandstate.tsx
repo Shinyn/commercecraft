@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Size } from "@/components/stores/dashboard/sizes/sizes";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 // Zustand store to keep track of the items in the size dropdown
 
 // create a store:age with the state
@@ -32,7 +33,7 @@ export const useSizes = create<State & Action>((set) => ({
         set(() => ({ sizes: response.data }));
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
         return;
       });
   },

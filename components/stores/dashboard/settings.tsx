@@ -1,13 +1,18 @@
-'use client';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import EditStoreForm from '@/components/stores/editStoreNameForm';
-import { useParams } from 'next/navigation';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useAuth } from '@clerk/nextjs';
-import { Store } from '@/components/stores/stores';
-import { FiSettings } from 'react-icons/fi';
-import { MdDriveFileRenameOutline } from 'react-icons/md';
+"use client";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import EditStoreForm from "@/components/stores/editStoreNameForm";
+import { useParams } from "next/navigation";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAuth } from "@clerk/nextjs";
+import { Store } from "@/components/stores/stores";
+import { FiSettings } from "react-icons/fi";
+import { toast } from "react-hot-toast";
+import { MdDriveFileRenameOutline } from "react-icons/md";
 
 export function Settings() {
   const params = useParams();
@@ -16,14 +21,17 @@ export function Settings() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/stores/${userId}/${params.storeID}`, {})
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/stores/${userId}/${params.storeID}`,
+        {}
+      )
       .then(function (response) {
         setStore(response.data);
 
         return response.data;
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data.message);
       });
   }, [userId, params.storeID]);
 

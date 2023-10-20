@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Color } from "@/components/stores/dashboard/colors/colors";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 // Zustand store to keep track of the items in the color dropdown
 
@@ -33,7 +34,7 @@ export const useColors = create<State & Action>((set) => ({
         set(() => ({ colors: response.data }));
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data)
         return;
       });
   },

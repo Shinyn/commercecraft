@@ -20,7 +20,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { Order } from "@/components/stores/dashboard/orders/order";
-import { useOrders } from './zustand/ordersState';
+import { useOrders } from "./zustand/ordersState";
 
 const formSchema = z.object({
   id: z
@@ -48,12 +48,14 @@ const formSchema = z.object({
     .min(1, { message: "category must be atleast 2 characters long" })
     .max(Infinity, { message: "category must be atleast 2 characters long" }),
   delivered: z.boolean(),
-  paid: z.boolean()
+  paid: z.boolean(),
 });
 
 export function EditOrderForm(order: Order) {
   const params = useParams();
-  const reFetchCompleteOrders = useOrders((state) => state.reFetchCompleteOrders);
+  const reFetchCompleteOrders = useOrders(
+    (state) => state.reFetchCompleteOrders
+  );
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -65,8 +67,7 @@ export function EditOrderForm(order: Order) {
       customerStreet: order.customerstreet,
       order_number: order.order_number,
       delivered: order.delivered,
-      paid: order.paid
-
+      paid: order.paid,
     },
   });
 
@@ -79,17 +80,21 @@ export function EditOrderForm(order: Order) {
           order_number,
           id,
           paid,
-          delivered
+          delivered,
         }
       )
       .then(function (response) {
         if (response.status == 200) {
           toast.success("Order status uppdated successfully");
-          reFetchCompleteOrders(Array.isArray(params.storeID) ? params.storeID.toString() : params.storeID)
+          reFetchCompleteOrders(
+            Array.isArray(params.storeID)
+              ? params.storeID.toString()
+              : params.storeID
+          );
         }
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 
@@ -187,7 +192,7 @@ export function EditOrderForm(order: Order) {
             name="paid"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Paid  </FormLabel>
+                <FormLabel>Paid </FormLabel>
                 <FormControl>
                   <Checkbox
                     checked={field.value}

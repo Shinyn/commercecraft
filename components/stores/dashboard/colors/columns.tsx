@@ -51,6 +51,7 @@ export const columns: ColumnDef<Color>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
+      row.id = row.original.id?.toString() || "bob";
       const color = row.original;
       function copyPaymentId() {
         if (color.id === undefined) return "no id";
@@ -96,7 +97,10 @@ export const columns: ColumnDef<Color>[] = [
                     Edit
                   </DropdownMenuItem>
                 </SheetTrigger>
-                <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                  className="p-0"
+                  onClick={(e) => e.preventDefault()}
+                >
                   <DeletePopup item={"color"}>
                     <DeleteColor itemId={color.id || ""} />
                   </DeletePopup>
