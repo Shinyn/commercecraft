@@ -23,7 +23,7 @@ export function Settings() {
         return response.data;
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data.message);
       });
   }, [userId, params.storeID]);
 

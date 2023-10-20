@@ -3,9 +3,11 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useOrders } from "./zustand/ordersState";
 
-const DeleteOrder = (params:{orderId: string}) => {
+const DeleteOrder = (params: { orderId: string }) => {
   const { storeID } = useParams();
-  const reFetchCompleteOrders = useOrders((state) => state.reFetchCompleteOrders);
+  const reFetchCompleteOrders = useOrders(
+    (state) => state.reFetchCompleteOrders
+  );
 
   return (
     <>
@@ -17,12 +19,14 @@ const DeleteOrder = (params:{orderId: string}) => {
               `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${storeID}/orders/${params.orderId}`
             )
             .then((res) => {
-              toast.success('Order deleted');
-              reFetchCompleteOrders(Array.isArray(storeID) ? storeID.toString() : storeID);
+              toast.success("Order deleted");
+              reFetchCompleteOrders(
+                Array.isArray(storeID) ? storeID.toString() : storeID
+              );
               return res.data;
             })
             .catch((error) => {
-              console.log(error);
+              toast.error(error.response.data);
             });
         }}
       >

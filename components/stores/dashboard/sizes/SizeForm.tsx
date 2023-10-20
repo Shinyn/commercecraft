@@ -47,7 +47,6 @@ export default function SizeForm() {
         }
       )
       .then(function (response) {
-        console.log(response);
         toast.success("Size added successfully");
         reFetchSizes(
           Array.isArray(params.storeID)

@@ -65,7 +65,7 @@ export function EditForm(billboard: Billboard) {
         }
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 
