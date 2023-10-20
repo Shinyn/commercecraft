@@ -191,7 +191,7 @@ export function EditProductForm(product: Product) {
               <FormLabel>Color</FormLabel>
               <FormControl>
                 <SelectForAddProduct
-                  placeholder="Select Color"
+                  placeholder={product.color}
                   apicall={`/api/${storeID}/colors`}
                   value={product.color}
                   valueSend={(value: string) => form.setValue("color", value)}
@@ -201,7 +201,7 @@ export function EditProductForm(product: Product) {
             <FormItem>
               <FormLabel>Size</FormLabel>
               <SelectForAddProduct
-                placeholder="Select Size"
+                placeholder={product.size}
                 apicall={`/api/${storeID}/sizes`}
                 value={product.size}
                 valueSend={(value: string) => form.setValue("size", value)}
@@ -289,7 +289,7 @@ export function EditProductForm(product: Product) {
             <FormItem>
               <FormLabel>Product Category</FormLabel>
               <SelectForAddProduct
-                placeholder="Select Category"
+                placeholder={product.category}
                 apicall={`/api/${storeID}/categories`}
                 value={product.category}
                 valueSend={(value: string) => form.setValue("category", value)}
