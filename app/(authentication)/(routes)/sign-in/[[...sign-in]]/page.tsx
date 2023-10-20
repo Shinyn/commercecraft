@@ -1,11 +1,7 @@
+//Page for sign-in, only containing content required for signin provided by clerk
+
 import { SignIn } from '@clerk/nextjs';
 
 export default function Page() {
-  return (
-    <>
-      <div className="flex justify-center items-center min-h-screen">
-        <SignIn />;
-      </div>
-    </>
-  );
+  return <SignIn />;
 }
