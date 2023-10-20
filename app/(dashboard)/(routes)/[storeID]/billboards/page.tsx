@@ -10,7 +10,6 @@ import { useParams } from 'next/navigation';
 import { APIList } from '@/components/stores/dashboard/api-list/APIList';
 
 export default function Page() {
-  //states for keeping track of billboards in dashboard front
   const billboards = useBillboards((state) => state.billboards);
   const updateBillboards = useBillboards((state) => state.updateBillboards);
   const params = useParams();
