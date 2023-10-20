@@ -18,12 +18,14 @@ export async function POST(
       },
     });
     return NextResponse.json(newColor, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     console.log("api/colors/POST", error);
-    return new NextResponse(
-      "Something went wrong when trying to save your color",
-      { status: 500 }
-    );
+    if (error.code === "P2002") {
+      return new NextResponse("That color already exists", { status: 500 });
+    }
+    return new NextResponse("Something went wrong with the server", {
+      status: 500,
+    });
   }
 }
 
@@ -59,11 +61,16 @@ export async function PATCH(req: Request) {
       },
     });
     return NextResponse.json(updatedColor, { status: 200 });
-  } catch (error) {
+  } catch (error: any) {
     console.log("api/colors/PATCH", error);
+    if (error.code === "P2002") {
+      return new NextResponse("That color already exists", { status: 500 });
+    }
     return new NextResponse(
-      "Ooops, something went wrong when updating the color",
-      { status: 500 }
+      "Something went wrong when trying to update the color",
+      {
+        status: 500,
+      }
     );
   }
 }
