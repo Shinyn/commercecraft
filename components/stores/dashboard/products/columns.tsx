@@ -2,11 +2,11 @@
 //Componenten används i products page.tsx, tillsammans med products.tsx
 //Denna componenten är en del av data-table.tsx(som dock går att återanvända)
 
-import { Product } from '@/components/stores/dashboard/products/products';
-import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Button } from '@/components/ui/button';
+import { Product } from "@/components/stores/dashboard/products/products";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import DeletePopup from "@/components/DeletePopup";
 import {
   DropdownMenu,
@@ -15,40 +15,31 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import DeleteProduct from '@/components/stores/dashboard/products/DeleteProduct';
-import { EditProductForm } from '@/components/stores/dashboard/products/EditProductForm';
+} from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import DeleteProduct from "@/components/stores/dashboard/products/DeleteProduct";
+import { EditProductForm } from "@/components/stores/dashboard/products/EditProductForm";
 
 export const columns: ColumnDef<Product>[] = [
   {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
+    accessorKey: "id",
+    header: "ID",
   },
   {
-    accessorKey: 'id',
-    header: 'ID',
-  },
-  {
-    accessorKey: 'title',
+    accessorKey: "title",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -56,14 +47,17 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: 'size',
-    header: 'Size',
+    accessorKey: "size",
+    header: "Size",
   },
   {
-    accessorKey: 'manufacturer',
+    accessorKey: "manufacturer",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Manufacturer
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -71,10 +65,13 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: 'category',
+    accessorKey: "category",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Category
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -82,22 +79,61 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: 'color',
-    header: 'Color',
+    accessorKey: "color",
+    header: "Color",
   },
   {
     accessorKey: 'isfeatured',
-    header: 'Featured',
+    id:'isfeatured',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Featured
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Checkbox
+        className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.isfeatured ? true : false}
+        aria-label="Select row"
+      />),
   },
   {
     accessorKey: 'isarchived',
-    header: 'Archived',
-  },
-  {
-    accessorKey: 'price',
+    id:'isarchived',
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Archived
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Checkbox
+        className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.isarchived ? true : false}
+        aria-label="Select row"
+      />),
+  },
+  {
+    accessorKey: "price",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Price
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -105,10 +141,13 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    accessorKey: 'stock',
+    accessorKey: "stock",
     header: ({ column }) => {
       return (
-        <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
           Stock
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
@@ -116,7 +155,7 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    id: 'actions',
+    id: "actions",
     cell: ({ row }) => {
       const product = row.original;
 
@@ -125,8 +164,15 @@ export const columns: ColumnDef<Product>[] = [
           <Sheet>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle> {'Edit Product'}?</SheetTitle>
-                <SheetDescription>Edit the productinfo here</SheetDescription>
+                <SheetTitle className={"text-lg font-bold text-center"}>
+                  {" "}
+                  {"Edit Product"}
+                </SheetTitle>
+                <SheetDescription
+                  className={"text-sm text-center text-gray-700"}
+                >
+                  Edit the product information below
+                </SheetDescription>
                 {EditProductForm(product)}
               </SheetHeader>
             </SheetContent>
@@ -147,9 +193,14 @@ export const columns: ColumnDef<Product>[] = [
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="p-0">
-                  <SheetTrigger className="hover:cursor-pointer w-full flex justify-left p-2">Edit</SheetTrigger>
+                  <SheetTrigger className="hover:cursor-pointer w-full flex justify-left p-2">
+                    Edit
+                  </SheetTrigger>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
+                <DropdownMenuItem
+                  className="p-0"
+                  onClick={(e) => e.preventDefault()}
+                >
                   <DeletePopup item={"product"}>
                     <DeleteProduct itemId={product.id} />
                   </DeletePopup>

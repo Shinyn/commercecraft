@@ -37,8 +37,8 @@ export function EditProductForm(product: Product) {
       .nonempty({ message: "You must write a description" }),
     price: z
       .number()
-      .min(0, { message: "Price must be a positive number" })
-      .max(Infinity),
+      .max(Infinity)
+      .min(1, { message: "Price must be 1 or more" }),
     image: z
       .string()
       .url({ message: "Need URL" })
@@ -74,6 +74,8 @@ export function EditProductForm(product: Product) {
       price: product.price,
       image: product.image,
       category: product.category,
+      color: product.color,
+      size: product.size,
       manufacturer: product.manufacturer,
       isarchived: product.isarchived,
       isfeatured: product.isfeatured,
@@ -95,7 +97,7 @@ export function EditProductForm(product: Product) {
   }
 
   return (
-    <ScrollArea className={"h-[500px] w-[350px] rounded-md border p-8"}>
+    <ScrollArea className={"h-[500px] w-[350px] rounded-md border"}>
       <div className={"m-9"}>
         <Form {...form}>
           <form
@@ -107,9 +109,12 @@ export function EditProductForm(product: Product) {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Product Title</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Product Title" {...field} />
+                    <Input
+                      placeholder="What's the name of your product?"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -120,7 +125,7 @@ export function EditProductForm(product: Product) {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Product Description</FormLabel>
+                  <FormLabel>Description</FormLabel>
                   <FormControl>
                     <Input placeholder="Product Description" {...field} />
                   </FormControl>
@@ -133,22 +138,16 @@ export function EditProductForm(product: Product) {
               name="price"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Product Price</FormLabel>
+                  <FormLabel>Unit Price</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
-                      min={1}
+                      step="0.01"
+                      min="0"
                       {...field}
-                      value={+field.value}
+                      value={field.value}
                       onChange={(event) => {
-                        let newValue = event.target.value;
-                        if (newValue.startsWith("0")) {
-                          newValue = newValue.substring(1);
-                          console.log(newValue);
-                        }
-                        event.target.value = newValue;
-                        field.value = +newValue;
-                        field.onChange(+event.target.value);
+                        field.onChange(parseFloat(event.target.value)); // Parse and store as a float
                       }}
                     />
                   </FormControl>
@@ -174,7 +173,7 @@ export function EditProductForm(product: Product) {
               name="manufacturer"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Manufacturer-name</FormLabel>
+                  <FormLabel>Manufacturer</FormLabel>
                   <FormControl>
                     <Input placeholder="Name of manufacturer here" {...field} />
                   </FormControl>
@@ -182,14 +181,34 @@ export function EditProductForm(product: Product) {
                 </FormItem>
               )}
             />
+            <FormItem>
+              <FormLabel>Color</FormLabel>
+              <FormControl>
+                <SelectForAddProduct
+                  placeholder={product.color}
+                  apicall={`/api/${storeID}/colors`}
+                  value={product.color}
+                  valueSend={(value: string) => form.setValue("color", value)}
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Size</FormLabel>
+              <SelectForAddProduct
+                placeholder={product.size}
+                apicall={`/api/${storeID}/sizes`}
+                value={product.size}
+                valueSend={(value: string) => form.setValue("size", value)}
+              />
+            </FormItem>
             <FormField
               control={form.control}
               name="ingredients"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Ingredientslist here</FormLabel>
+                  <FormLabel>Ingredient list</FormLabel>
                   <FormControl>
-                    <Input placeholder="ingredientslist here" {...field} />
+                    <Input placeholder="ingredient list here" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -200,7 +219,7 @@ export function EditProductForm(product: Product) {
               name="isfeatured"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Is featured ? </FormLabel>
+                  <FormLabel className={"mr-2"}>Featured? </FormLabel>
                   <FormControl>
                     <Checkbox
                       checked={field.value}
@@ -208,7 +227,7 @@ export function EditProductForm(product: Product) {
                     />
                   </FormControl>
                   <FormDescription>
-                    If checked this product is featured on your frontend.
+                    If checked this product will be featured on your web shop.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -219,7 +238,7 @@ export function EditProductForm(product: Product) {
               name="isarchived"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Is archived ? </FormLabel>
+                  <FormLabel className={"mr-2"}>Archived? </FormLabel>
                   <FormControl>
                     <Checkbox
                       checked={field.value}
@@ -227,7 +246,7 @@ export function EditProductForm(product: Product) {
                     />
                   </FormControl>
                   <FormDescription>
-                    If checked this product is archived on your frontend.
+                    If checked this product will be stored in your archive.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -242,7 +261,7 @@ export function EditProductForm(product: Product) {
                   <FormControl>
                     <Input
                       type="number"
-                      min={1}
+                      min={0}
                       {...field}
                       value={+field.value}
                       onChange={(event) => {
@@ -261,12 +280,15 @@ export function EditProductForm(product: Product) {
                 </FormItem>
               )}
             />
-            <SelectForAddProduct
-              placeholder="Select Category"
-              apicall={`/api/${storeID}/categories`}
-              value={product.category}
-              valueSend={(value: string) => form.setValue("category", value)}
-            />
+            <FormItem>
+              <FormLabel>Product Category</FormLabel>
+              <SelectForAddProduct
+                placeholder={product.category}
+                apicall={`/api/${storeID}/categories`}
+                value={product.category}
+                valueSend={(value: string) => form.setValue("category", value)}
+              />
+            </FormItem>
             <Button type="submit">Submit</Button>
           </form>
         </Form>

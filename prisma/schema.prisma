@@ -27,7 +27,7 @@ model Product {
   title        String
   description  String
   ingredients  String  @default("Bobs")
-  price        Int
+  price        Decimal
   image        String
   manufacturer String  @default("BOB")
   category     String  @default("all")
@@ -51,12 +51,12 @@ model Category {
 }
 
 model Billboard {
-  id      String @id @default(uuid())
+  id      String  @id @default(uuid())
   storeId String
   text    String
   image   String
-  active  Int    @default(0)
-  store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  active  Boolean @default(false)
+  store   Store   @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@index([storeId])
 }
@@ -85,8 +85,9 @@ model Order {
   storeId      String
   order_number Int         @unique
   order_date   DateTime    @default(now())
-  order_status String      @default("Pending")
-  order_total  Int
+  paid         Boolean     @default(false)
+  delivered    Boolean     @default(false)
+  order_total  Decimal
   customerId   String      @default("Not specified")
   order_items  OrderItem[] @relation("Orderrelation")
   store        Store       @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -97,12 +98,12 @@ model Order {
 }
 
 model OrderItem {
-  id      Int    @id @default(autoincrement())
+  id      Int     @id @default(autoincrement())
   title   String
   amount  Int
-  price   Float
+  price   Decimal
   orderId Int
-  Order   Order  @relation("Orderrelation", fields: [orderId], references: [order_number])
+  Order   Order   @relation("Orderrelation", fields: [orderId], references: [order_number])
 
   @@index([orderId])
 }

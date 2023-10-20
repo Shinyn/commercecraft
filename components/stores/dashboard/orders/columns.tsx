@@ -9,7 +9,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import DeleteOrder from '@/components/stores/dashboard/orders/deleteOrder';
 import { LinktoPrint } from '@/components/stores/dashboard/orders/link';
 import { Button } from '@/components/ui/button';
-import DeletePopup from "@/components/DeletePopup";
+import DeletePopup from '@/components/DeletePopup';
 
 import {
   DropdownMenu,
@@ -24,32 +24,54 @@ import { EditOrderForm } from '@/components/stores/dashboard/orders/editOrderFor
 
 export const columns: ColumnDef<Order>[] = [
   {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-
-  {
     accessorKey: 'id',
     header: 'ID',
   },
   {
-    accessorKey: 'order_status',
-    header: 'Order Status',
+    accessorKey: 'paid',
+    id:'paid',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Paid?
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Checkbox
+        className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.paid ? true : false}
+        aria-label="Select row"
+      />),
+  },
+  {
+    accessorKey: 'delivered',
+    id: 'delivered',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Delivered?
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    /* TODO: cursor default */
+    cell: ({ row }) => (
+
+      <Checkbox
+        className="cursor-default"
+        aria-readonly={true}
+        checked={row.original.delivered ? true : false}
+        aria-label="Select row"
+      />)
   },
   {
     accessorKey: 'order_total',
@@ -120,7 +142,7 @@ export const columns: ColumnDef<Order>[] = [
                   <SheetTrigger className="hover:cursor-pointer w-full flex justify-left p-2">Edit</SheetTrigger>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="p-0" onClick={(e) => e.preventDefault()}>
-                  <DeletePopup item={"order"}>
+                  <DeletePopup item={'order'}>
                     <DeleteOrder orderId={order.id} />
                   </DeletePopup>
                 </DropdownMenuItem>

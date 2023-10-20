@@ -28,9 +28,12 @@ export default function ColorForm() {
     name: z
       .string()
       .max(10, { message: "color must be max 10 charcaters long" })
-      .nonempty({ message: "You must write a colorname" })
+      .nonempty({ message: "You must write a colorname" }),
+    hex: z
+      .string()
+      .min(7)
+      .max(7)
       .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
-    hex: z.string().min(7).max(7),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
@@ -59,7 +62,7 @@ export default function ColorForm() {
         );
       })
       .catch(function (error) {
-        console.log(error);
+        toast.error(error.response.data);
       });
   }
 
