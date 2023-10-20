@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import prismadb from "@/lib/db";
-import { Size } from "@/components/stores/dashboard/sizes/sizes";
+import { NextResponse } from 'next/server';
+import prismadb from '@/lib/db';
+import { Size } from '@/components/stores/dashboard/sizes/sizes';
 
 export async function POST(
   req: Request,
@@ -18,12 +18,12 @@ export async function POST(
     });
     return NextResponse.json(newSize, { status: 201 });
   } catch (error: any) {
-    console.log("api/sizes/POST", error);
-    if (error.code === "P2002") {
-      return new NextResponse("That size already exists", { status: 500 });
+    console.log('api/sizes/POST', error);
+    if (error.code === 'P2002') {
+      return new NextResponse('That size already exists', { status: 500 });
     }
     return new NextResponse(
-      "Something went wrong when trying to add your size",
+      'Something went wrong when trying to add your size',
       {
         status: 500,
       }
@@ -41,9 +41,9 @@ export async function GET(
     });
     return NextResponse.json(Sizes);
   } catch (error) {
-    console.log("api/sizes/GET", error);
+    console.log('api/sizes/GET', error);
     return new NextResponse(
-      "Ooops, something went wrong when getting the sizes",
+      'Ooops, something went wrong when getting the sizes',
       { status: 500 }
     );
   }
@@ -52,8 +52,8 @@ export async function GET(
 export async function PATCH(req: Request) {
   try {
     const body = await req.json();
-    const { id, title } = body;
-    const updatedSize = await prismadb.size.update({
+    const { id, title, oldTitle } = body;
+    const updatedSize = prismadb.size.update({
       where: {
         id,
       },
@@ -61,14 +61,24 @@ export async function PATCH(req: Request) {
         title,
       },
     });
+    const updateOnProducts = prismadb.product.updateMany({
+      where: { size: oldTitle },
+      data: {
+        size: title,
+      },
+    });
+    const transaction = await prismadb.$transaction([
+      updatedSize,
+      updateOnProducts,
+    ]);
     return NextResponse.json(updatedSize, { status: 200 });
   } catch (error: any) {
-    console.log("api/sizes/PATCH", error);
-    if (error.code === "P2002") {
-      return new NextResponse("That size already exists", { status: 500 });
+    console.log('api/sizes/PATCH', error);
+    if (error.code === 'P2002') {
+      return new NextResponse('That size already exists', { status: 500 });
     }
     return new NextResponse(
-      "Something went wrong when trying to update the size",
+      'Something went wrong when trying to update the size',
       {
         status: 500,
       }
