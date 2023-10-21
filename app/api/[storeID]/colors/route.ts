@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import prismadb from "@/lib/db";
-import { Color } from "@/components/stores/dashboard/colors/colors";
+import { NextResponse } from 'next/server';
+import prismadb from '@/lib/db';
+import { Color } from '@/components/stores/dashboard/colors/colors';
 
 export async function POST(
   req: Request,
@@ -19,11 +19,11 @@ export async function POST(
     });
     return NextResponse.json(newColor, { status: 201 });
   } catch (error: any) {
-    console.log("api/colors/POST", error);
-    if (error.code === "P2002") {
-      return new NextResponse("That color already exists", { status: 500 });
+    console.log('api/colors/POST', error);
+    if (error.code === 'P2002') {
+      return new NextResponse('That color already exists', { status: 500 });
     }
-    return new NextResponse("Something went wrong with the server", {
+    return new NextResponse('Something went wrong with the server', {
       status: 500,
     });
   }
@@ -39,9 +39,9 @@ export async function GET(
     });
     return NextResponse.json(Colors);
   } catch (error) {
-    console.log("api/colors/GET", error);
+    console.log('api/colors/GET', error);
     return new NextResponse(
-      "Ooops, something went wrong when getting the colors",
+      'Ooops, something went wrong when getting the colors',
       { status: 500 }
     );
   }
@@ -50,8 +50,8 @@ export async function GET(
 export async function PATCH(req: Request) {
   try {
     const body = await req.json();
-    const { id, title, hex } = body;
-    const updatedColor = await prismadb.color.update({
+    const { id, title, hex, oldTitle } = body;
+    const updatedColor = prismadb.color.update({
       where: {
         id,
       },
@@ -60,14 +60,24 @@ export async function PATCH(req: Request) {
         hex,
       },
     });
+    const updateOnProducts = prismadb.product.updateMany({
+      where: { color: oldTitle },
+      data: {
+        color: title,
+      },
+    });
+    const transaction = await prismadb.$transaction([
+      updatedColor,
+      updateOnProducts,
+    ]);
     return NextResponse.json(updatedColor, { status: 200 });
   } catch (error: any) {
-    console.log("api/colors/PATCH", error);
-    if (error.code === "P2002") {
-      return new NextResponse("That color already exists", { status: 500 });
+    console.log('api/colors/PATCH', error);
+    if (error.code === 'P2002') {
+      return new NextResponse('That color already exists', { status: 500 });
     }
     return new NextResponse(
-      "Something went wrong when trying to update the color",
+      'Something went wrong when trying to update the color',
       {
         status: 500,
       }

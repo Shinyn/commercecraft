@@ -1,11 +1,11 @@
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
-import { Color } from "@/components/stores/dashboard/colors/colors";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Input } from "@/components/ui/input";
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
+import { Color } from '@/components/stores/dashboard/colors/colors';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -13,21 +13,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import toast from "react-hot-toast";
-import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
+} from '@/components/ui/form';
+import toast from 'react-hot-toast';
+import { useColors } from '@/components/stores/dashboard/colors/zustand/zustandstate';
 
 const formSchema = z.object({
   title: z
     .string()
-    .min(2, { message: "Color must be atleast 2 characters long" })
-    .max(50, { message: "Color must be less than 50 characters long" })
-    .nonempty({ message: "You must write a color name" }),
+    .min(2, { message: 'Color must be atleast 2 characters long' })
+    .max(50, { message: 'Color must be less than 50 characters long' })
+    .nonempty({ message: 'You must write a color name' }),
   hex: z
     .string()
-    .min(7, { message: "Hex-code must be at least 7 characters long" })
-    .max(7, { message: "Hex-code must be no longer than 7 characters long" })
-    .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
+    .min(7, { message: 'Hex-code must be at least 7 characters long' })
+    .max(7, { message: 'Hex-code must be no longer than 7 characters long' })
+    .refine((s) => !s.includes(' '), { message: 'No Spaces!' }),
   id: z.string(),
   storeId: z.string(),
 });
@@ -46,24 +46,24 @@ export default function EditColorForm(color: Color) {
   const params = useParams();
   const reFetchColors = useColors((state) => state.reFetchColors);
 
-  function onSubmitting(e: any) {
+  function onSubmitting() {
     axios
       .patch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/colors`,
         {
           id: color.id,
-          title: form.getValues("title"),
-          hex: form.getValues("hex"),
+          title: form.getValues('title'),
+          hex: form.getValues('hex'),
+          oldTitle: color.title,
         }
       )
       .then(function (response) {
-        toast.success("Color updated successfully!");
+        toast.success('Color updated successfully!');
         reFetchColors(
           Array.isArray(params.storeID)
             ? params.storeID.toString()
             : params.storeID
         );
-
         return response.data;
       })
       .catch(function (error) {

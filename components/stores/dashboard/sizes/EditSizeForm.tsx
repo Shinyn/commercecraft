@@ -1,13 +1,13 @@
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useParams } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Size } from "@/components/stores/dashboard/sizes/sizes";
-import { Input } from "@/components/ui/input";
-import toast from "react-hot-toast";
-import { useSizes } from "./zustand/zustandstate";
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Size } from '@/components/stores/dashboard/sizes/sizes';
+import { Input } from '@/components/ui/input';
+import toast from 'react-hot-toast';
+import { useSizes } from './zustand/zustandstate';
 
 import {
   Form,
@@ -16,14 +16,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 
 const formSchema = z.object({
   title: z
     .string()
-    .min(1, { message: "Unit must be atleast 1 characters long" })
-    .max(50, { message: "Unit must be less than 50 characters long" })
-    .nonempty({ message: "You must write a unit" }),
+    .min(1, { message: 'Unit must be atleast 1 characters long' })
+    .max(50, { message: 'Unit must be less than 50 characters long' })
+    .nonempty({ message: 'You must write a unit' }),
   id: z.string(),
   storeId: z.string(),
 });
@@ -47,11 +47,13 @@ export default function EditSizeForm(size: Size) {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/sizes`,
         {
           id: size.id,
-          title: form.getValues("title"),
+          title: form.getValues('title'),
+          oldTitle: size.title,
         }
       )
       .then(function (response) {
-        toast.success("Size updated successfully");
+        console.log(response);
+        toast.success('Size updated successfully');
         reFetchSizes(
           Array.isArray(params.storeID)
             ? params.storeID.toString()
