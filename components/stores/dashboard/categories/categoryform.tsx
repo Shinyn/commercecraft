@@ -29,8 +29,8 @@ export default function CategoryForm() {
       .string()
       .min(2, { message: 'category must be atleast 2 characters long' })
       .max(50, { message: 'category must be less than 50 characters long' })
-      .regex(/^[a-zA-Z0-9/& / ]*$/, {
-        message: 'category must only contain letters and numbers',
+      .regex(/^[a-zåäöA-ZÅÄÖ0-9\& ]*$/, {
+        message: 'category can only contain letters, numbers and ampersand',
       })
       .nonempty({ message: 'category must not be empty' }),
   });
