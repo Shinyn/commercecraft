@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { useCategories } from '@/components/stores/dashboard/categories/zustand/zustandstate';
-import { useProducts } from '../products/zustand/zustandstate';
 
 export function DeleteCategory(params: { itemName: string }) {
   const reFetchCategories = useCategories((state) => state.reFetchCategories);
