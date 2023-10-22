@@ -163,6 +163,7 @@ export const columns: ColumnDef<Product>[] = [
       const product = row.original;
 
       return (
+      /*   Hej */
         <>
           <Sheet>
             <SheetContent>
