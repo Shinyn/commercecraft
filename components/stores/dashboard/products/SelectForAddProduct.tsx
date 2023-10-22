@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { toast } from "react-hot-toast";
-
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 export default function SelectForAddProduct(props: any) {
   const [fetchedData, setFetchedData] = useState([]);
@@ -35,7 +35,7 @@ export default function SelectForAddProduct(props: any) {
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder={props.placeholder} />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="overflow-y-scroll max-h-48">
           {fetchedData.map((item: any) => (
             <SelectItem key={item.id} value={item.title}>
               {item.title}
