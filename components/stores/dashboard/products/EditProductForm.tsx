@@ -150,7 +150,7 @@ export function EditProductForm(product: Product) {
                       step="0.01"
                       min="0"
                       {...field}
-                      value={field.value.toFixed(2)}
+                      value={field.value}
                       onChange={(event) => {
                         field.onChange(+event.target.value);
                       }}
