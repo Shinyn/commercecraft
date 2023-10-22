@@ -141,6 +141,10 @@ export const columns: ColumnDef<Product>[] = [
         </Button>
       );
     },
+    cell: ({ row }) => {
+      const displayPrice=(+row.original.price).toFixed(2)
+      return(displayPrice? displayPrice:row.original.price)
+    },
   },
   {
     accessorKey: "stock",
