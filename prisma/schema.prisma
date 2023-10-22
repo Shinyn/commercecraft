@@ -44,9 +44,10 @@ model Product {
 model Category {
   id      String @id @default(uuid())
   storeId String
-  title   String @unique
+  title   String
   store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
+  @@unique([title, storeId])
   @@index([storeId])
 }
 
@@ -64,19 +65,21 @@ model Billboard {
 model Size {
   id      String @id @default(uuid())
   storeId String
-  title   String @unique
+  title   String
   store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
+  @@unique([title, storeId])
   @@index([storeId])
 }
 
 model Color {
   id      String @id @default(uuid())
   storeId String
-  title   String @unique
+  title   String 
   hex     String @default("")
   store   Store  @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
+  @@unique([title, storeId])
   @@index([storeId])
 }
 
@@ -121,6 +124,7 @@ model Customer {
   e_mail         String  @unique
   store          Store   @relation("StoreRelation", fields: [storeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   Order          Order[] @relation("CustomerRelation")
-
+  
+  @@unique ([e_mail, storeId])
   @@index([storeId])
 }
