@@ -25,6 +25,11 @@ export function EditProductForm(product: Product) {
   const { storeID } = useParams();
   const reFetchProducts = useProducts((state) => state.reFetchProducts);
 
+  function formatter(num: string | number): number {
+    const formattedNum = Number((+num).toFixed(2))
+    return (formattedNum ? formattedNum : +num)
+
+  }
   const productSchema = z.object({
     title: z
       .string()
