@@ -150,7 +150,7 @@ export function EditProductForm(product: Product) {
                       step="0.01"
                       min="0"
                       {...field}
-                      value={field.value}
+                      value={field.value.toFixed(2)}
                       onChange={(event) => {
                         field.onChange(parseFloat(event.target.value)); // Parse and store as a float
                       }}
