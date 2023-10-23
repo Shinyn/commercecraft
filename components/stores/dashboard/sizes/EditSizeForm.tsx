@@ -52,7 +52,6 @@ export default function EditSizeForm(size: Size) {
         }
       )
       .then(function (response) {
-        console.log(response);
         toast.success('Size updated successfully');
         reFetchSizes(
           Array.isArray(params.storeID)

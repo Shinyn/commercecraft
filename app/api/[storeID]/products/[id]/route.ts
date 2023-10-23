@@ -1,4 +1,4 @@
-//File contains POST and GET handlers, creating a new product and returning all products respectively.
+//File contains POST and GET handlers, creating a new product and returning a specific product respectively.
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";

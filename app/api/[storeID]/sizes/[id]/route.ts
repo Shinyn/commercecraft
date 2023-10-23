@@ -4,13 +4,15 @@ import { useParams } from 'next/navigation';
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string, storeID: string  } }
 ) {
   try {
     const title = params.id;
-    const deletedSize = prismadb.size.delete({
+    const storeId=params.storeID
+    const deletedSize = prismadb.size.deleteMany({
       where: {
         title,
+        storeId
       },
     });
     const removeFromProduct = prismadb.product.updateMany({

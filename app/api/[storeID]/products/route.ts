@@ -1,3 +1,6 @@
+//File contains POST and GET handlers, creating a new product and returning all products respectively.
+
+
 import { NextResponse } from 'next/server';
 import prismadb from '@/lib/db';
 import { Product } from '@/components/stores/dashboard/products/products';
