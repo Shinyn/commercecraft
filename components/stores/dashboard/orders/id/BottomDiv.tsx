@@ -10,41 +10,10 @@ export default function BottomDiv({ orders }: any) {
         <div className="flex flex-col">
           <span className="font-bold m-1">VAT:</span>{" "}
           <span className="m-1">
-            {order_total !== undefined && order_total.toString().includes(".")
+            {order_total !== undefined
               ? ((order_total - 50) * 0.12).toFixed(2).toString().slice(0, -6) +
                 " " +
                 ((order_total - 50) * 0.12).toFixed(2).toString().slice(-6)
-              : null}{" "}
-            {order_total !== undefined && !order_total.toString().includes(".")
-              ? ((order_total - 50) * 0.12).toFixed(2).toString().slice(0, -6) +
-                " " +
-                ((order_total - 50) * 0.12)
-                  .toFixed(2)
-                  .toString()
-                  .slice(-6, -3) +
-                " " +
-                ((order_total - 50) * 0.12).toFixed(2).toString().slice(-3)
-              : null}{" "}
-            SEK
-          </span>
-        </div>
-        <div className="flex flex-col">
-          <span className="font-bold m-1">Price excl. VAT:</span>{" "}
-          <span className="m-1">
-            {order_total !== undefined && order_total.toString().includes(".")
-              ? ((order_total - 50) * 0.88).toFixed(2).toString().slice(0, -6) +
-                " " +
-                ((order_total - 50) * 0.88).toFixed(2).toString().slice(-6)
-              : null}{" "}
-            {order_total !== undefined && !order_total.toString().includes(".")
-              ? ((order_total - 50) * 0.88).toFixed(2).toString().slice(0, -6) +
-                " " +
-                ((order_total - 50) * 0.88)
-                  .toFixed(2)
-                  .toString()
-                  .slice(-6, -3) +
-                " " +
-                ((order_total - 50) * 0.88).toFixed(2).toString().slice(-3)
               : null}{" "}
             SEK
           </span>
@@ -59,17 +28,17 @@ export default function BottomDiv({ orders }: any) {
           </span>
           <span className="m-1 font-bold text-xl">
             {order_total !== undefined && order_total.toString().includes(".")
-              ? order_total.toString().slice(0, -6) +
-                " " +
-                order_total.toString().slice(-6)
-              : null}
-            {order_total !== undefined && !order_total.toString().includes(".")
               ? order_total.toFixed(2).toString().slice(0, -6) +
                 " " +
-                order_total.toFixed(2).toString().slice(-6, -3) +
-                " " +
-                order_total.toFixed(2).toString().slice(-3)
+                order_total.ToFixed(2).toString().slice(-6)
               : null}
+            {order_total !== undefined && !order_total.toString().includes(".")
+              ? order_total.toString().slice(0, -6) +
+                " " +
+                order_total.toString().slice(-6, -3) +
+                " " +
+                order_total.toString().slice(-3)
+              : null}{" "}
             SEK
           </span>
         </div>

@@ -84,17 +84,18 @@ const OrderPage = () => {
                               " " +
                               (item.price / item.amount).toFixed(2).slice(-6)
                             : null}{" "}
-                          {item.price !== undefined && !item.price.includes(".")
+                          {item.price !== undefined &&
+                          !(item.price / item.amount).toString().includes(".")
                             ? (item.price / item.amount)
-                                .toFixed(2)
+                                .toString()
                                 .slice(0, -6) +
                               " " +
                               (item.price / item.amount)
-                                .toFixed(2)
+                                .toString()
                                 .slice(-6, -3) +
                               " " +
-                              (item.price / item.amount).toFixed(2).slice(-3)
-                            : null}
+                              (item.price / item.amount).toString().slice(-3)
+                            : null}{" "}
                           SEK
                         </td>
                         <td className="py-2 px-4">x {item.amount}</td>
@@ -105,11 +106,11 @@ const OrderPage = () => {
                               (item.price * 1).toFixed(2).slice(-6)
                             : null}{" "}
                           {item.price !== undefined && !item.price.includes(".")
-                            ? (item.price * 1).toFixed(2).slice(0, -6) +
+                            ? (item.price * 1).toString().slice(0, -6) +
                               " " +
-                              (item.price * 1).toFixed(2).slice(-6, -3) +
+                              (item.price * 1).toString().slice(-6, -3) +
                               " " +
-                              (item.price * 1).toFixed(2).slice(-3)
+                              (item.price * 1).toString().slice(-3)
                             : null}{" "}
                           SEK
                         </td>
