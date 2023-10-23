@@ -1,4 +1,6 @@
 "use client";
+//Page displays a datatable of the databasecontents for the resource and has a popover form for resource creation.
+
 import { DashboardPopover } from "@/components/DashboardPopover";
 import { DataTable } from "@/components/data-table";
 import { columns } from "@/components/stores/dashboard/billboards/columns";

@@ -5,15 +5,29 @@ import prismadb from "@/lib/db";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { storeID: string; id: string } }
 ) {
   try {
-    const id = params.id;
-    const deletedCategory = await prismadb.category.delete({
+    const title = params.id;
+    const storeId = params.storeID;
+    const deletedCategory = prismadb.category.deleteMany({
       where: {
-        id,
+        title,
+        storeId,
       },
     });
+    const removeFromProduct = prismadb.product.updateMany({
+      where: { category: title, storeId: storeId },
+      data: {
+        category: "-",
+      },
+    });
+
+    const transaction = await prismadb.$transaction([
+      deletedCategory,
+      removeFromProduct,
+    ]);
+
     return NextResponse.json(deletedCategory, { status: 200 });
   } catch (error) {
     console.log("api/categories/DELETE", error);

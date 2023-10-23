@@ -1,4 +1,5 @@
 "use client";
+//Page displays a datatable of the databasecontents for the resource.
 import { useEffect } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";

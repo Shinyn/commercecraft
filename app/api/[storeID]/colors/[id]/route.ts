@@ -4,15 +4,29 @@ import { useParams } from "next/navigation";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { storeID: string; id: string } }
 ) {
   try {
-    const id = params.id;
-    const deletedColor = await prismadb.color.delete({
+    const title = params.id;
+    const storeId = params.storeID;
+    const deletedColor = prismadb.color.deleteMany({
       where: {
-        id,
+        title,
+        storeId,
       },
     });
+    const removeFromProduct = prismadb.product.updateMany({
+      where: { color: title, storeId: storeId },
+      data: {
+        color: "-",
+      },
+    });
+
+    const transaction = await prismadb.$transaction([
+      deletedColor,
+      removeFromProduct,
+    ]);
+
     return NextResponse.json(deletedColor, { status: 200 });
   } catch (error) {
     console.log("api/colors/DELETE", error);

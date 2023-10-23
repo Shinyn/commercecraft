@@ -1,10 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
-import { useSizes } from "./zustand/zustandstate";
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
+import { useSizes } from './zustand/zustandstate';
 
 import {
   Form,
@@ -14,9 +14,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useParams } from "next/navigation";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useParams } from 'next/navigation';
 
 //Form for adding a new category
 export default function SizeForm() {
@@ -26,15 +26,22 @@ export default function SizeForm() {
   const formSchema = z.object({
     name: z
       .string()
-      .min(1, { message: "Unit must be atleast 1 characters long" })
-      .max(50, { message: "Unit must be less than 50 characters long" })
-      .nonempty({ message: "You must write a unit" }),
+      .min(1, { message: 'Size/unit must be atleast 1 characters long' })
+      .max(50, { message: 'Size/unit must be less than 50 characters long' })
+      .refine(
+        (s) => !s.endsWith(' '),
+        'Size should not begin nor end with a space, you little numpty!'
+      )
+      .refine(
+        (s) => !s.startsWith(' '),
+        'Size should not begin nor end with a space, you little numpty!'
+      ),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      name: '',
     },
   });
   //Submit function
@@ -47,7 +54,7 @@ export default function SizeForm() {
         }
       )
       .then(function (response) {
-        toast.success("Size added successfully");
+        toast.success('Size added successfully');
         reFetchSizes(
           Array.isArray(params.storeID)
             ? params.storeID.toString()
@@ -61,7 +68,7 @@ export default function SizeForm() {
 
   //Render the form
   return (
-    <div className={"m-9"}>
+    <div className={'m-9'}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField
