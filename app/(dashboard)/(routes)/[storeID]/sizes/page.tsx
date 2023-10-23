@@ -1,6 +1,5 @@
-//Page displays a datatable of the databasecontents for the resource and has a popover form for resource creation.
-
 "use client";
+//Page displays a datatable of the databasecontents for the resource and has a popover form for resource creation.
 import { useSizes } from "@/components/stores/dashboard/sizes/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
 import { DashboardPopover } from "@/components/DashboardPopover";

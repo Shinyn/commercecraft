@@ -1,6 +1,5 @@
-//Page displays a datatable of the databasecontents for the resource.
-
 'use client';
+//Page displays a datatable of the databasecontents for the resource.
 import { useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { DataTable } from '@/components/data-table';
