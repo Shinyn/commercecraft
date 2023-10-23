@@ -24,7 +24,12 @@ import { useProducts } from "./zustand/zustandstate";
 export function EditProductForm(product: Product) {
   const { storeID } = useParams();
   const reFetchProducts = useProducts((state) => state.reFetchProducts);
+  const formattedPrice = formatter(product.price)
+  function formatter(num: string | number): number {
+    const formattedNum = Number((+num).toFixed(2))
+    return (formattedNum ? formattedNum : +num)
 
+  }
   const productSchema = z.object({
     title: z
       .string()
@@ -71,7 +76,7 @@ export function EditProductForm(product: Product) {
     defaultValues: {
       title: product.title,
       description: product.description,
-      price: product.price,
+      price: formattedPrice,
       image: product.image,
       category: product.category,
       color: product.color,
@@ -147,7 +152,7 @@ export function EditProductForm(product: Product) {
                       {...field}
                       value={field.value}
                       onChange={(event) => {
-                        field.onChange(parseFloat(event.target.value)); // Parse and store as a float
+                        field.onChange(+event.target.value);
                       }}
                     />
                   </FormControl>
