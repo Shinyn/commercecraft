@@ -5,17 +5,19 @@ import prismadb from '@/lib/db';
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { storeID:string, id: string } }
 ) {
   try {
     const title = params.id;
-    const deletedCategory = prismadb.category.delete({
+    const storeId=params.storeID;
+    const deletedCategory = prismadb.category.deleteMany({
       where: {
         title,
+        storeId
       },
     });
     const removeFromProduct = prismadb.product.updateMany({
-      where: { category: title },
+      where: { category: title, storeId },
       data: {
         category: '-',
       },

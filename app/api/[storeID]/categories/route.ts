@@ -48,7 +48,7 @@ export async function GET(
   }
 }
 
-export async function PATCH(req: Request) {
+export async function PATCH(req: Request, { params }: { params: { storeID: string } }) {
   try {
     const body = await req.json();
     const { id, oldTitle, title } = body;
@@ -61,7 +61,7 @@ export async function PATCH(req: Request) {
       },
     });
     const updateOnProducts = prismadb.product.updateMany({
-      where: { category: oldTitle },
+      where: { category: oldTitle, storeId:params.storeID },
       data: {
         category: title,
       },
