@@ -148,6 +148,12 @@ export function EditProductForm(product: Product) {
                       {...field}
                       value={field.value}
                       onChange={(event) => {
+                        let newValue = event.target.value;
+                        if (newValue.startsWith("0")) {
+                          newValue = newValue.substring(1);
+                        }
+                        event.target.value = newValue;
+                        field.value = +newValue;
                         field.onChange(+event.target.value);
                       }}
                     />
