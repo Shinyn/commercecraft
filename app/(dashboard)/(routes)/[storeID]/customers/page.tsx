@@ -1,3 +1,5 @@
+//Page displays a datatable of the databasecontents for the resource.
+
 "use client";
 import { useEffect } from "react";
 import axios from "axios";

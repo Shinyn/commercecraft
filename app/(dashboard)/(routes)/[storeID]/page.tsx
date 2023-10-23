@@ -1,3 +1,5 @@
+//Page for displaying helpful information about the functionality of the dashboard
+//TODO: Create appropriate components for content 
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";

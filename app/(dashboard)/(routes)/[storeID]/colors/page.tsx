@@ -1,3 +1,5 @@
+//Page displays a datatable of the databasecontents for the resource and has a popover form for resource creation.
+
 "use client";
 import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
 import { DataTable } from "@/components/data-table";
