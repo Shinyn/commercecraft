@@ -1,5 +1,5 @@
 //File contains POST handler for creating an order, creating/updating a customer and creating the order_items invcluded in the order.
-//This route is for connection to a store-front and it's 
+//This route is for connection to a store-front and it's
 
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
@@ -37,6 +37,27 @@ export async function POST(
       phone,
     }: Customer = body.sendingData;
     const e_mail = body.sendingData.email;
+
+    const findProducts = await prismadb.product.findMany({
+      where: {
+        storeId: store_id,
+        id: { in: body.sendingData.basketerino.map((item: any) => item.id) },
+      },
+    });
+
+    const checkStock = findProducts.every((item: any) => {
+      const amount = body.sendingData.basketerino.find(
+        (basketItem: any) => basketItem.id === item.id
+      ).amount;
+      return item.stock <= amount;
+    });
+
+    if (checkStock) {
+      return new NextResponse(
+        "Not enough stock for one or more items in your basket",
+        { status: 400 }
+      );
+    }
 
     await prismadb.$transaction(
       body.sendingData.basketerino.map((item: any) => {
