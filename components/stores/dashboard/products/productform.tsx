@@ -43,9 +43,13 @@ export default function ProductForm() {
       .string()
       .url({ message: 'Need URL' })
       .max(255, { message: 'URL must be less than 255 characters' }),
-    category: z.string().nonempty({ message: 'Category must not be empty' }),
-    color: z.string().nonempty({ message: 'Color must not be empty' }),
-    size: z.string().nonempty({ message: 'Size must not be empty' }),
+    category: z.string().refine((value) => value !== '', {
+      message: 'Please select an option.',
+    }),
+    color: z.string().optional(),
+    size: z.string().refine((value) => value !== '', {
+      message: 'Please select an option.',
+    }),
     manufacturer: z
       .string()
       .min(2, {
@@ -186,22 +190,44 @@ export default function ProductForm() {
                 </FormItem>
               )}
             />
-            <FormItem>
-              <FormLabel>Color</FormLabel>
-              <SelectForAddProduct
-                placeholder="Select Color"
-                apicall={`/api/${params.storeID}/colors`}
-                valueSend={(value: string) => form.setValue('color', value)}
-              />
-            </FormItem>
-            <FormItem>
-              <FormLabel>Size</FormLabel>
-              <SelectForAddProduct
-                placeholder="Select size"
-                apicall={`/api/${params.storeID}/sizes`}
-                valueSend={(value: string) => form.setValue('size', value)}
-              />
-            </FormItem>
+            <FormField
+              control={form.control}
+              name="color"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Color (optional)</FormLabel>
+                  <FormControl>
+                    <SelectForAddProduct
+                      placeholder="Select Color"
+                      apicall={`/api/${params.storeID}/colors`}
+                      valueSend={(value: string) =>
+                        form.setValue('color', value)
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="size"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Size</FormLabel>
+                  <FormControl>
+                    <SelectForAddProduct
+                      placeholder="Select size"
+                      apicall={`/api/${params.storeID}/sizes`}
+                      valueSend={(value: string) =>
+                        form.setValue('size', value)
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="ingredients"
@@ -280,14 +306,25 @@ export default function ProductForm() {
                 </FormItem>
               )}
             />
-            <FormItem>
-              <FormLabel>Product Category</FormLabel>
-              <SelectForAddProduct
-                placeholder="Select Category"
-                apicall={`/api/${params.storeID}/categories`}
-                valueSend={(value: string) => form.setValue('category', value)}
-              />
-            </FormItem>
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Product Category</FormLabel>
+                  <FormControl>
+                    <SelectForAddProduct
+                      placeholder="Select Category"
+                      apicall={`/api/${params.storeID}/categories`}
+                      valueSend={(value: string) =>
+                        form.setValue('category', value)
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <Button type="submit">Submit</Button>
           </form>
         </Form>
