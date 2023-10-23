@@ -1,9 +1,9 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import {
   Form,
@@ -13,10 +13,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useParams } from "next/navigation";
-import { useColors } from "@/components/stores/dashboard/colors/zustand/zustandstate";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useParams } from 'next/navigation';
+import { useColors } from '@/components/stores/dashboard/colors/zustand/zustandstate';
 
 //Form for adding a new color
 export default function ColorForm() {
@@ -27,20 +27,31 @@ export default function ColorForm() {
   const formSchema = z.object({
     name: z
       .string()
-      .max(10, { message: "color must be max 10 charcaters long" })
-      .nonempty({ message: "You must write a colorname" }),
+      .min(1, { message: 'Your color must have a name' })
+      .max(30, { message: 'Color must be max 30 characters long' })
+      .refine(
+        (s) => !s.endsWith(' '),
+        'Color should not begin nor end with a space, you absolute twat of a fool!'
+      )
+      .refine(
+        (s) => !s.startsWith(' '),
+        'Color should not begin nor end with a space, you absolute twat of a fool!'
+      ),
     hex: z
       .string()
       .min(7)
       .max(7)
-      .refine((s) => !s.includes(" "), { message: "No Spaces!" }),
+      .refine((s) => !s.includes(' '), {
+        message:
+          'A hex code does not contain spaces, you absolute twat of a fool!',
+      }),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      hex: "",
+      name: '',
+      hex: '',
     },
   });
   //Submit function
@@ -54,7 +65,7 @@ export default function ColorForm() {
         }
       )
       .then(function (response) {
-        toast.success("Color added successfully!");
+        toast.success('Color added successfully!');
         reFetchColors(
           Array.isArray(params.storeID)
             ? params.storeID.toString()
@@ -68,7 +79,7 @@ export default function ColorForm() {
 
   //Render the form
   return (
-    <div className={"m-9"}>
+    <div className={'m-9'}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
           <FormField
@@ -96,9 +107,7 @@ export default function ColorForm() {
                 <FormControl>
                   <Input type="color" placeholder="#000000" {...field} />
                 </FormControl>
-                <FormDescription>
-                  Choose the color.
-                </FormDescription>
+                <FormDescription>Choose the color.</FormDescription>
               </FormItem>
             )}
           />

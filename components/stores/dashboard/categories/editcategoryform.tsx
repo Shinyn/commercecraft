@@ -25,7 +25,15 @@ const formSchema = z.object({
     .regex(/^[a-zåäöA-ZÅÄÖ0-9\& ]*$/, {
       message: 'category can only contain letters, numbers and ampersand',
     })
-    .nonempty({ message: 'category must not be empty' }),
+    .nonempty({ message: 'category must not be empty' })
+    .refine(
+      (s) => !s.endsWith(' '),
+      'Category should not begin nor end with a space, you fool!'
+    )
+    .refine(
+      (s) => !s.startsWith(' '),
+      'Category should not begin nor end with a space, you fool!'
+    ),
   id: z.string(),
   storeId: z.string(),
 });

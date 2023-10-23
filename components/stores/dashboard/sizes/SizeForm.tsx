@@ -26,9 +26,16 @@ export default function SizeForm() {
   const formSchema = z.object({
     name: z
       .string()
-      .min(1, { message: 'Unit must be atleast 1 characters long' })
-      .max(50, { message: 'Unit must be less than 50 characters long' })
-      .nonempty({ message: 'You must write a unit' }),
+      .min(1, { message: 'Size/unit must be atleast 1 characters long' })
+      .max(50, { message: 'Size/unit must be less than 50 characters long' })
+      .refine(
+        (s) => !s.endsWith(' '),
+        'Size should not begin nor end with a space, you little numpty!'
+      )
+      .refine(
+        (s) => !s.startsWith(' '),
+        'Size should not begin nor end with a space, you little numpty!'
+      ),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({

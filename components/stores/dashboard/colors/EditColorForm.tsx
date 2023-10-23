@@ -20,14 +20,23 @@ import { useColors } from '@/components/stores/dashboard/colors/zustand/zustands
 const formSchema = z.object({
   title: z
     .string()
-    .min(2, { message: 'Color must be atleast 2 characters long' })
-    .max(50, { message: 'Color must be less than 50 characters long' })
-    .nonempty({ message: 'You must write a color name' }),
+    .min(1, { message: 'Your color must have a name' })
+    .max(30, { message: 'Color must be max 30 characters long' })
+    .refine(
+      (s) => !s.endsWith(' '),
+      'Color should not begin nor end with a space, you absolute twat of a fool!'
+    )
+    .refine(
+      (s) => !s.startsWith(' '),
+      'Color should not begin nor end with a space, you absolute twat of a fool!'
+    ),
   hex: z
     .string()
-    .min(7, { message: 'Hex-code must be at least 7 characters long' })
-    .max(7, { message: 'Hex-code must be no longer than 7 characters long' })
-    .refine((s) => !s.includes(' '), { message: 'No Spaces!' }),
+    .min(7)
+    .max(7)
+    .refine((s) => !s.includes(' '), {
+      message: 'A hex code does not contain spaces, you fool!',
+    }),
   id: z.string(),
   storeId: z.string(),
 });

@@ -1,11 +1,11 @@
 //Form for submitting PUT-requests to api/billboards. The ID-field is readonly.
 //TODO:Add disabled look for ID-field which does still permitts submission of data to backend.
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -14,22 +14,20 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import axios from "axios";
-import { Billboard } from "@/components/stores/dashboard/billboards/billboards";
-import { useBillboards } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
-import { useParams } from "next/navigation";
-import toast from "react-hot-toast";
+} from '@/components/ui/form';
+import axios from 'axios';
+import { Billboard } from '@/components/stores/dashboard/billboards/billboards';
+import { useBillboards } from '@/components/stores/dashboard/billboards/zustand/zustandstate';
+import { useParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const formSchema = z.object({
   id: z.string().min(3).max(50),
   text: z.string().min(2).max(50).nonempty(),
   image: z
     .string()
-    .url({ message: "Image must be in url-format" })
-    .min(0, { message: "Image must be at least 0 characters long" })
-    .max(255, { message: "Image must be less than 255 characters long" })
-    .nonempty({ message: "Image must not be empty" }),
+    .url({ message: 'Image must be in URL format, this field cannot be empty' })
+    .max(2048, { message: 'URL must be less than 2048 characters long' }),
   active: z.boolean(),
 });
 
@@ -56,7 +54,7 @@ export function EditForm(billboard: Billboard) {
       )
       .then(function (response) {
         if (response.status == 200) {
-          toast.success("Billboard uppdated successfully");
+          toast.success('Billboard uppdated successfully');
           reFetchBillboards(
             Array.isArray(params.storeID)
               ? params.storeID.toString()
@@ -97,7 +95,7 @@ export function EditForm(billboard: Billboard) {
               <FormControl>
                 <Input placeholder="Billboard text" {...field} />
               </FormControl>
-              <FormDescription>This is your billboard message.</FormDescription>
+              <FormDescription>This text will be displayed above your image</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -107,11 +105,11 @@ export function EditForm(billboard: Billboard) {
           name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Image</FormLabel>
               <FormControl>
                 <Input placeholder="url" {...field} />
               </FormControl>
-              <FormDescription>This is your products image.</FormDescription>
+              <FormDescription>This is your billboard image.</FormDescription>
               <FormMessage />
             </FormItem>
           )}

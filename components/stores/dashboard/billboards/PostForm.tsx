@@ -1,10 +1,10 @@
 //Form for submitting POST-requests to api/billboards
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -13,20 +13,18 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import axios from "axios";
-import { useBillboards } from "@/components/stores/dashboard/billboards/zustand/zustandstate";
-import { useParams } from "next/navigation";
-import toast from "react-hot-toast";
+} from '@/components/ui/form';
+import axios from 'axios';
+import { useBillboards } from '@/components/stores/dashboard/billboards/zustand/zustandstate';
+import { useParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const formSchema = z.object({
   text: z.string().min(2).max(50),
   image: z
     .string()
-    .url({ message: "Image must be in URL format" })
-    .min(0, { message: "Image must be at least 0 characters long" })
-    .max(255, { message: "Image must be less than 255 characters long" })
-    .nonempty({ message: "Image must not be empty" }),
+    .url({ message: 'Image must be in URL format, this field cannot be empty' })
+    .max(2048, { message: 'URL must be less than 2048 characters long' }),
   active: z.boolean(),
 });
 
@@ -37,8 +35,8 @@ export function PostForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      text: "",
-      image: "",
+      text: '',
+      image: '',
       active: false,
     },
   });
@@ -53,7 +51,7 @@ export function PostForm() {
       )
       .then(function (response) {
         if (response.status == 201) {
-          toast.success("Billboard added successfully");
+          toast.success('Billboard added successfully');
           reFetchBillboards(
             Array.isArray(params.storeID)
               ? params.storeID.toString()
@@ -78,7 +76,9 @@ export function PostForm() {
               <FormControl>
                 <Input placeholder="Billboard text" {...field} />
               </FormControl>
-              <FormDescription>This is your billboard message.</FormDescription>
+              <FormDescription>
+                This text will be displayed above your image
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -88,11 +88,11 @@ export function PostForm() {
           name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Image</FormLabel>
               <FormControl>
                 <Input placeholder="url" {...field} />
               </FormControl>
-              <FormDescription>This is your products image.</FormDescription>
+              <FormDescription>This is your billboard image.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -110,7 +110,7 @@ export function PostForm() {
                 />
               </FormControl>
               <FormDescription>
-                If checked this billboard is displayed on you frontend.
+                If checked this billboard is displayed on you web shop.
               </FormDescription>
               <FormMessage />
             </FormItem>
