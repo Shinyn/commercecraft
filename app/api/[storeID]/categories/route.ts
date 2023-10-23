@@ -48,7 +48,8 @@ export async function GET(
   }
 }
 
-export async function PATCH(req: Request, { params }: { params: { storeID: string } }) {
+export async function PATCH(req: Request, 
+  { params }: { params: { storeID: string } }) {
   try {
     const body = await req.json();
     const { id, oldTitle, title } = body;
