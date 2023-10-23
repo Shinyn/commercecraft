@@ -39,7 +39,7 @@ export function EditProductForm(product: Product) {
     price: z
       .number()
       .max(Infinity)
-      .min(1, { message: "Price must be 1 or more" }),
+      .min(0.5, { message: "Price must be 0.5 or more" }),
     image: z
       .string()
       .url({ message: "Need URL" })
@@ -149,7 +149,7 @@ export function EditProductForm(product: Product) {
                       value={field.value}
                       onChange={(event) => {
                         let newValue = event.target.value;
-                        if (newValue.startsWith("0")) {
+                        if (newValue.startsWith("0")&& !newValue.includes('.')) {
                           newValue = newValue.substring(1);
                         }
                         event.target.value = newValue;
