@@ -58,7 +58,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             placeholder="Search by name"
             value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn('title')?.setFilterValue(event.target.value)}
-            className="mr-5"
+            className="max-w-sm"
           />
         ) : null}
         <DropdownMenu>
