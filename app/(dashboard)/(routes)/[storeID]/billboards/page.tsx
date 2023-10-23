@@ -28,15 +28,15 @@ export default function Page() {
   }, []);
   
   return (
-    <div className={"flex flex-col"}>
+    <div className="max-w-[95%]">
       <DashboardPopover>
         <PostForm />
       </DashboardPopover>
       <div>
-        <div className="container mx-auto py-10">
+        <div className="py-10">
           <DataTable columns={columns} data={billboards} />
         </div>
-        <div className="container mx-auto py-10">
+        <div className="py-10">
           <APIList section={section} />
         </div>
       </div>
