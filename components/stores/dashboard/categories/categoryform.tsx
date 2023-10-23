@@ -27,12 +27,20 @@ export default function CategoryForm() {
   const formSchema = z.object({
     name: z
       .string()
-      .min(2, { message: 'category must be atleast 2 characters long' })
+      .min(2, { message: 'category must be at least 2 characters long' })
       .max(50, { message: 'category must be less than 50 characters long' })
-      .regex(/^[a-zåäöA-ZÅÄÖ0-9\& ]*$/, {
+      .regex(/^[a-zåäöA-ZÅÄÖ0-9\&  ]*$/, {
         message: 'category can only contain letters, numbers and ampersand',
       })
-      .nonempty({ message: 'category must not be empty' }),
+      .nonempty({ message: 'category must not be empty' })
+      .refine(
+        (s) => !s.endsWith(' '),
+        'Category should not begin nor end with a space, you absolute twat of a fool!'
+      )
+      .refine(
+        (s) => !s.startsWith(' '),
+        'Category should not begin nor end with a space, you absolute twat of a fool!'
+      ),
   });
   //Form hook
   const form = useForm<z.infer<typeof formSchema>>({
