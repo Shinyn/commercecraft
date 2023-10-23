@@ -143,7 +143,7 @@ export function EditProductForm(product: Product) {
                   <FormControl>
                     <Input
                       type="number"
-                      step="0.01"
+                      step="0.001"
                       min="0"
                       {...field}
                       value={field.value}
