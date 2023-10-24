@@ -51,8 +51,8 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
   });
 
   return (
-    <div className="w-[1400px]">
-      <div className="flex items-center py-4">
+    <div className="m-auto">
+      <div className="flex items-center py-4 w-100">
         {table.getColumn('title') ? (
           <Input
             placeholder="Search by name"
@@ -86,7 +86,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border w-100">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -136,7 +136,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
       </div>
 
       {/* //TODO: Fix the buttons */}
-      <div className="flex items-center justify-end space-x-2 py-4">
+      <div className="w-100 flex items-center justify-end space-x-2 py-4">
         <Button variant="outline" size="sm" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
           Previous
         </Button>

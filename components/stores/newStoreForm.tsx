@@ -60,7 +60,7 @@ export default function StoreForm() {
 
   //Render the form
   return (
-    <div className="w-[1400px] m-8">
+    <div className="w-[1400px]">
       {/* <Toaster /> */}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmitting)} className="space-y-8">
@@ -71,7 +71,7 @@ export default function StoreForm() {
               <FormItem>
                 <FormLabel>New Store</FormLabel>
                 <FormControl>
-                  <Input placeholder="Store name" {...field} />
+                  <Input className="max-w-sm" placeholder="Store name" {...field} />
                 </FormControl>
                 <FormDescription>
                   Write the name of your store here.
@@ -80,7 +80,7 @@ export default function StoreForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button className="m-" type="submit">Submit</Button>
         </form>
       </Form>
     </div>

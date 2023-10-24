@@ -6,9 +6,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={"flex flex-row"}>
-      {<Navbar />}
-      <section className={"w-full"}>{children}</section>
-    </div>
+    <>
+      <div className="flex flex-row">
+        <Navbar />
+      </div>
+      <section className="container max-w-[90%]">{children}</section>
+    </>
   );
 }
