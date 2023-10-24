@@ -28,7 +28,7 @@ export default function Navbar() {
         <ul className={'flex-col text-2xl'}>
           <li className={'hover:text-white hover:bg-blue-500 flex rounded'}>
             <Link className="flex-1 px-4 py-2" href={`/${params.storeID}/billboards`}>
-              Billboard
+              Banner
             </Link>
           </li>
           <li className={'hover:text-white hover:bg-blue-500 flex rounded'}>

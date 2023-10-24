@@ -28,10 +28,14 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="min-h-screen m-8 flex flex-col place-content-center items-center  w-full">
-      <div className="flex justify-end">
-        <UserButton afterSignOutUrl="/" />
+    <main className="p-10 w-[90%] mx-auto">
+      <div className="w-full flex flex-row justify-between mb-10">
+        <h1 className="font-extrabold text-3xl">Commerce Craft</h1>
+        <div className="w-fit">
+          <UserButton afterSignOutUrl="/" />
+        </div>
       </div>
+      
       <StoreForm />
       <DataTable columns={columns} data={store} />
     </main>

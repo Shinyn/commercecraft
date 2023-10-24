@@ -40,6 +40,26 @@ export async function GET(
         { status: 500 }
       );
     }
+  }else {
+    try {
+      const Billboard = await prismadb.billboard.findMany({
+        where: { id:params.id },
+      });
+      if(Billboard.length<1){
+        return new NextResponse(
+          'No billboard with that id was found',
+          { status: 500 }
+        );
+      }
+      return NextResponse.json(Billboard);
+    } catch (error) {
+      console.log("api/billboards/inactive/GET", error);
+      return new NextResponse(
+        "Ooops, something went wrong when getting the inactive billboard",
+        { status: 500 }
+      );
+    }
+
   }
 }
 
