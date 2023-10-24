@@ -6,4 +6,6 @@ export type Billboard = {
   text: string;
   image: string;
   active: boolean;
+  
 };
+
