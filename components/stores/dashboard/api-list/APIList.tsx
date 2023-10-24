@@ -93,7 +93,7 @@ export function APIList({ section }: { section: string }) {
                 section === "sizes" ||
                 section === "colors" ||
                 section === "billboards"
-                  ? null
+                  ? ""
                   : "{ID}"
               }`
             )
