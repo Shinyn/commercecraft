@@ -18,12 +18,12 @@ export function APIList({ section }: { section: string }) {
       {/* GET all */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">GET</h3>
-        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}`}</code>
+        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/${section}`}</code>
         <Button
           variant="outline"
           onClick={() =>
             copyToClipboard(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}`
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/${section}`
             )
           }
         >
@@ -34,12 +34,12 @@ export function APIList({ section }: { section: string }) {
       {/* GET specific */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">GET</h3>
-        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`}</code>
+        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/${section}/{ID}`}</code>
         <Button
           variant="outline"
           onClick={() =>
             copyToClipboard(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/${section}/{ID}`
             )
           }
         >
@@ -50,12 +50,18 @@ export function APIList({ section }: { section: string }) {
       {/* POST */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">POST</h3>
-        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}`}</code>
+        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/${params.storeID}/${
+          section === "orders" ? "checkout" : section
+        }`}</code>
         <Button
           variant="outline"
           onClick={() =>
             copyToClipboard(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}`
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${params.storeID}/${
+                section === "orders" ? "checkout" : section
+              }`
             )
           }
         >
@@ -66,12 +72,30 @@ export function APIList({ section }: { section: string }) {
       {/* PATCH */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">PATCH</h3>
-        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`}</code>
+        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/${params.storeID}/${section}${
+          section === "categories" ||
+          section === "sizes" ||
+          section === "colors" ||
+          section === "billboards"
+            ? ""
+            : "/{ID}"
+        }`}</code>
         <Button
           variant="outline"
           onClick={() =>
             copyToClipboard(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${
+                params.storeID
+              }/${section}/${
+                section === "categories" ||
+                section === "sizes" ||
+                section === "colors" ||
+                section === "billboards"
+                  ? null
+                  : "{ID}"
+              }`
             )
           }
         >
@@ -82,12 +106,28 @@ export function APIList({ section }: { section: string }) {
       {/* DELETE */}
       <div className="w-full rounded-lg border p-4 my-4">
         <h3 className="font-medium pb-3">DELETE</h3>
-        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`}</code>
+        <code className="w-full rounded bg-muted p-2 font-mono text-sm mr-5">{`${
+          process.env.NEXT_PUBLIC_BACKEND_URL
+        }/api/${params.storeID}/${section}/${
+          section === "categories" ||
+          section === "sizes" ||
+          section === "colors"
+            ? "{title}"
+            : "{ID}"
+        }`}</code>
         <Button
           variant="outline"
           onClick={() =>
             copyToClipboard(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}api/${params.storeID}/${section}/{ID}`
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${
+                params.storeID
+              }/${section}/${
+                section === "categories" ||
+                section === "sizes" ||
+                section === "colors"
+                  ? "{title}"
+                  : "{ID}"
+              }`
             )
           }
         >
