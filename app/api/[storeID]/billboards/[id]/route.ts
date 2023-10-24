@@ -42,10 +42,16 @@ export async function GET(
     }
   }else {
     try {
-      const Billboards = await prismadb.billboard.findMany({
+      const Billboard = await prismadb.billboard.findMany({
         where: { id:params.id },
       });
-      return NextResponse.json(Billboards);
+      if(Billboard.length<1){
+        return new NextResponse(
+          'No billboard with that id was found',
+          { status: 500 }
+        );
+      }
+      return NextResponse.json(Billboard);
     } catch (error) {
       console.log("api/billboards/inactive/GET", error);
       return new NextResponse(

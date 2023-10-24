@@ -3,6 +3,30 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/db";
 
+export async function GET(
+  req: Request,
+  { params }: { params: { storeID: string, id:string  } }
+) {
+  try {
+    const Categories = await prismadb.category.findMany({
+      where: { id: params.id },
+    });
+    if(Categories.length<1){
+      return new NextResponse(
+        'No categorie with that id was found',
+        { status: 500 }
+      );
+    }
+    return NextResponse.json(Categories);
+  } catch (error) {
+    console.log('api/categories/GET', error);
+    return new NextResponse(
+      'Ooops, something went wrong when getting the categories',
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(
   req: Request,
   { params }: { params: { storeID: string; id: string } }

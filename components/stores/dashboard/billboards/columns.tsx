@@ -133,7 +133,6 @@ export const columns: ColumnDef<Billboard>[] = [
                     Copy Billboard ID
                   </DropdownMenuItem>
                 )}
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <SheetTrigger className="p-0 w-full">
                   <DropdownMenuItem className="hover:cursor-pointer p-2">

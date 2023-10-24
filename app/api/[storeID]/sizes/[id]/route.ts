@@ -36,3 +36,27 @@ export async function DELETE(
     );
   }
 }
+
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const Size = await prismadb.size.findMany({
+      where: { id: params.id },
+    });
+    if(Size.length<1){
+      return new NextResponse(
+        'No size with that id was found',
+        { status: 500 }
+      );
+    }
+    return NextResponse.json(Size);
+  } catch (error) {
+    console.log('api/sizes/GET', error);
+    return new NextResponse(
+      'Ooops, something went wrong when getting the size',
+      { status: 500 }
+    );
+  }
+}
