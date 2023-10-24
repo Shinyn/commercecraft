@@ -36,3 +36,27 @@ export async function DELETE(
     );
   }
 }
+
+export async function GET(
+  req: Request,
+  { params }: { params: { id:string } }
+) {
+  try {
+    const Color = await prismadb.color.findMany({
+      where: { id: params.id},
+    });
+    if(Color.length<1){
+      return new NextResponse(
+        'No color with that id was found',
+        { status: 500 }
+      );
+    }
+    return NextResponse.json(Color);
+  } catch (error) {
+    console.log('api/colors/GET', error);
+    return new NextResponse(
+      'Ooops, something went wrong when getting the colors',
+      { status: 500 }
+    );
+  }
+}

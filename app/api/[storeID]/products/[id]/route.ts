@@ -149,7 +149,7 @@ export async function GET(
         const Products = await prismadb.product.findUniqueOrThrow({
           where: { id: status },
         });
-        return NextResponse.json(Products);
+                return NextResponse.json(Products);
       } catch (error) {
         console.log("api/[storeId]/products/[id]/GET", error);
         return new NextResponse(
