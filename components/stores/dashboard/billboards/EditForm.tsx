@@ -40,7 +40,7 @@ export function EditForm(billboard: Billboard) {
       id: billboard.id,
       text: billboard.text,
       image: billboard.image,
-      active: Boolean(billboard.active),
+      active: billboard.active,
     },
   });
 
