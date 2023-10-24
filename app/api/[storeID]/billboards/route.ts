@@ -14,7 +14,7 @@ export async function POST(
     const { text, image, active, storeId }: Billboard = body.values;
     let newBillboard = undefined;
     if (active) {
-    await prismadb.billboard
+      await prismadb.billboard
         .updateMany({
           where: {
             storeId,
@@ -22,9 +22,9 @@ export async function POST(
           },
           data: { active: false },
         })
-       
+
         .then(async function (response) {
-          console.log(response)
+          console.log(response);
           newBillboard = await prismadb.billboard.create({
             data: {
               storeId,
@@ -80,7 +80,7 @@ export async function GET(
   }
 }
 
-export async function PUT(
+export async function PATCH(
   req: Request,
   { params }: { params: { storeID: string } }
 ) {
@@ -99,7 +99,7 @@ export async function PUT(
       await prismadb.billboard
         .updateMany({
           where: { storeId, active },
-          data: { active:false },
+          data: { active: false },
         })
         .then(async function (response) {
           newBillboard = await prismadb.billboard.update({
